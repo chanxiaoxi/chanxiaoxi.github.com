@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>RESTful API设计实战 | 还是码农的缠小溪</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客Best Practices for Designing a Pragmatic RESTful API，读完之后顿觉彻悟，故此将自己的一些理解记录下来。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RESTful API设计实战">
+<meta property="og:url" content="http://chanxiaoxi.github.io/2014/11/23/restful-api-practise/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客Best Practices for Designing a Pragmatic RESTful API，读完之后顿觉彻悟，故此将自己的一些理解记录下来。">
+<meta property="og:updated_time" content="2015-11-14T06:23:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RESTful API设计实战">
+<meta name="twitter:description" content="之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客Best Practices for Designing a Pragmatic RESTful API，读完之后顿觉彻悟，故此将自己的一些理解记录下来。">
+  
+    <link rel="alternative" href="/atom.xml" title="还是码农的缠小溪" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">还是码农的缠小溪</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">不懂生活的码农不是好的programer</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chanxiaoxi.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-restful-api-practise" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/23/restful-api-practise/" class="article-date">
+  <time datetime="2014-11-23T15:09:23.000Z" itemprop="datePublished">2014-11-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RESTful API设计实战
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api" target="_blank" rel="external">Best Practices for Designing a Pragmatic RESTful API</a>，读完之后顿觉彻悟，故此将自己的一些理解记录下来。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="API的基本要求">API的基本要求</h2><p>要正真设计好一个接口，那么从一开始就要理解好接口的重要性，为什么非要费这么大的劲去做这件事，意义何在？在设计一个接口的时候我们常常会考虑到一些问题，比如安全认证怎么做，URI的规则怎么设定，是否要加入版本号，错误返回如何统一格式，HTTP状态码如何设定等等问题。如果从一开始不想好这些，而是在后面去修补，那么就会带来巨大的工作量，而且很容易产生混乱，不仅无法共同开发，而且也会给使用接口的开发者带来一定的困扰。一下就是博客中给我们的几点建议，这也是设计一个接口之前应该想到的基本要求：</p>
+<ul>
+<li>尽可能的遵循web标准</li>
+<li>尽可能的对开发者友好，这个友好指的是URI要尽量设计的要开发者一眼就能够看明白是干嘛的，而且所有的接口都是可以通过浏览器直接访问的</li>
+<li>尽可能的简单、直观，看上去显得优雅</li>
+<li>必须有足够的灵活性去支持项目的UI</li>
+<li>尽量去权衡上述几点要求</li>
+</ul>
+<p>API其实就是开发者的UI，这和普通的UI对于开发者同样重要，也要注意开发者的体验！</p>
+<h2 id="RESTful_URI和action的使用">RESTful URI和action的使用</h2><p>博客中引用了<a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank" rel="external">Network based Software Architectures</a>中的一句话，如果还有一样东西能够获得广泛的采用，那就是RESTful原则了。RESTful API的核心原则就是服务器资源，并通过HTTP的PUT/GET/DELETE/POST方法来操作这些资源。那么问题来了，如何去拆分这些资源呢？如何去使用HTTP的方法呢？</p>
+<h3 id="如何拆分资源">如何拆分资源</h3><p>在开发者开来，资源应该是名词（最好不要用动词来描述资源），尽管你内部的数据模型能够灵活的对应到相应的资源，但是一对一的对应不是必要的，这里面的关键就是隐藏内部资源，只暴露必要的外部资源供开发者使用。这里还要注意，有时候接口需要的数据模型和内部系统的模型是一样的，但是接口需要的数据量可能要比内部系统少的多。所以在设计接口的时候一定要注意所有从接口出来的数据都要“洗”一下，把没有必要数据都给去掉，只提供必须的数据。（不管怎么说，接口都是一个对外的口子，是很多人都可以使用的，所以任何多余的信息都不要泄露到外面）</p>
+<pre><code>GET /tickets ---------- Get Tickets List
+GET /tickets/<span class="number">12</span> ------- Get Tickets which id = <span class="number">12</span>
+POST /tickets --------- Create Tickets
+PUT /tickets/<span class="number">12</span> ------- Update tickets which id = <span class="number">12</span>
+DELETE /tickets/<span class="number">12</span> ---- Delete tickets which id = <span class="number">12</span>
+</code></pre><p>没有额外的支持，仅仅是利用了HTTP的方法就实现了对资源的CURD操作。而且你所做的仅仅也只是定义了一个tickets资源映射到你内部的相关资源。</p>
+<h4 id="端点(end_point)应该是单数还是复数">端点(end point)应该是单数还是复数</h4><p>这个在实际开发中也是经常遇到的一个问题，因为你有时候操作的是一个单独的资源，有时候操作的是一个资源列表，在URI中一会儿用单数一会儿用复数，这会给开发者造成很到的困扰，特别是像一些单词的单复数差别很大，这会让开发者认为他们是不同的资源，其实他们只是单复数的区别而已。所以为了让URI更加规整，更加统一，一般统一都用复数，就如同上面例子中的tickets，不管是操作一个还是多个，都是tickets</p>
+<h4 id="关联（Relations）">关联（Relations）</h4><p>关联，是的，资源之间的关联。这个是要单独拎出来说的，这也URI的结构组织的重要内容。怎么理解呢，比如我现在有一个标签资源ticket，我还有一个消息资源message，这些消息都是在ticket下面的，也就是说ticket包含了message。那么问题来了，我如何设计对message操作的URI,是单独定义一个message的URI吗？很显然单独的message资源是没有意义的，你也可以通过其他的操作来让ticket和message关联，但是这样就太复杂了，违背了REST的初衷。所以不要废话了，对于这种包含关系或者说属于关系就按照层级来设计URI,粗暴一点就理解成路径把，也就是说你找的不是单独的message，而是ticket文件夹下的message，那么URI就应该是这个样子：</p>
+<pre><code>GET /tickets/<span class="number">12</span>/messages
+GET /tickets/<span class="number">12</span>/messages/<span class="number">3</span>
+POST /tickets/<span class="number">12</span>/messages
+PUT /tickets/<span class="number">12</span>/messages/<span class="number">5</span>
+DELETE /tickets/<span class="number">12</span>/messages/<span class="number">5</span>
+</code></pre><p>除了包含其他的关系呢，这个就不能这样解决了，因为除了包含之外的其他关系都是相互依赖，实际中我们需要的也只是这种关系的资源，那么就直接把这种关系表示为资源好了，至于内部的联系如何处理，那些对于接口的调用和开发者来说都是透明的，他们要的只是这种关系而已，规定好他们想要的数据模型，返回给他们就行了。</p>
+<h4 id="不符合CURD的操作">不符合CURD的操作</h4><p>很多时候，CURD之外我们还需要一些其他的操作，比如点赞，加星之类，他是一种操作，这没为题，但是它不是CURD中的操作。好了，HTTP的四种方法都有明确的操作，剩下的这类问题怎么办，重复使用这四种方法？这个肯定不行，已经违背了REST初中，势必带来混乱。</p>
+<ol>
+<li>重构action，当你的行为不需要参数时，你可以把active对应到actived这个资源，并使用patch方法来更新。不建议</li>
+<li>以子资源对待。例如github上的加星操作：<code>PUT /gists/:id/star</code>,取消星操作：<code>DELETE /gists/:id/unstar</code></li>
+<li>有一些action压根就对应不到某个资源，怎么办，类似2的做法，就当成是子资源把，然后和开发者约定好，在文档中说清楚就行了。</li>
+</ol>
+<h2 id="始终使用SSL">始终使用SSL</h2><p>为什么？因为你无法保证你的接口会被谁调用，你对外面开了个口子，但是你不注意安全保护，那就什么人都可以来拿数据，特别是一些重要的数据。使用SSL可以减少认证的成本，你只需要一个简单的token就可以认证了，而不是每次都让用户对请求签名。</p>
+<p>值得注意的是：不要让非SSL的url访问重定向到SSL的URL</p>
+<h2 id="文档">文档</h2><p>文档的重要性就不要多说了，一个好的文档的重要性想必大家都知道，这里只是推荐一个文档生成利器<a href="http://apidocjs.com/" target="_blank" rel="external">apiDoc</a>,当然估计还有其他好用的工具。</p>
+<h2 id="版本化">版本化</h2><p>版本的好处就是便于区别，同时也能在不同版本之间平稳过渡。关于把版本信息放在header还是URL中，可以参照一下stack overflow中的相关提问<a href="http://stackoverflow.com/questions/389169/best-practices-for-api-versioning" target="_blank" rel="external">API version should be included in the URL or in a header</a>，争论的焦点也就在于如果把版本号放在URL中就容易跨版本访问资源，这样显然是不好的。还有人把主版本信息放在URL中，子版本信息放在header头中，个人感觉这几个方法都可以。但是还是建议版本化。</p>
+<h2 id="结果处理">结果处理</h2><p>所谓结果处理，就是对返回给用户的结果的过滤、排序、搜索等。这些相关的功能最后用查询参数(query parameter)来实现。</p>
+<h3 id="结果过滤">结果过滤</h3><p>如果要提供结果过滤，那么就要对所有的接口使用统一的过滤规则。比如设定了一个state的变量来表示资源的状态，结合博客中的例子，如果想要获取所有已打开的标签，那么就会是这样：</p>
+<pre><code>GET /tickets?<span class="keyword">state</span>=open
+</code></pre><p>state在这里就是过滤的query parameter，很多的API都有不同的过滤规则，所以我们在定义这些parameter的时候一定要注意统一。</p>
+<h3 id="排序">排序</h3><p>类似于列表这样的接口，肯定会涉及到排序和分页，与上面的情况类似，我们需要定义一些相关的query parameter来完成排序和分页的功能。比如，我们规定from为其实位置，size为每页大小，sort为排序规则，那么就可以这样设计接口URI</p>
+<pre><code>GET /tickets？<span class="keyword">from</span>=<span class="number">2</span>&amp;<span class="built_in">size</span>=<span class="number">20</span>&amp;<span class="built_in">sort</span>=-id,+createTime
+</code></pre><p>这里要注意，sort的值为-id,+createTime，是因为我们定义了两个查询规则，按照id DESC，按照createTime ASC,因为用到的+、-，所以URL一定要<code>urlencode()</code>,否则会被浏览器忽略掉。</p>
+<h3 id="搜索">搜索</h3><p>搜索的时候可能上面说的简单的条件是不够的，条件多了总不至于把他们都拼接在URI之后，这是可以考虑七个别名来统一一类搜索，所需要的值就在文档中规定好，URI也不会因此变得更复杂。如：</p>
+<pre><code><span class="attribute">GET /tickets?q</span>=<span class="string">recently_closed</span>
+</code></pre><h3 id="限制API返回值的域">限制API返回值的域</h3><p>对于返回值的域的规定我们在上面就已经提到过相关的内容。除了安全之外，灵活的提供一个<code>field</code>参数让用户自己去规定要返回什么数据也是一个非常不错的方法。这样用户就能以最少的代价获取只是自己想要的，没有任何多余的东西。比如：</p>
+<pre><code>GET /tickets?fields=<span class="property">id</span>,subname,customer_name
+</code></pre><h3 id="更新和创建操作应该返回资源">更新和创建操作应该返回资源</h3><p>POST/PUT/PATCH这些操作常常有一些副作用，比如说时间戳，这个会在你执行操作之后发送变化，为了防止用户多次提交API，在每次执行操作是都返回新资源的URI，和201(created)状态码，这样用户就能够判断是否执行成功和返回的值是否和预期一致。</p>
+<h2 id="值提供JSON作为返回资源">值提供JSON作为返回资源</h2><p>对于接口来说JSON已经足够用了，这里之所以强调这个，是和XML进行比较的时候建议用JSON，因为XML既冗长，也不利于编程语言解析，而JSON格式简单清晰，所以在接口数据格式化的时候，建议使用XML。</p>
+<h2 id="变量命名方式">变量命名方式</h2><p>有两种主流的命名方式snake_case和camelCase,博客中说的是snake_case比camelCase更容易阅读，但是这没有任何强制性限制，喜欢那种完全取决于你，不需要强制性要求。</p>
+<h2 id="压缩输出确保gzip的支持">压缩输出确保gzip的支持</h2><p>我们可以在接口之后添加pretty字段来设置是否开启gzip压缩，如：</p>
+<pre><code>/tickets?pretty=<span class="literal">true</span>
+</code></pre><p>通过gzip压缩可以节省60%的带宽，<strong>never return a response that’s not compressed</strong></p>
+<h2 id="接口请求的时候数据格式最好也是JSON">接口请求的时候数据格式最好也是JSON</h2><p>通过json格式化之后就能够支持复杂的结构，这样比传统的post或get传值更加方便</p>
+<h2 id="自动load相关的资源表现层">自动load相关的资源表现层</h2><p>添加expand或embed query parameter，构造的时候，.表示该资源的某一个字段，连接类似这样：</p>
+<pre><code>GET /tickets/<span class="number">12</span>?expand=customer.<span class="property">name</span>,assigned_user
+</code></pre><h2 id="overriding_HTTP_方法">overriding HTTP 方法</h2><p>有些http client只支持GET和POST请求，为了突破这种限制，API需要一种override HTTP method的方法，一般的做法是在请求头里设置<code>X-HTTP-Method-Override</code>的值是PUT,PATCH,DELETE<br>。</p>
+<p><strong>注意：</strong>这样的override只支持POST请求，不支持GET请求</p>
+<h2 id="速度限制_Rate_Limit">速度限制 Rate Limit</h2><p>为了防止接口滥用，给接口加一些速度限制是很有必要的，HTTP状态码409(too many requests)就是为这种情况准备的。下面这几个是一般常用的返回头:</p>
+<ul>
+<li><code>X-Rate-Limit-Limit</code> 当前时段允许的最大请求数</li>
+<li><code>X-Rate-Limit-Remaining</code> 当前时段允许保留的请求数</li>
+<li><code>X-Rate-Rest</code>  当前时段剩余秒数</li>
+</ul>
+<h5 id="为什么剩余秒数用X-Rate-Limit-Reset而不是用time_stamp时间戳">为什么剩余秒数用X-Rate-Limit-Reset而不是用time stamp时间戳</h5><p>时间戳包含了很多信息，有些信息使用不到的，用户只想知道下次什么时候请求以及响应这个请求需要的最少的附加处理，这也也可以避免有关clock skew的问题</p>
+<p>一些API使用UNIX时间戳而不是X-Rate-Limit-Reset，不要这样做，HTTP已经规定了使用RFC 1123的时间格式</p>
+<h2 id="认证_Authtication">认证 Authtication</h2><p>RESTful API是没有状态的，这意味着请求的认证不能依靠session和cookie，所以每一个请求都要携带一个凭证，以便进行请求认证。</p>
+<p>通过使用SSL，每个请求可以不需要提供用户名和密码，我们可以给用户返回一个随机的token，这样极大地方便使用浏览器访问API的用户，这种方法适用于用户可以第一次通过用户名-密码验证并且得到token。</p>
+<p>如果不方便，可以使用<a href="http://oauth.net/2/" target="_blank" rel="external">OAuth2</a>来进行token的安全传输。</p>
+<p>支持<a href="http://en.wikipedia.org/wiki/JSONP" target="_blank" rel="external">JSONP</a>的API需要额外的认证方法，因为JSONP请求无法发送HTTP Basic Auth credentials or <a href="http://tools.ietf.org/html/rfc6750" target="_blank" rel="external">Bearer tokens</a>，这种情况下可以设置一个查询参数如<code>access_token</code>来传递凭证，这儿有个固有的问题就是大多数web服务器会把请求参数保存在服务器日志里。</p>
+<p>这三种传输方法底层传输的token是一样的。</p>
+<h2 id="cache_缓存">cache 缓存</h2><p>HTTP提供一个自带的缓存框架，你所要做的就是添加一些附加的响应头信息，在接收请求的时候对请求头进行一些验证</p>
+<p>这里有两种方法：<a href="http://en.wikipedia.org/wiki/HTTP_ETag" target="_blank" rel="external">E-Tga</a>和<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.29" target="_blank" rel="external">Last-Modefied</a></p>
+<p>E-Tag:在生成一个请求的时候，在HTTP请求头里会加入一个ETag，其中包含一些HASH或者表现的校验值，这个值随着输出的表现的变化而变化。如果一个进入的HTTP请求包含<code>If-None-Match</code>的请求头信息，并且和ETag的值是一样的，那么API就应该返回一个304 Not Modified的状态码，而不是输出资源的表现。</p>
+<p>Last-Modified:基本的功能类似于ETag，只是多了一个时间戳，相应的返回头的Last-Modified会包含一个时间戳，它会和If-Modified-Since进行校验。HTTP的规范里有三种时间格式，不过web服务器都能够处理。</p>
+<h2 id="Error_出错处理">Error 出错处理</h2><p>就像HTML会显示出错信息一样，API也应该返回错误信息，并且它的格式应该和表现层一致。API应该返回相应的状态码，API的典型错误被分为400系列错误和500系列错误，400系列表示客户端错误，如错误的请求格式等。500系列错误表示服务器错误。API应该将所有的400错误以JSON的格式返回，如果可能，500系列的错误也应该如此，json格式的错误应该包含两部分内容，一个有用的错误信息和一个唯一的错误代码，以及任何可能的详细描述。比如：</p>
+<pre><code>{
+    "<span class="attribute">code</span>" : <span class="value"><span class="number">1234</span></span>,
+    "<span class="attribute">message</span>" : <span class="value"><span class="string">"something had happend:("</span></span>,
+    "<span class="attribute">description</span>" : <span class="value"><span class="string">"More details about the error here )"</span>
+</span>}
+</code></pre><p>对于PUT,PATCH,POST输入的校验错误也应该有返回格式：</p>
+<pre><code>{
+    "<span class="attribute">code</span>" : <span class="value"><span class="number">2014</span></span>,
+    "<span class="attribute">message</span>" : <span class="value"><span class="string">"validate failed"</span></span>,
+    "<span class="attribute">errors</span>" : <span class="value">[
+        {
+            "<span class="attribute">code</span>" : <span class="value"><span class="number">2014</span></span>,
+            "<span class="attribute">field</span>" : <span class="value"><span class="string">"first_name"</span></span>,
+            "<span class="attribute">message</span>" : <span class="value"><span class="string">"first name can not have number"</span>
+        </span>},
+        {
+            "<span class="attribute">code</span>" : <span class="value"><span class="number">2014</span></span>,
+            "<span class="attribute">field</span>" : <span class="value"><span class="string">"first_name"</span></span>,
+            "<span class="attribute">message</span>" : <span class="value"><span class="string">"first name can not have number"</span>
+        </span>}
+    ]
+</span>}
+</code></pre><h2 id="HTTP状态码">HTTP状态码</h2><p>每个接口处理完成返回时都要对应相应的HTTP状态码，常用的状态码如下：</p>
+<pre><code>200 |<span class="string">ok     </span>|<span class="string"> 成功状态，对应GET,PUT,DELETE,PATCH,不能用于POST,这并不是创建的结果状态
+201 </span>|<span class="string">created</span>|<span class="string"> 创建成功，应该绑定一个Location Header指向创建的新资源
+204 </span>|<span class="string">No Content</span>|<span class="string"> 响应一个成功的请求并返回一个没有body的结果
+304 </span>|<span class="string">Not Modified</span>|<span class="string"> HTTP缓存有效
+400 </span>|<span class="string">Bad Request</span>|<span class="string"> 请求格式错误
+401 </span>|<span class="string">Unauthorized</span>|<span class="string"> 未授权
+403 </span>|<span class="string">Forbidden</span>|<span class="string"> 授权成功，但该用户没有权限
+404 </span>|<span class="string">Not Found</span>|<span class="string"> 请求的资源不存在
+405 </span>|<span class="string">Method Not Allowed</span>|<span class="string">授权成功的用户不允许使用该HTTP方法
+410 </span>|<span class="string">Gone </span>|<span class="string"> 当前URL对应的资源不存在或不可用
+415 </span>|<span class="string">Unsupport Media Type</span>|<span class="string">请求时的内容的类型不正确
+422 </span>|<span class="string">Unprocessable Entity</span>|<span class="string">用户校验错误
+429 </span>|<span class="string">Too Many Request</span>|<span class="string">请求过多</span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chanxiaoxi.github.io/2014/11/23/restful-api-practise/" data-id="cigyp8o5s00041l0r0y8pbbn0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/11/29/difference-between-interface-and-abstract-class-in-php/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          对于PHP中Interface和Abstract Class的认识
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/05/11/rest-web-service/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">初识REST</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sourcetree/">Sourcetree</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/">octopress</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php/">php</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/架构/">架构</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/05/17/hi-docker/">Docker学习笔记(一)——认识Docker</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/linux-crontab/">Linux Crontab</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/07/lambda-anonymous-function-and-closure/">Lambda, Anonymous Function And Closure</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/06/php-code-style-guide-psr0/">PHP Code Style Guide---PSR0</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">Sourcetree LF/CRLF auto change on Windows</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Gavin Wu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

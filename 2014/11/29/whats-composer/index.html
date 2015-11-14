@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>认识composer | 还是码农的缠小溪</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="如果知道PEAR的话那么对composer就不会很陌生，只要一说它是什么大概就明白了它是干嘛的。以前在学PHP的时候经常看到PEAR相关的东西，但是没想到PEAR早就已经被大家抛弃了，只能怪当初看的那些书的技术都太老，还停留在PEAR的年代。想composer这样的工具在项目中经常用到，所以有必要仔细研究一下。
+
+Composer是PHP用来管理依赖关系(dependency)的工具，只要在自己的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="认识composer">
+<meta property="og:url" content="http://chanxiaoxi.github.io/2014/11/29/whats-composer/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="如果知道PEAR的话那么对composer就不会很陌生，只要一说它是什么大概就明白了它是干嘛的。以前在学PHP的时候经常看到PEAR相关的东西，但是没想到PEAR早就已经被大家抛弃了，只能怪当初看的那些书的技术都太老，还停留在PEAR的年代。想composer这样的工具在项目中经常用到，所以有必要仔细研究一下。
+
+Composer是PHP用来管理依赖关系(dependency)的工具，只要在自己的">
+<meta property="og:updated_time" content="2015-04-20T16:25:19.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="认识composer">
+<meta name="twitter:description" content="如果知道PEAR的话那么对composer就不会很陌生，只要一说它是什么大概就明白了它是干嘛的。以前在学PHP的时候经常看到PEAR相关的东西，但是没想到PEAR早就已经被大家抛弃了，只能怪当初看的那些书的技术都太老，还停留在PEAR的年代。想composer这样的工具在项目中经常用到，所以有必要仔细研究一下。
+
+Composer是PHP用来管理依赖关系(dependency)的工具，只要在自己的">
+  
+    <link rel="alternative" href="/atom.xml" title="还是码农的缠小溪" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">还是码农的缠小溪</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">不懂生活的码农不是好的programer</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chanxiaoxi.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-whats-composer" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/29/whats-composer/" class="article-date">
+  <time datetime="2014-11-29T08:37:37.000Z" itemprop="datePublished">2014-11-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      认识composer
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>如果知道PEAR的话那么对composer就不会很陌生，只要一说它是什么大概就明白了它是干嘛的。以前在学PHP的时候经常看到PEAR相关的东西，但是没想到PEAR早就已经被大家抛弃了，只能怪当初看的那些书的技术都太老，还停留在PEAR的年代。想composer这样的工具在项目中经常用到，所以有必要仔细研究一下。</p>
+</blockquote>
+<p><a href="http://www.phpcomposer.com/" target="_blank" rel="external">Composer</a>是PHP用来管理依赖关系(dependency)的工具，只要在自己的项目中声明所依赖的外部关系库，composer会自动安装这些依赖文件。关于Composer的安装使用，在它的文档中都有详细的介绍，没必要重复记录，这里只记一些在使用的时候要注意的事情。<a id="more"></a></p>
+<h3 id="依赖管理">依赖管理</h3><p>所谓的依赖管理，就是管理一些项目开发过程中需要依赖的第三方的库文件，我们只需要编写好相关的配置文件，它就能自动管理这些外部库，包括对他们进行安装、更新等操作。这样在项目的开发过程中极大的方便了我们对第三方库的管理。</p>
+<h3 id="外部包的安装">外部包的安装</h3><p>添加一个外部包的方式很简单，只要在composer.json配置文件中制定要添加的包即可：</p>
+<pre><code>{
+    "<span class="attribute">require</span>" : <span class="value">{
+        "<span class="attribute">slim/slim</span>" : <span class="value"><span class="string">"2.*"</span>
+    </span>}
+</span>}
+</code></pre><p><code>slim/slim</code>是包名称，包名称有供应商名称和项目名称组成，这样可以有效解决命名冲突的问题。<code>2.*</code>是包版本，它会匹配从2.0开始的每个版本，一般可以理解为2.0以上版本，对于版本的其他限定可以参考文明文档。</p>
+<p>一旦写好配置文件composer.json之后，就可以使用composer的安装命令对所需的外部包进行安装：</p>
+<pre><code>php composer<span class="class">.phar</span> install
+</code></pre><p>composer会把外部包下载在一个叫vendor的目录中（不建议把这个目录提交到项目的repo中），此外还会生成一个composer.lock文件，该文件里保存着安装时确切的版本号列表，这个列表为以后的update以及其他命令的使用提供依据，所以建议将composer.json和composer.lock提交到项目的repo中去。更新外部包的命令是：</p>
+<pre><code>php composer<span class="class">.phar</span> update
+</code></pre><p>也可以更新指定的外部包：</p>
+<pre><code>php composer<span class="class">.phar</span> update slim/slim
+</code></pre><h3 id="自动加载">自动加载</h3><p>composer安装完成之后会自动生成一个自动加载文件<code>(vendor/autoload.php)</code>，我们可以在项目中直接引入该文件以获得加载支持。此外，还可以在composer.json中增加自己的autoloader:</p>
+<pre><code>{
+    "<span class="attribute">require</span>" : <span class="value">{
+        "<span class="attribute">slim/slim</span>" : <span class="value"><span class="string">"2.*"</span></span>,
+        "<span class="attribute">monolog/monolog</span>" : <span class="value"><span class="string">"1.0.*"</span>
+    </span>}</span>,
+    "<span class="attribute">autoload</span>" : <span class="value">{
+        "<span class="attribute">psr-4</span>" : <span class="value">{
+            "<span class="attribute">namespace\\</span>" : <span class="value">[<span class="string">"src/db/lib"</span>, <span class="string">"src/api/lib"</span>, <span class="string">"src/xxx/lib"</span>]
+        </span>}
+    </span>}
+</span>}
+</code></pre><p>修改了composer.json之后不要忘记install一下</p>
+<p>还有一种添加自动加载类的方法，在加载 <code>vendor/autoload.php</code>文件的时候会返回一个实例，可以通过调用该实例的方法来完成自动加载：</p>
+<pre><code><span class="variable">$loader</span> = require <span class="string">'vendor/autoload.php'</span>;
+<span class="variable">$loader-</span>&gt;add(<span class="string">'Acme\\Test\\'</span>, __DIR_<span class="number">_</span>);
+</code></pre><h3 id="每个项目都是一个包">每个项目都是一个包</h3><p>只要你有一个composer.json在目录中，那么整个目录就是一个包，require一个外部库到你的项目中，其实就是创建了一个依赖其他库的包。和外部的库相比，你们之间的唯一区别就是你的项目没有包名而已。可以通过在composer.json中添加name字段来定义包名：</p>
+<pre><code>{
+    "<span class="attribute">name</span>" : <span class="value"><span class="string">"chanxiaoxi/test"</span></span>,
+    "<span class="attribute">require</span>" : <span class="value">{
+        "<span class="attribute">slim/slim</span>" : <span class="value"><span class="string">"2.*"</span>
+    </span>}</span>,
+    "<span class="attribute">autoload</span>" : <span class="value">{
+        "<span class="attribute">psr-4</span>" : <span class="value">{
+            "<span class="attribute">namespace\\</span>" : <span class="value">[<span class="string">"src/db/lib"</span>, <span class="string">"src/api/lib"</span>, <span class="string">"src/xxx/lib"</span>]
+        </span>}
+    </span>}
+</span>}
+</code></pre><p>包名的命名方法前面已经说过：供应商名/项目名。此外还可以通过 <code>version</code>字段来指明版本。</p>
+<p>如果你的一个包含composer.json的库存储在线上版本控制器中，你的库就可以被composer安装。在应用中，只要在composer.json配置文件中添加库的地址就可以让composer找到该库并安装。</p>
+<pre><code>{
+    "<span class="attribute">name</span>" : <span class="value"><span class="string">"chanxiaoxi/test"</span></span>,
+    "<span class="attribute">repositories</span>" : <span class="value">[
+        {
+            "<span class="attribute">type</span>" : <span class="value"><span class="string">"vcs"</span></span>,
+            "<span class="attribute">url</span>" : <span class="value"><span class="string">"https://github.com/chanxiaoxi/test"</span>
+        </span>}
+    ]</span>,
+    "<span class="attribute">require</span>" : <span class="value">{
+        "<span class="attribute">slim/slim</span>" : <span class="value"><span class="string">"2.*"</span></span>,
+        "<span class="attribute">chanxiaoxi/test</span>" : <span class="value"><span class="string">"dev-master"</span>
+    </span>}
+</span>}
+</code></pre><p>这是barryvdh库的composer.json文件，它里面几乎包含了完整的字段信息，可供参考：</p>
+<pre><code>{
+    "<span class="attribute">name</span>": <span class="value"><span class="string">"barryvdh/laravel-ide-helper"</span></span>,
+    "<span class="attribute">description</span>": <span class="value"><span class="string">"Laravel IDE Helper, generates correct PHPDocs for all Facade classes, to improve auto-completion."</span></span>,
+    "<span class="attribute">keywords</span>": <span class="value">[<span class="string">"laravel"</span>, <span class="string">"autocomplete"</span>, <span class="string">"ide"</span>, <span class="string">"helper"</span>, <span class="string">"phpstorm"</span>, <span class="string">"netbeans"</span>, <span class="string">"sublime"</span>, <span class="string">"codeintel"</span>, <span class="string">"phpdoc"</span>]</span>,
+    "<span class="attribute">license</span>": <span class="value"><span class="string">"MIT"</span></span>,
+    "<span class="attribute">authors</span>": <span class="value">[
+        {
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Barry vd. Heuvel"</span></span>,
+            "<span class="attribute">email</span>": <span class="value"><span class="string">"barryvdh@gmail.com"</span>
+        </span>}
+    ]</span>,
+    "<span class="attribute">require</span>": <span class="value">{
+        "<span class="attribute">php</span>": <span class="value"><span class="string">"&gt;=5.3.0"</span></span>,
+        "<span class="attribute">illuminate/support</span>": <span class="value"><span class="string">"4.x"</span></span>,
+        "<span class="attribute">illuminate/console</span>": <span class="value"><span class="string">"4.x"</span></span>,
+        "<span class="attribute">illuminate/filesystem</span>": <span class="value"><span class="string">"4.x"</span></span>,
+        "<span class="attribute">phpdocumentor/reflection-docblock</span>": <span class="value"><span class="string">"2.0.x"</span></span>,
+        "<span class="attribute">symfony/class-loader</span>": <span class="value"><span class="string">"~2.3"</span>
+    </span>}</span>,
+    "<span class="attribute">require-dev</span>": <span class="value">{
+        "<span class="attribute">doctrine/dbal</span>": <span class="value"><span class="string">"~2.3"</span>
+    </span>}</span>,
+    "<span class="attribute">suggest</span>": <span class="value">{
+        "<span class="attribute">doctrine/dbal</span>": <span class="value"><span class="string">"Load information from the database about models for phpdocs (~2.3)"</span>
+    </span>}</span>,
+    "<span class="attribute">autoload</span>": <span class="value">{
+        "<span class="attribute">psr-4</span>": <span class="value">{
+            "<span class="attribute">Barryvdh\\LaravelIdeHelper\\</span>": <span class="value"><span class="string">"src"</span>
+        </span>}
+    </span>}</span>,
+    "<span class="attribute">extra</span>": <span class="value">{
+        "<span class="attribute">branch-alias</span>": <span class="value">{
+            "<span class="attribute">dev-master</span>": <span class="value"><span class="string">"1.11-dev"</span>
+        </span>}
+    </span>}
+</span>}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chanxiaoxi.github.io/2014/11/29/whats-composer/" data-id="cigyp9twm00041w0rz21fgkk2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/11/29/learning-mysqli-part1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Learning Mysqli Part1
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/11/29/difference-between-interface-and-abstract-class-in-php/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">对于PHP中Interface和Abstract Class的认识</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sourcetree/">Sourcetree</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/">octopress</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php/">php</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/架构/">架构</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/05/17/hi-docker/">Docker学习笔记(一)——认识Docker</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/linux-crontab/">Linux Crontab</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/07/lambda-anonymous-function-and-closure/">Lambda, Anonymous Function And Closure</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/06/php-code-style-guide-psr0/">PHP Code Style Guide---PSR0</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">Sourcetree LF/CRLF auto change on Windows</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Gavin Wu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

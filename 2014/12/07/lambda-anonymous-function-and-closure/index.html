@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Lambda, Anonymous Function And Closure | 还是码农的缠小溪</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今天看到一些关于PHP中匿名函数和闭包函数的讨论，大都是对两个的概念不清楚，经常混淆，而且PHP的匿名函数和其他语言的匿名函数还是有些不一样的地方，特整理此文章，梳理一下对这些概念的认识。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lambda, Anonymous Function And Closure">
+<meta property="og:url" content="http://chanxiaoxi.github.io/2014/12/07/lambda-anonymous-function-and-closure/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="今天看到一些关于PHP中匿名函数和闭包函数的讨论，大都是对两个的概念不清楚，经常混淆，而且PHP的匿名函数和其他语言的匿名函数还是有些不一样的地方，特整理此文章，梳理一下对这些概念的认识。">
+<meta property="og:updated_time" content="2015-11-14T06:22:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lambda, Anonymous Function And Closure">
+<meta name="twitter:description" content="今天看到一些关于PHP中匿名函数和闭包函数的讨论，大都是对两个的概念不清楚，经常混淆，而且PHP的匿名函数和其他语言的匿名函数还是有些不一样的地方，特整理此文章，梳理一下对这些概念的认识。">
+  
+    <link rel="alternative" href="/atom.xml" title="还是码农的缠小溪" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">还是码农的缠小溪</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">不懂生活的码农不是好的programer</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chanxiaoxi.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-lambda-anonymous-function-and-closure" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/12/07/lambda-anonymous-function-and-closure/" class="article-date">
+  <time datetime="2014-12-07T08:33:17.000Z" itemprop="datePublished">2014-12-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Lambda, Anonymous Function And Closure
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>今天看到一些关于PHP中匿名函数和闭包函数的讨论，大都是对两个的概念不清楚，经常混淆，而且PHP的匿名函数和其他语言的匿名函数还是有些不一样的地方，特整理此文章，梳理一下对这些概念的认识。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="维基百科上的描述">维基百科上的描述</h2><blockquote>
+<p>If the function is only used once, or a limited number of times, an anonymous function may be syntactically lighter than using a named function. Anonymous functions are ubiquitous in functional programming languages and other languages with first-class functions(<em>This means the language supports passing functions as arguments to other functions, returning them as the values from other functions, and assigning them to variables or storing them in data structures.</em>), where they fulfil the same role for the function type as literals do for other data types.</p>
+<p>Anonymous functions are a form of nested function, in that they allow access to variables in the scope of the containing function (non-local variables). This means anonymous functions need to be implemented using closures. Unlike named nested functions, they cannot be recursive without the assistance of a fixpoint operator (also known as an anonymous fixpoint or anonymous recursion).</p>
+</blockquote>
+<h3 id="Lambda">Lambda</h3><p>Lambda其实是Anonymous Function的别名，在其他的一些变成语言中可能经常看到，比如Python</p>
+<blockquote>
+<p>Anonymous functions originate in the work of Alonzo Church in his invention of the lambda calculus in 1936 (prior to electronic computers), in which all functions are anonymous.In several programming languages, anonymous functions are introduced using the keyword lambda, and anonymous functions are often referred to as lambda’s or lambda abstractions.</p>
+</blockquote>
+<h2 id="PHP手册中的描述">PHP手册中的描述</h2><h3 id="Anonymous_Function">Anonymous Function</h3><blockquote>
+<p>匿名函数也叫闭包函数(closures),允许临时创建一个没有指定名称的函数。最经常用作回调函数callback参数的值<br>闭包函数也可以作为变量的值来使用。PHP会自动把此种表达式转换成内置类<a href="http://php.net/manual/zh/class.closure.php" target="_blank" rel="external">Closure</a>对象的一个实例<br>Closure对象也会从父作用域中继承类属性。这些变量都必须在函数或类的头部声明。从父作用域继承变量和使用全局变量是不同的，closure的父作用域是声明该closure的函数。</p>
+</blockquote>
+<h3 id="Closure">Closure</h3><blockquote>
+<p>用于代表匿名函数的类<br>匿名函数会产生这个类型的对象。自PHP5.4起，这个类有一些方法，可以对匿名函数的创建做更多的控制  </p>
+</blockquote>
+<h2 id="要注意的地方">要注意的地方</h2><h3 id="some_quirks_in_PHP5-3">some quirks in PHP5.3</h3><ul>
+<li><p>You must send the function all of the variables you want to bound to the scope of the Closure using the keywords <code>use</code>.This is different from the other languages,where this is done automatically(e.g. Javascript)</p>
+<pre><code><span class="variable">$foo</span> = <span class="string">'foo'</span>;
+<span class="variable">$baz</span> = <span class="string">'baz'</span>;
+<span class="variable">$bar</span> = <span class="keyword">function</span>() {
+    echo <span class="variable">$foo</span>, <span class="variable">$baz</span>;
+};
+<span class="variable">$bar</span>();
+//output:Notice:Undefined variable
+
+<span class="variable">$foo</span> = <span class="string">'foo'</span>;
+<span class="variable">$baz</span> = <span class="string">'baz'</span>;
+<span class="variable">$bar</span> = <span class="keyword">function</span>() use (<span class="variable">$foo</span>, <span class="variable">$baz</span>) {
+    echo <span class="variable">$foo</span>, <span class="variable">$baz</span>;
+};
+<span class="variable">$bar</span>();
+//output:foobaz
+</code></pre></li>
+<li><p>The bound variables are <strong>copies</strong>, of the variable, not references. If you want to be able to change the variable inside in the Closure,you MUST send it by reference.</p>
+<pre><code><span class="variable">$foo</span> = <span class="string">'foo'</span>;
+<span class="variable">$baz</span> = <span class="string">'baz'</span>;
+<span class="variable">$bar</span> = <span class="keyword">function</span>() use (<span class="variable">$foo</span>, <span class="variable">$baz</span>) {
+    <span class="variable">$foo</span> = <span class="string">'hello'</span>;
+    <span class="variable">$baz</span> = <span class="string">'world'</span>;
+};
+<span class="variable">$bar</span>();
+echo <span class="variable">$foo</span>,<span class="variable">$baz</span>;
+//output:foobaz
+
+<span class="variable">$foo</span> = <span class="string">'foo'</span>;
+<span class="variable">$baz</span> = <span class="string">'baz'</span>;
+<span class="variable">$bar</span> = <span class="keyword">function</span>() use (&amp;<span class="variable">$foo</span>, &amp;<span class="variable">$baz</span>) {
+    <span class="variable">$foo</span> = <span class="string">'hello'</span>;
+    <span class="variable">$baz</span> = <span class="string">'world'</span>;
+};
+<span class="variable">$bar</span>();
+echo <span class="variable">$foo</span>,<span class="variable">$baz</span>;
+//output:helloworld
+</code></pre></li>
+<li><p>In PHP5.3 if you are using a Closure inside of a class, the Closure will not have access to <code>$this</code>.You must send a reference to <code>$this</code>,however,you cannot send <code>$this</code> directly.But In PHP5.4,they have added support for the usage of <code>$this</code> in Closure. They do this by binding the object to the Closure at the time of definition. You can also change which object your Closure is bound by using the <code>bind()</code> and <code>bindTo()</code> methods.</p>
+</li>
+</ul>
+<h3 id="How_should_we_know_when_to_call_it_a_Closure_or_Anonymous_Function?">How should we know when to call it a Closure or Anonymous Function?</h3><p>You can always call it a Closure(because all Anonymous functions are Closure),and if it dosen’t have a name,it is Anonymous.</p>
+<h3 id="参考文章">参考文章</h3><ul>
+<li><a href="http://dhorrigan.com/post/29209695084/anonymous-functions-vs-closures" target="_blank" rel="external">ANONYMOUS FUNCTIONS VS. CLOSURES</a></li>
+<li><a href="http://www.recessframework.org/page/functional-php-anonymous-functions-lambdas-closures" target="_blank" rel="external">Functional PHP 5.3 Part I - What are Anonymous Functions and Closures?</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Anonymous_function" target="_blank" rel="external">Anonymous function</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chanxiaoxi.github.io/2014/12/07/lambda-anonymous-function-and-closure/" data-id="cigypbt8s00002a0rvlrwj6wb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/20/linux-crontab/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux Crontab
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/12/06/php-code-style-guide-psr0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PHP Code Style Guide---PSR0</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sourcetree/">Sourcetree</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/">octopress</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php/">php</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/架构/">架构</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/05/17/hi-docker/">Docker学习笔记(一)——认识Docker</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/linux-crontab/">Linux Crontab</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/07/lambda-anonymous-function-and-closure/">Lambda, Anonymous Function And Closure</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/06/php-code-style-guide-psr0/">PHP Code Style Guide---PSR0</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">Sourcetree LF/CRLF auto change on Windows</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Gavin Wu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

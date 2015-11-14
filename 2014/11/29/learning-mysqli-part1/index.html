@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Learning Mysqli Part1 | 还是码农的缠小溪</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。
+
+Mysqli简介MySQL增强版扩展，mysqli允许我们访问MySQL4.1及以上版本提供的功能。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Learning Mysqli Part1">
+<meta property="og:url" content="http://chanxiaoxi.github.io/2014/11/29/learning-mysqli-part1/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。
+
+Mysqli简介MySQL增强版扩展，mysqli允许我们访问MySQL4.1及以上版本提供的功能。">
+<meta property="og:updated_time" content="2015-04-20T16:25:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Learning Mysqli Part1">
+<meta name="twitter:description" content="刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。
+
+Mysqli简介MySQL增强版扩展，mysqli允许我们访问MySQL4.1及以上版本提供的功能。">
+  
+    <link rel="alternative" href="/atom.xml" title="还是码农的缠小溪" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">还是码农的缠小溪</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">不懂生活的码农不是好的programer</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chanxiaoxi.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-learning-mysqli-part1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/11/29/learning-mysqli-part1/" class="article-date">
+  <time datetime="2014-11-29T10:22:05.000Z" itemprop="datePublished">2014-11-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/PHP/">PHP</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Learning Mysqli Part1
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。</p>
+</blockquote>
+<h2 id="Mysqli简介">Mysqli简介</h2><p>MySQL增强版扩展，mysqli允许我们访问MySQL4.1及以上版本提供的功能。<a id="more"></a></p>
+<h2 id="Mysqli和Mysql扩展以及PDO的区别">Mysqli和Mysql扩展以及PDO的区别</h2><ol>
+<li>mysql扩展提供了一个面向过程的接口，并且是针对mysql4.1.3或更早版本设计的</li>
+<li>mysqli面向对象，prepared语句支持，多语句执行支持，增强的调试能力，嵌入式服务支持</li>
+<li>PDO是PHP应用中的一个数据层抽象规范，PDO提供了一个统一的接口，让你不必去关心数据库服务器类型。他可以让你在需要的时候随时无缝切换数据库服务器，仅仅需要少量的代码。</li>
+</ol>
+<h2 id="Mysqli_Dual_procedural_and_object-oriented_interface">Mysqli Dual procedural and object-oriented interface</h2><p>mysqli提供面向对象的和面向过程的两种接口，用户从旧的mysql扩展迁移更喜欢面向过程的接口，mysqli面向过程的接口和mysql非常相似，大多数情况下函数名的不同仅仅在于前缀(prefix)，一些mysqli的函数需要一个连接句柄（connection handle）作为它的第一个参数，这是为了配合旧的mysql接口的一些函数将数据库连接句柄作为最后一个参数。</p>
+<p>面向过程的数据库操作范例（从mysql迁移时更喜欢的一种连接）：</p>
+<pre><code><span class="variable">$mysqli</span> = mysqli_connect(<span class="string">"localhost"</span>, <span class="string">"user"</span>, <span class="string">"password"</span>, <span class="string">"database"</span>);
+<span class="variable">$res</span> = mysqli_query(<span class="variable">$mysqli</span>, <span class="string">"SELECT 'Please, do not use' AS_msg FROM DUAL"</span>);
+<span class="variable">$row</span> = mysqli_fetch_assoc(<span class="variable">$res</span>);
+echo <span class="variable">$row</span>[<span class="string">'_msg'</span>];    
+</code></pre><p>面向对象的数据库操作范例：</p>
+<pre><code><span class="variable">$localhost</span> = <span class="string">"localhost"</span>;
+<span class="variable">$user</span> = <span class="string">"user"</span>;
+<span class="variable">$password</span> = <span class="string">"password"</span>;
+<span class="variable">$database</span> = <span class="string">"database"</span>;
+<span class="variable">$mysqli</span> = new mysqli(<span class="variable">$localhost</span>, <span class="variable">$user</span>, <span class="variable">$password</span>, <span class="variable">$database</span>);
+<span class="keyword">if</span> (<span class="variable">$mysqli-</span>&gt;connect_error) {
+    echo <span class="string">"Failed to connect to MySQL:"</span>.<span class="variable">$mysqli-</span>&gt;connect_error;
+}
+<span class="variable">$res</span> = <span class="variable">$mysqli-</span>&gt;query(<span class="string">"SELECT 'Please, do not use' AS_msg FROM DUAL"</span>);
+<span class="variable">$row</span> = <span class="variable">$res-</span>&gt;fetch_assoc();
+echo <span class="variable">$row</span>[<span class="string">'_msg'</span>];
+</code></pre><p>mysqli有一个构造方法，所以我们可以通过实例化mysqli类来建立连接：</p>
+<pre><code>public <span class="keyword">function</span> __construct (
+    <span class="variable">$host</span>,
+    <span class="variable">$username</span>,
+    <span class="variable">$passwd</span>,
+    <span class="variable">$dbname</span>,
+    <span class="variable">$port</span>,
+    <span class="variable">$socket</span>
+) {}
+</code></pre><h2 id="Executing_statements">Executing statements</h2><h3 id="1-Buffered_result_sets">1.Buffered result sets</h3><p>在语句执行完之后，结果会马上被缓存在客户端或者一行一行读出。客户端将结果集缓存会允许服务器端尽快释放查询结果资源，换句话说，客户端在缓慢的消耗结果集。因此，建议缓存结果集。<figure class="highlight"><figcaption><span>``` 可以将语句执行和结果集缓存结合起来。PHP应用可以自由的操作缓存结果集，这个操作是非常快速的，因为数据被保存(are held)在客户端内存，记住，客户端scale要比服务器端scale更加容易。一般情况下我们的操作其实都是Buffered result sets的，比如：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;    $mysqli = new mysqli(&#34;localhost&#34;, &#34;root&#34;, &#34;&#34;, &#34;weibo&#34;);&#10;    if ($mysqli-&#62;connect_error) &#123;&#10;    &#9;echo &#34;Failed to connect MySQL:&#34;.$mysqli-&#62;connect_error;&#10;    &#125;&#10;    &#10;    if (!$mysqli-&#62;query(&#34;DROP TABLE IF EXISTS test2&#34;) ||&#10;    &#9;!$mysqli-&#62;query(&#34;CREATE TABLE test2(id INT)&#34;) ||&#10;    &#9;!$mysqli-&#62;query(&#34;INSERT INTO test2(id) VALUES(1),(2),(3)&#34;)) &#123;&#10;    &#9;echo &#34;Table creation Failed:(error_no&#34;.$mysqli-&#62;errno.&#34;) &#34;.$mysqli-&#62;error;&#10;    &#125;&#10;    &#10;    $res = $mysqli-&#62;query(&#34;SELECT id FROM test2 ORDER BY id ASC&#34;);&#10;    &#10;    echo &#34;reverse order:&#60;br /&#62;&#34;;&#10;    for ($row_no = $res-&#62;num_rows-1; $row_no&#62;=0; $row_no--) &#123;&#10;    &#9;$res-&#62;data_seek($row_no);&#10;    &#9;$row = $res-&#62;fetch_assoc();&#10;    &#9;echo &#34; id= &#34;.$row[&#39;id&#39;]. &#34;&#60;br /&#62;&#34;;&#10;    &#125;&#10;&#10;### 2.Unbuffered result sets&#10;&#10;&#22914;&#26524;&#23458;&#25143;&#31471;&#20869;&#23384;&#36739;&#23567;&#24182;&#19988;&#23613;&#21487;&#33021;&#30340;&#37322;&#25918;&#26381;&#21153;&#22120;&#36164;&#28304;&#38477;&#20302;&#26381;&#21153;&#22120;&#36127;&#36733;(keep server load low)&#19981;&#26159;&#24517;&#39035;&#30340;&#65292;&#37027;&#20040;unbuffered results&#23601;&#21487;&#20197;&#20351;&#29992;&#20102;&#65292;&#22312;&#25152;&#26377;&#30340;&#32467;&#26524;&#38598;&#26410;&#23436;&#20840;&#35835;&#20986;&#30340;&#26102;&#20505;&#26159;&#19981;&#33021;&#22815;&#28378;&#21160;unbuffered result rets&#30340;&#12290;&#10;&#10;    $mysqli = new mysqli(&#34;localhost&#34;, &#34;root&#34;, &#34;&#34;, &#34;weibo&#34;);&#10;    if ($mysqli-&#62;connect_error) &#123;&#10;    &#9;echo &#34;Failed to connect MySQL:&#34;.$mysqli-&#62;connect_error;&#10;    &#125;&#10;    &#10;    if (!$mysqli-&#62;query(&#34;DROP TABLE IF EXISTS test2&#34;) ||&#10;    &#9;!$mysqli-&#62;query(&#34;CREATE TABLE test2(id INT)&#34;) ||&#10;    &#9;!$mysqli-&#62;query(&#34;INSERT INTO test2(id) VALUES(1),(2),(3)&#34;)) &#123;&#10;    &#9;echo &#34;Table creation Failed:(error_no&#34;.$mysqli-&#62;errno.&#34;) &#34;.$mysqli-&#62;error;&#10;    &#125;&#10;    &#10;    $mysqli-&#62;real_query(&#34;SELECT id FROM test2 ORDER BY id ASC&#34;);&#10;    $res = $mysqli-&#62;use_result();&#10;    &#10;    echo &#34;Result set order...&#60;br /&#62;&#34;;&#10;    while ($row = $res-&#62;fetch_assoc()) &#123;&#10;    &#9;echo &#34; id=&#34;.$row[&#39;id&#39;].&#34;&#60;br /&#62;&#34;;&#10;    &#125;&#10;&#10;### 3.Result set values data type&#10;&#10;``` mysqli_query(),mysqli_real_query()&#21644;mysqli_mutil_query() ``` &#20182;&#20204;&#34987;&#29992;&#26469;&#25191;&#34892;&#27809;&#26377;&#39044;&#22788;&#29702;&#30340;&#35821;&#21477;(non-prepared statements)&#65292;&#22312;MySQL&#23458;&#25143;&#31471;&#26381;&#21153;&#22120;&#21327;&#35758;&#30340;&#27700;&#24179;&#19978;&#65292;``` COM_QUERY ``` &#21629;&#20196;&#23601;&#22914;&#21516;&#25991;&#26412;&#21327;&#35758;&#30340;&#25191;&#34892;&#35821;&#21477;&#12290;&#25991;&#26412;&#21327;&#35758;&#23618;&#65292;MySQL&#26381;&#21153;&#22120;&#20250;&#22312;&#21457;&#36865;&#32467;&#26524;&#21069;&#23558;&#25152;&#26377;&#32467;&#26524;&#38598;&#25968;&#25454;&#36716;&#25442;&#25104;string&#65292;&#36825;&#20010;&#36716;&#25442;&#26159;&#19981;&#31649;SQL&#32467;&#26524;&#38598;&#22312;&#25968;&#25454;&#24211;&#20013;&#30340;&#26159;&#20160;&#20040;&#31867;&#22411;&#30340;&#12290;&#23458;&#25143;&#31471;&#24211;&#20197;string&#30340;&#31867;&#22411;&#25509;&#25910;&#25152;&#26377;&#32467;&#26524;&#38598;&#25968;&#25454;&#65292;MySQL&#23458;&#25143;&#31471;&#20250;&#36827;&#19968;&#27493;&#23558;&#36825;&#20123;&#25968;&#25454;&#36716;&#25442;&#25104;&#30456;&#24212;&#30340;&#21407;&#29983;&#25968;&#25454;&#31867;&#22411;(native type)&#65292;&#28982;&#32780;&#25152;&#26377;&#30340;&#25968;&#25454;&#31867;&#22411;&#20250;&#20197;PHP string&#31867;&#22411;&#25552;&#20379;&#12290;&#10;&#10;&#22914;&#26524;&#20351;&#29992;&#20102;```mysqlnd```&#24211;&#65292;&#21487;&#20197;&#36890;&#36807;&#35774;&#32622;``` MYSQLI_OPT_INT_AND_FLOAT_NATIVE ```&#30340;&#36830;&#25509;&#36873;&#39033;&#23558;INTEGER&#21644;FLOAT&#21015;&#36716;&#25442;&#25104;PHP numbers&#31867;&#22411;&#12290;&#22914;&#26524;PHP&#25968;&#25454;&#31867;&#22411;&#20540;&#30340;&#33539;&#22260;&#20801;&#35768;&#30340;&#35805;&#65292;mysqlnd&#24211;&#20250;&#26816;&#26597;&#32467;&#26524;&#38598;&#20803;&#25968;&#25454;(meta data)&#31867;&#22411;&#65292;&#24182;&#19988;&#23558;SQL&#25968;&#20540;&#31867;&#22411;&#30340;&#21015;&#30340;&#25968;&#25454;&#36716;&#25442;&#25104;PHP numbers&#12290;&#27604;&#22914;MySQL INT&#31867;&#22411;&#30340;&#21015;&#20250;&#20197;integer&#31867;&#22411;&#36820;&#22238;&#12290;&#10;&#10;### 4.mysqli_query()&#8212;&#8212;&#23545;&#25968;&#25454;&#24211;&#25191;&#34892;&#19968;&#27425;&#26597;&#35810;&#10;&#10;    &#31867;&#22411;&#65306;&#10;    mixed mysqli::query( string&#12288;$query[, int $resultmode = MSYQLI_STORE_RESULT]) &#10;    mixed mysqli_query( string $query[, int $resultmode = MYSQLI_STORE_RESULT])&#10;    &#21442;&#25968;&#65306;&#10;&#9;link&#65306; &#20165;&#20197;&#36807;&#31243;&#21270;&#26679;&#24335;&#65306;&#26159;mysqli_connect()&#25110;mysqli_init()&#36820;&#22238;&#30340;&#38142;&#25509;&#26631;&#35782;&#10;&#9;query: query string&#10;&#9;resultmode: &#26377;MYSQLI_USE_RESULT&#21644;MYSQLI_STORE_RESULT&#21487;&#20197;&#36873;&#25321;&#65292;&#40664;&#35748;&#20026;MYSQLI_STORE_RESULT,&#22914;&#26524;&#36873;&#25321;&#20102;MYSQLI_USE_RESULT&#37027;&#20040;&#21518;&#32493;&#30340;&#35843;&#29992;&#37117;&#20250;&#20135;&#29983;&#21629;&#20196;&#19981;&#21516;&#27493;&#30340;&#38169;&#35823;&#65292;&#38500;&#38750;&#20320;&#35843;&#29992;&#20102;mysqli_free_result()(&#20174;&#20869;&#23384;&#20013;&#37322;&#25918;&#20851;&#32852;&#32467;&#26524;)&#10;&#9;&#36820;&#22238;&#20540;: &#22833;&#36133;&#26102;&#36820;&#22238;FALSE&#65292;&#36890;&#36807;mysqli_query()&#25104;&#21151;&#25191;&#34892;SELECT,SHOW,DESCRIBE&#25110;EXPLAN&#26597;&#35810;&#20250;&#36820;&#22238;&#19968;&#20010;mysqli_result&#23545;&#35937;&#65292;&#20854;&#20182;&#26597;&#35810;&#21017;&#20250;&#36820;&#22238;TRUE&#10;&#10;### 5.mysqli_real_query()&#8212;&#8212;&#25191;&#34892;&#19968;&#20010;mysql&#26597;&#35810;&#10;&#10;&#25191;&#34892;&#19968;&#20010;&#21333;&#26465;&#25968;&#25454;&#24211;&#26597;&#35810;&#65292;&#20854;&#32467;&#26524;&#21487;&#20197;&#20351;&#29992;``` mysqli_store_result()&#25110;mysqli_use_result() ``` &#26816;&#32034;&#25110;&#26597;&#35810;&#12290;&#20026;&#20102;&#30830;&#23450;&#32473;&#23450;&#30340;&#32467;&#26524;&#26159;&#21542;&#30495;&#30340;&#36820;&#22238;&#19968;&#20010;&#32467;&#26524;&#38598;&#65292;&#21487;&#20197;&#26597;&#30475;``` mysqli_field_count()</span><br></pre></td></tr></table></figure></p>
+<pre><code>bool mysqli_real_query(string <span class="variable">$query</span>)
+bool mysqli::real_query(string <span class="variable">$query</span>)
+返回值：TRUE|FALSE
+</code></pre><h4 id="mysqli_query()和mysqli_real_query()的区别"><code>mysqli_query()和mysqli_real_query()的区别</code></h4><blockquote>
+<p>mysqli_query() cannot be used for statements that contain binary data,you must use mysqli_real_query() instead.(Binary data may contain the “\0” character, which mysqli_query() interprets as the end of the statement string.) In addition,mysql_real_query() is faster than mysqli_query() because it does not call strlen() on the statement string</p>
+</blockquote>
+<h3 id="6-mysqli_multi_query()——执行一个或多个查询">6.mysqli_multi_query()——执行一个或多个查询</h3><pre><code>bool mysqli::<span class="function"><span class="title">multi_query</span><span class="params">(string <span class="variable">$query</span>)</span></span>
+bool <span class="function"><span class="title">mysqli_multi_query</span><span class="params">(string <span class="variable">$query</span>)</span></span>
+返回值：失败返回FALSE,要从其他的语句中检索后续的错误可以先调用<span class="function"><span class="title">mysqli_next_result</span><span class="params">()</span></span>
+</code></pre><p>从第一个query中检索结果可以使用<code>mysqli_use_result()或者mysqli_store_result()</code>,可以通过<code>mysqli_more_result()和mysqli_next_result()</code>处理后续的结果集。多个语句之间用分好隔开。示例如下：</p>
+<pre><code><span class="variable">$mysqli</span> = new mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);
+<span class="keyword">if</span> (<span class="variable">$mysqli-</span>&gt;connect_error) {
+    echo <span class="string">"Failed to connect MySQL:"</span>.<span class="variable">$mysqli-</span>&gt;connect_error;
+}
+
+<span class="keyword">if</span> (!<span class="variable">$mysqli-</span>&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) ||
+    !<span class="variable">$mysqli-</span>&gt;query(<span class="string">"CREATE TABLE test2(id INT)"</span>) ||
+    !<span class="variable">$mysqli-</span>&gt;query(<span class="string">"INSERT INTO test2(id) VALUES(1),(2),(3)"</span>)) {
+    echo <span class="string">"Table creation Failed:(error_no"</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">") "</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="variable">$query</span> = <span class="string">"SELECT * FROM test2 WHERE id=1;"</span>;
+<span class="variable">$query</span> .= <span class="string">"SELECT * FROM test2"</span>;
+<span class="keyword">if</span> (<span class="variable">$mysqli-</span>&gt;multi_query(<span class="variable">$query</span>)) {
+    do {
+        /* store first result set */
+        if (<span class="variable">$result</span> = <span class="variable">$mysqli-</span>&gt;store_result()) {
+            while (<span class="variable">$row</span> = <span class="variable">$result-</span>&gt;fetch_row()) {
+                printf(<span class="string">"%s\n"</span>, <span class="variable">$row</span>[<span class="number">0</span>]);
+            }
+            <span class="variable">$result-</span>&gt;free();
+        }
+        /* print divider */
+        if (<span class="variable">$mysqli-</span>&gt;more_results()) {
+            printf(<span class="string">"--------------------------------------\n"</span>);
+        }
+    } while (<span class="variable">$mysqli-</span>&gt;next_result());
+}
+</code></pre><h2 id="Prepared_Statement">Prepared Statement</h2><p>MySQL数据库支持预处理(prepared statement)语句，一个预处理语句的或者参数化的语句会被高效的反复执行。工作流程是这样的：一个预处理语句包含两个阶段：预处理和执行。在预处理阶段，语句的模板会发送到数据库服务器，服务器执行语法检查和初始化内部资源以供后续使用。MySQL服务器支持匿名参数(anonymous)和?占位符(positional placeholder)</p>
+<pre><code>/* Prepared statement, stage <span class="number">1</span>:prepare */
+<span class="keyword">if</span> (!<span class="variable">$stmt</span> = <span class="variable">$mysqli-</span>&gt;prepare(<span class="string">"INSERT INTO test2(id) VALUES (?)"</span>)) {
+    echo <span class="string">"Prepared failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;errno;
+}
+</code></pre><p>预处理之后就是执行，执行的过程中，客户端会保定参数值然后把他们发送给MySQL服务器。MySQL服务器会根据预处理阶段接收的语句模板创建一条执行语句给先前初始化好的内部资源使用。</p>
+<pre><code>/* Prepared statement, stage2:bind and execute */
+<span class="variable">$id</span> = <span class="number">4</span>;
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;bind_param(<span class="string">'i'</span>, <span class="variable">$id</span>)) {
+    echo <span class="string">"Binding parameters failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;execute()) {
+    echo <span class="string">"Execute failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+</code></pre><p>重复执行：预处理语句可以重复执行，每次执行之前都会评估现在的绑定的参数的值并且将其发送给MySQL服务器，这个语句不需要再解析，语句模板也无需再次从客户端发送到服务器。</p>
+<p>一个完整的示例：</p>
+<pre><code><span class="variable">$mysqli</span> = new mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);
+<span class="keyword">if</span> (<span class="variable">$mysqli-</span>&gt;connect_error) {
+    echo <span class="string">"mysql connect failed:("</span>.<span class="variable">$mysqli-</span>&gt;connect_errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;connect_errno;
+}
+
+/* non-prepared statement */
+<span class="keyword">if</span> (!<span class="variable">$mysqli-</span>&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) || !<span class="variable">$mysqli-</span>&gt;query(<span class="string">"CREATE TABLE test2(id INT)"</span>)) {
+    echo <span class="string">"table test2 create failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+
+/* Prepared statement, stage <span class="number">1</span>: prepare */
+<span class="keyword">if</span> (!<span class="variable">$stmt</span> = <span class="variable">$mysqli-</span>&gt;prepare(<span class="string">"INSERT INTO test2(id) VALUES (?)"</span>)) {
+    echo <span class="string">"prepared statement failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+
+/* Prepared statement, stage <span class="number">2</span>: bind and execute */
+<span class="variable">$id</span> = <span class="number">1</span>;
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;bind_param(<span class="string">"i"</span>, <span class="variable">$id</span>)) {
+    echo <span class="string">"Binding parameters failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;execute()) {
+    echo <span class="string">"executed failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+
+/* Prepared statement: repeated execution, <span class="keyword">only</span> data transferred from client <span class="keyword">to</span> server */
+<span class="keyword">for</span> (<span class="variable">$id</span> = <span class="number">2</span>; <span class="variable">$id</span> &lt; <span class="number">5</span>; <span class="variable">$id</span>++) {
+    if (!<span class="variable">$stmt-</span>&gt;execute()) {
+        echo <span class="string">"execute failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+    }
+}
+
+/* explicit close recommend */
+<span class="variable">$stmt-</span>&gt;close();
+
+/* non-prepared statement */
+<span class="variable">$res</span> = <span class="variable">$mysqli-</span>&gt;query(<span class="string">"SELECT id FROM test2"</span>);
+var_dump(<span class="variable">$res-</span>&gt;fetch_all());
+</code></pre><p>每一个预处理语句都会占用服务器资源，<strong>预处理语句在使用完之后必须明确的关闭</strong> ,如果不去明确的关闭，那么会在PHP释放预处理语句句柄的时候被关闭。</p>
+<p>使用预处理语句(Prepared statement)并不总是非常有效的执行语句的方法，一个预处理语句只执行一次会比执行没有与处理的语句引起更多的客户端-服务器往返(client-server round-trips)，这也是为什么上面的示例都没有执行SELECT的预处理语句的原因。</p>
+<p>此外，还要考虑MySQL多字段插入语法的使用。比如（未预处理语句）多字段插入比预处理语句多字段的插入产生更少的服务器和客户端的往返。例如：</p>
+<pre><code><span class="keyword">if</span> (!<span class="variable">$mysqli-</span>&gt;query(<span class="string">"INSERT INTO test2(id) VALUES (1), (2), (3), (4)"</span>)) {
+    echo <span class="string">"multi-insert failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+</code></pre><h4 id="结果集值的数据类型_result_set_values_data_type">结果集值的数据类型 result set values data type</h4><p>MySQL客户端服务协议对预处理语句和一般语句定义了不同的数据传输协议，预处理语句会使用一种二进制协议，MySQL服务器以二进制格式发送结果集数据，在发送之前，结果集语句并没有序列化成字符串，MySQL客户端并不只会接收字符串类型数据，它也会接收二进制数据并尝试把它转换成一种适当的PHP类型，比如数据库中int类型的数据会被以PHP的integer类型来提供。这种处理和普通的语句是不一样的，普通的语句查询默认以字符串的形式返回。这种默认的返回是可以通过修改connection的选项来改变的，如果改变了那就没有区别了。</p>
+<h4 id="通过绑定变量来获取结果_fetching_results_using_bound_variables">通过绑定变量来获取结果 fetching results using bound variables</h4><p>预处理语句执行的结果既可以通过绑定输出变量的形式取回，也可以通过请求一个 <code>mysqli_result</code>对象来获取。</p>
+<pre><code><span class="variable">$mysqli</span> = new mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);
+<span class="keyword">if</span> (<span class="variable">$mysqli-</span>&gt;connect_errno) {
+    echo <span class="string">"mysql connect failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">if</span> (!<span class="variable">$mysqli-</span>&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) ||
+    !<span class="variable">$mysqli-</span>&gt;query(<span class="string">"CREATE TABLE test2(id INT, label CHAR (1))"</span>) ||
+    !<span class="variable">$mysqli-</span>&gt;query(<span class="string">"INSERT INTO test2(id, label) VALUES (1, 'A')"</span>)) {
+    echo <span class="string">"table create failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">if</span> (!(<span class="variable">$stmt</span> = <span class="variable">$mysqli-</span>&gt;prepare(<span class="string">"SELECT id, label FROM test2"</span>))) {
+    echo <span class="string">"prepare failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;execute()) {
+    echo <span class="string">"execute failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="variable">$out</span>_id = null;
+<span class="variable">$out</span>_label = null;
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;bind_result(<span class="variable">$out</span>_id, <span class="variable">$out</span>_label)) {
+    echo <span class="string">"binding output parameters failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">while</span> (<span class="variable">$stmt-</span>&gt;fetch()) {
+    printf(<span class="string">"id = %s (%s), label = %s (%s) \n"</span>, <span class="variable">$out</span>_id, gettype(<span class="variable">$out</span>_id), <span class="variable">$out</span>_label, gettype(<span class="variable">$out</span>_label));
+}
+</code></pre><p>这里并没有向前面说的执行<code>$stmt-&gt;close()</code> 这是因为在prepared的时候传过去的是一个具体的statement而不是一个template，所以server并没有执行和前面一样的操作，这里之所以要prepared是因为他要使用$stmt-&gt;bind_result()来绑定结果集，这个操作说白了是在数据返回到client之后的操作，所以没必要close了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://chanxiaoxi.github.io/2014/11/29/learning-mysqli-part1/" data-id="cigyp9tvx00001w0rs9sam66j" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Sourcetree LF/CRLF auto change on Windows
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/11/29/whats-composer/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">认识composer</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sourcetree/">Sourcetree</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/">octopress</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php/">php</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/架构/">架构</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/05/17/hi-docker/">Docker学习笔记(一)——认识Docker</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/20/linux-crontab/">Linux Crontab</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/07/lambda-anonymous-function-and-closure/">Lambda, Anonymous Function And Closure</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/06/php-code-style-guide-psr0/">PHP Code Style Guide---PSR0</a>
+          </li>
+        
+          <li>
+            <a href="/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">Sourcetree LF/CRLF auto change on Windows</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 Gavin Wu<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
