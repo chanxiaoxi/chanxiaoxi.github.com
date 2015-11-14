@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[还是码农的缠小溪]]></title>
+  <subtitle><![CDATA[不懂生活的码农不是好的programer]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://chanxiaoxi.github.io/"/>
+  <updated>2015-11-14T06:22:38.000Z</updated>
+  <id>http://chanxiaoxi.github.io/</id>
+  
+  <author>
+    <name><![CDATA[Gavin Wu]]></name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Docker学习笔记(一)——认识Docker]]></title>
+    <link href="http://chanxiaoxi.github.io/2015/05/17/hi-docker/"/>
+    <id>http://chanxiaoxi.github.io/2015/05/17/hi-docker/</id>
+    <published>2015-05-17T10:38:44.000Z</published>
+    <updated>2015-11-14T06:22:38.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>Docker很火，但是一直没有深入的了解，所以也就只有个概念，不知道对于开发者来说，docker到底有什么用处，直到某天看到了——<a href="http://dockone.io/article/378" target="_blank" rel="external">《开发者可以使用Docker做什么？》</a>,于是想深入的了解一下这个玩意儿。对于了解和学习新的技术，总要弄清楚这么几个问题：它是做什么的？它的优势是什么？为什么要用它？怎么用它？</p>
+</blockquote>
+<a id="more"></a>  
+<h3 id="Docker是什么">Docker是什么</h3><blockquote>
+<p>Docker–Build, Ship, and Run Any App, Anywhere</p>
+</blockquote>
+<p>这是Docker官网的标题，也就说Docker是一个可以在任何地方创建，装载和运行任何App的一个东西（有人把这个东西叫容器），虽然看懂了这句话，但是还是不知道Docker具体是干嘛的，于是有人更习惯这样去解释它</p>
+<h5 id="Docker是一个开源的软件部署解决方案">Docker是一个开源的软件部署解决方案</h5><blockquote>
+<p>它出现的意义可以与集装箱的发明相比。集装箱将货运目标标准化，Docker 将应用程序标准化。在 Docker 诞生之前，程序员在服务器端部署应用程序的步骤如下：安装→配置→运行。与传统部署模式不同，运用 Docker，程序员在服务器端部署应用程序的步骤如下：复制→运行。——<a href="http://tech2ipo.com/66992" target="_blank" rel="external">《开源软件部署解决方案 Docker 1.0 正式发布》</a></p>
+</blockquote>
+<p>文章中还举了一个Google在服务器部署软件的例子，恰不恰当的不知道，但是最起码能让人直观的理解Docker的优势</p>
+<blockquote>
+<p>作为应用开发者，与我相关的用例是使用Docker以简化持续交付过程。在我职业生涯中工作过的每个地方，在那些从大型机到客户端再到云端的岁月里，让不同的环境保持同步并成功测试应用简直是个噩梦。无论我们的流程有多好或者有多糟，在“Dev-QA-Stage-Prod（开发-质量保证-过渡-生产）”的迁移过程中的各个阶段里，代码从来就没有处于相同的环境。最后的结果就是，发布的产品总是出现质量问题。“它在测试阶段是好的”是仅次于“支票已经寄出了”（译者注：the check is in the mail为美国俚语，意指某件应该发生某事但实际情况却与之不符，最早是债务人用于缓和债权人的愤怒情绪的一种借口）的推脱借口。</p>
+<p>在持续交付（CD）过程中，整个环境随着代码一起在“Dev-QA-Stage-Prod”的不同阶段间迁移。配置问题，系统环境不同的问题，借口都将不复存在。在CD过程中，如果代码在产品阶段出问题，那么在测试阶段也一样有问题。使用Docker的过程中，我知道能够通过编写脚本实现CD流程的自动化。我还知道，因为无需处理所有的安装和配置问题，随着创建新环境的速度加快，产品进入市场的速度也得到了提升。——<a href="http://www.infoq.com/cn/news/2013/04/Docker" target="_blank" rel="external">《Docker：具备一致性的自动化软件部署》</a></p>
+</blockquote>
+<p>这特么就是我想要的啊！</p>
+<h5 id="Docker是轻量级的应用容器框架">Docker是轻量级的应用容器框架</h5><ul>
+<li>容器？虚拟机？Docker到底是个啥？</li>
+<li>轻量级？</li>
+</ul>
+<blockquote>
+<p>Docker 第一次发布的时候，很多人都拿 Docker 和虚拟机 VMware、KVM 和 VirtualBox 比较。尽管从功能上看，Docker 和虚拟化技术致力于解决的问题都差不多，但是 Docker 却是采取了另一种非常不同的方式。虚拟机是虚拟出一套硬件，虚拟机的系统进行的磁盘操作，其实都是在对虚拟出来的磁盘进行操作。当运行 CPU 密集型的任务时，是虚拟机把虚拟系统里的 CPU 指令“翻译”成宿主机的CPU指令并进行执行。两个磁盘层，两个处理器调度器，两个操作系统消耗的内存，所有虚拟出的这些都会带来相当多的性能损失，一台虚拟机所消耗的硬件资源和对应的硬件相当，一台主机上跑太多的虚拟机之后就会过载。而 Docker 就没有这种顾虑。Docker 运行应用采取的是“容器”的解决方案：使用 namespace 和 CGroup 进行资源限制，和宿主机共享内核，不虚拟磁盘，所有的容器磁盘操作其实都是对 /var/lib/docker/ 的操作。简言之，Docker 其实只是在宿主机中运行了一个受到限制的应用程序。</p>
+<p>从上面不难看出，容器和虚拟机的概念并不相同，容器也并不能取代虚拟机。在容器力所不能及的地方，虚拟机可以大显身手。例如：宿主机是 Linux，只能通过虚拟机运行 Windows，Docker 便无法做到。再例如，宿主机是 Windows，Windows 并不能直接运行 Docker，Windows上的 Docker 其实是运行在 VirtualBox 虚拟机里的。——<a href="http://segmentfault.com/a/1190000002734062" target="_blank" rel="external">《8个你可能不知道的 Docker知识》</a></p>
+</blockquote>
+<p>所以说，这里的轻量级应该是比较传统的虚拟机而言，当然，正如文章中所说，Docker和传统的虚拟机都有各自的优势，不能相互取代。<a href="http://blog.sae.sina.com.cn/archives/2051" target="_blank" rel="external">《Docker 和一个正常的虚拟机有何区别？》</a></p>
+<p>另外，Docker是基于<a href="http://www.oschina.net/p/lxc" target="_blank" rel="external">LXC</a>(Linux Containers)容器的，所以有必要了解一下：</p>
+<blockquote>
+<p>LXC容器有效地将由单个操作系统管理的资源划分到孤立的组中，以便更好地在孤立的组之间平衡有冲突的资源使用需求。与虚拟化相比，这样既不需要指令级模拟，也不需要即时编译。容器可以在核心CPU本地运行指令，而不需要任何专门的解释机制。此外，也避免了准虚拟化（paravirtualization）和系统调用替换中的复杂性。</p>
+</blockquote>
+<h5 id="Docker可以打包、发布和运行任何的App">Docker可以打包、发布和运行任何的App</h5><p>在LXC的基础上，通过对应用组件的封装（Packaging）、分发（Distribution）、部署（Deployment）、运行（Runtime）等生命周期的管理，达到应用组件级别的“一次封装，到处运行”。这里的应用组件，既可以是一个Web应用，也可以是一套数据库服务，甚至是一个操作系统或编译器。哦，原来是这样！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>Docker很火，但是一直没有深入的了解，所以也就只有个概念，不知道对于开发者来说，docker到底有什么用处，直到某天看到了——<a href="http://dockone.io/article/378">《开发者可以使用Docker做什么？》</a>,于是想深入的了解一下这个玩意儿。对于了解和学习新的技术，总要弄清楚这么几个问题：它是做什么的？它的优势是什么？为什么要用它？怎么用它？</p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="Docker" scheme="http://chanxiaoxi.github.io/categories/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Linux Crontab]]></title>
+    <link href="http://chanxiaoxi.github.io/2015/04/20/linux-crontab/"/>
+    <id>http://chanxiaoxi.github.io/2015/04/20/linux-crontab/</id>
+    <published>2015-04-20T08:01:45.000Z</published>
+    <updated>2015-04-21T04:32:58.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="什么是crontab">什么是crontab</h3><p>在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab <a id="more"></a></p>
+<h3 id="使用者设定">使用者设定</h3><p>可以通过配置来限定使用者使用crontab命令，配置文件主要有两个：<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;* __/etc/cron/allow__&#65306;&#23558;&#21487;&#20197;&#20351;&#29992;crontab&#30340;&#36134;&#21495;&#20889;&#20837;&#20854;&#20013;&#65292;&#19981;&#22312;&#20854;&#20013;&#30340;&#23601;&#19981;&#33021;&#20351;&#29992;&#10;* __/etc/cron/deny__&#65306;&#23558;&#19981;&#21487;&#20197;&#20351;&#29992;crontab&#30340;&#36134;&#21495;&#20889;&#20837;&#20854;&#20013;&#65292;&#22312;&#20854;&#20013;&#30340;&#23601;&#19981;&#33021;&#20351;&#29992;&#10;&#10;```/etc/cron.allow```&#27604;```/etc/cron.deny```&#35201;&#20248;&#20808;&#65292;&#19968;&#33324;&#21482;&#24314;&#35758;&#20445;&#30041;&#19968;&#20010;&#65292;&#19968;&#33324;&#20250;&#20445;&#30041;/etc/cron.deny&#65292;&#19968;&#34892;&#19968;&#20010;&#36134;&#21495;&#23601;&#34892;&#20102;&#65292;&#27809;&#26377;&#20854;&#20182;&#35821;&#27861;&#10;&#10;&#24403;&#24314;&#31435;&#19968;&#20010;crontab&#20043;&#21518;&#65292;&#35813;&#39033;&#24037;&#20316;&#20250;&#34987;&#35760;&#24405;&#22312;/var/spool/cron/&#37324;&#38754;&#65292;&#32780;&#19988;&#26159;&#20197;&#36134;&#21495;&#20316;&#20026;&#21028;&#21035;&#30340;&#65292;&#36825;&#37324;&#19968;&#23450;&#35201;&#27880;&#24847;&#65292;&#19981;&#35201;&#30452;&#25509;&#29992;vi&#32534;&#36753;&#35813;&#26723;&#26696;&#65292;&#21487;&#33021;&#20250;&#22240;&#20026;&#35821;&#27861;&#38169;&#35823;&#32780;&#23548;&#33268;crontab&#26080;&#27861;&#36816;&#34892;&#65292;&#22312;/var/spool/cron&#30446;&#24405;&#37324;&#38754;&#20250;&#26377;&#23545;&#24212;&#30340;&#36134;&#21495;&#30340;&#25991;&#20214;&#65292;&#35813;&#25991;&#20214;&#23427;&#38271;&#36825;&#20010;&#26679;&#23376;&#65306;&#10;&#10;&#9;[root@iZ23lihcd7xZ cron]# cat root 0 6 * * * /server/php/bin/php -q /mcis_php/cronjob/PaymentNotification.php &#10;&#9;&#10;&#27492;&#22806;&#65292;crontab&#30340;&#27599;&#19968;&#39033;&#24037;&#20316;&#36824;&#20250;&#34987;&#35760;&#24405;&#22312;/var/log/cron&#36825;&#20010;&#25991;&#20214;&#20013;&#65292;&#22914;&#26524;&#35201;&#26816;&#26597;&#20320;&#30340;Linux&#26159;&#19981;&#26159;&#34987;&#26893;&#20837;&#26408;&#39532;&#65292;&#21487;&#20197;&#26597;&#30475;&#19968;&#19979;&#36825;&#20010;&#25991;&#20214;&#20013;&#30340;crontab&#26159;&#19981;&#26159;&#26377;&#20363;&#22806;&#30340;,&#23427;&#30340;&#20869;&#23481;&#22823;&#27010;&#26159;&#36825;&#20010;&#26679;&#23376;&#65306;&#10;&#10;&#9;Apr 19 03:30:01 iZ23lihcd7xZ CROND[17613]: (root) CMD (/usr/lib64/sa/sa1 1 1)&#10;&#9;Apr 19 03:30:01 iZ23lihcd7xZ CROND[17612]: (root) MAIL (mailed 56 bytes of output but got status 0x004b#012)&#10;&#9;&#10;### crontab&#21629;&#20196;&#26684;&#24335;&#10;&#10;![Image of crontab](/images/blogImage/20150420/cronjob1.png)&#10;&#10;&#19968;&#33324;&#24773;&#20917;&#19979;&#65292;&#25105;&#20204;&#21487;&#20197;&#20351;&#29992;crontab -e&#21629;&#20196;&#26469;&#32534;&#36753;&#35774;&#32622;crontab&#65292;&#20851;&#20110;&#26102;&#38388;&#30340;&#35774;&#23450;&#35828;&#26126;&#22914;&#19979;&#65306;&#10;&#10;![Image of crontab](/images/blogImage/20150420/cronjob2.png)&#10;&#10;&#36825;&#37324;&#35201;&#29305;&#27530;&#35828;&#26126;&#19968;&#19979;&#65292;0&#21644;7&#37117;&#20195;&#34920;&#26143;&#26399;&#26085;&#65292;&#20851;&#20110;&#36741;&#21161;&#23383;&#31526;&#30340;&#35828;&#26126;&#65306;&#10;&#10;![Image of crontab](/images/blogImage/20150420/cronjob3.png)&#10;&#10;&#20030;&#20010;&#26647;&#23376;&#65306;&#10;&#10;&#9;59 23 1 5 * mail gavin &#60; /home/gavin/lover.txt //&#35774;&#32622;&#21629;&#20196;&#30340;&#26102;&#20505;&#65292;&#26368;&#22909;&#20351;&#29992;&#32477;&#23545;&#22320;&#22336;&#65292;&#38450;&#27490;&#25191;&#34892;&#20219;&#21153;&#30340;&#26102;&#20505;&#25214;&#19981;&#21040;&#30456;&#24212;&#30340;&#25991;&#20214;&#10;&#9;&#10;&#20351;&#29992;crontab -l&#21629;&#20196;&#26469;&#26597;&#30475;&#24403;&#21069;&#25191;&#34892;&#30340;crontab&#65292;&#22914;&#26524;&#25105;&#20204;&#35201;&#21024;&#38500;crontab&#20013;&#30340;&#26576;&#19968;&#20010;&#65292;&#37027;&#20040;&#26368;&#22909;&#29992;crontab -e&#32534;&#36753;&#21024;&#25481;&#30456;&#24212;&#30340;crontab&#65292;&#22914;&#26524;&#20351;&#29992;crontab -r &#21629;&#20196;&#65292;&#20250;&#21024;&#38500;&#25972;&#20010;crontab&#25991;&#20214;&#10;&#10;### &#35774;&#32622;&#31995;&#32479;crontab&#10;&#10;&#22914;&#26524;&#26159;&#31995;&#32479;&#30340;crontab&#65292;&#37027;&#20040;&#23601;&#19981;&#38656;&#35201;&#20351;&#29992;crontab -e&#26469;&#37197;&#32622;&#65292;&#30452;&#25509;&#37197;&#32622;```/etc/crontab```&#25991;&#20214;&#21363;&#21487;&#35774;&#32622;&#31995;&#32479;&#24615;&#20363;&#34892;&#20219;&#21153;&#65292;&#36825;&#37324;&#35201;&#21306;&#21035;&#19968;&#19979;&#65292;crontab -e&#21629;&#20196;&#32534;&#36753;&#30340;&#26159;```/usr/bin/crontab```&#36825;&#20010;&#25991;&#20214;&#65292;&#35201;&#37197;&#32622;&#31995;&#32479;&#20363;&#34892;&#20107;&#21153;&#65292;&#25105;&#20204;&#35201;&#20351;&#29992;root&#26435;&#38480;&#26469;&#37197;&#32622;```/etc/crontab```&#36825;&#20010;&#25991;&#20214;&#10;&#10;ron&#36825;&#20010;&#26381;&#21153;&#30340;&#26368;&#20302;&#20390;&#27979;&#38480;&#21046;&#26102;&#20998;&#38047;&#65292;&#25152;&#20197;cron&#26381;&#21153;&#20250;&#27599;&#20998;&#38047;&#35835;&#21462;&#19968;&#27425;```/etc/crontab```&#21644;```/var/spool/cron```&#37324;&#38754;&#30340;&#36164;&#26009;&#20869;&#23481;&#65292;&#22240;&#27492;&#65292;&#21482;&#35201;&#32534;&#36753;```/etc/crontab```&#36825;&#20010;&#25991;&#20214;&#65292;cron&#30340;&#35774;&#23450;&#23601;&#25191;&#34892;&#20102;&#12290;&#22914;&#26524;&#24314;&#31435;&#20102;&#26032;&#30340;crontab&#20043;&#21518;&#19981;&#33021;&#39532;&#19978;&#36816;&#34892;&#65292;&#23601;&#38656;&#35201;&#37325;&#26032;&#21551;&#21160;cron&#26381;&#21153;```/etc/init.d/crond start</span><br></pre></td></tr></table></figure></p>
+<h3 id="一些需要注意的事项">一些需要注意的事项</h3><ul>
+<li>如果大量的crontab在同一时刻运行，那么我们需要把这些错开，可以避免系统太过繁忙</li>
+<li>取消不要输出的项目</li>
+<li>安全问题，就是上面说的通过检查log来查看是不是有非法的例行任务启动</li>
+<li>周与日月不可同时并存</li>
+</ul>
+<h3 id="使用过程中遇到的问题">使用过程中遇到的问题</h3><p>在编辑完crontab之后发现它并没有执行，刚开始以为cron服务没有启动，所以重启了一下cron服务，但是重启之后，还是没有执行，于是就认为一定是cmd出错了，一开始的cmd是这样写的：</p>
+<pre><code>0 6 <span class="keyword">*</span> <span class="keyword">*</span> <span class="keyword">*</span> php PaymentNotification.php 
+</code></pre><p>但是在本地测的时候cmd是没有问题的，后来发现，这里不能直接用PHP命令，要调用PHP的绝对路径去使用它，所以应该写成这样：</p>
+<pre><code>0 6 <span class="keyword">*</span> <span class="keyword">*</span> <span class="keyword">*</span> /alidata/server/php/bin/php -q PaymentNotification.php 
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="什么是crontab">什么是crontab</h3><p>在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://chanxiaoxi.github.io/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Lambda, Anonymous Function And Closure]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/12/07/lambda-anonymous-function-and-closure/"/>
+    <id>http://chanxiaoxi.github.io/2014/12/07/lambda-anonymous-function-and-closure/</id>
+    <published>2014-12-07T08:33:17.000Z</published>
+    <updated>2015-11-14T06:22:10.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>今天看到一些关于PHP中匿名函数和闭包函数的讨论，大都是对两个的概念不清楚，经常混淆，而且PHP的匿名函数和其他语言的匿名函数还是有些不一样的地方，特整理此文章，梳理一下对这些概念的认识。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="维基百科上的描述">维基百科上的描述</h2><blockquote>
+<p>If the function is only used once, or a limited number of times, an anonymous function may be syntactically lighter than using a named function. Anonymous functions are ubiquitous in functional programming languages and other languages with first-class functions(<em>This means the language supports passing functions as arguments to other functions, returning them as the values from other functions, and assigning them to variables or storing them in data structures.</em>), where they fulfil the same role for the function type as literals do for other data types.</p>
+<p>Anonymous functions are a form of nested function, in that they allow access to variables in the scope of the containing function (non-local variables). This means anonymous functions need to be implemented using closures. Unlike named nested functions, they cannot be recursive without the assistance of a fixpoint operator (also known as an anonymous fixpoint or anonymous recursion).</p>
+</blockquote>
+<h3 id="Lambda">Lambda</h3><p>Lambda其实是Anonymous Function的别名，在其他的一些变成语言中可能经常看到，比如Python</p>
+<blockquote>
+<p>Anonymous functions originate in the work of Alonzo Church in his invention of the lambda calculus in 1936 (prior to electronic computers), in which all functions are anonymous.In several programming languages, anonymous functions are introduced using the keyword lambda, and anonymous functions are often referred to as lambda’s or lambda abstractions.</p>
+</blockquote>
+<h2 id="PHP手册中的描述">PHP手册中的描述</h2><h3 id="Anonymous_Function">Anonymous Function</h3><blockquote>
+<p>匿名函数也叫闭包函数(closures),允许临时创建一个没有指定名称的函数。最经常用作回调函数callback参数的值<br>闭包函数也可以作为变量的值来使用。PHP会自动把此种表达式转换成内置类<a href="http://php.net/manual/zh/class.closure.php" target="_blank" rel="external">Closure</a>对象的一个实例<br>Closure对象也会从父作用域中继承类属性。这些变量都必须在函数或类的头部声明。从父作用域继承变量和使用全局变量是不同的，closure的父作用域是声明该closure的函数。</p>
+</blockquote>
+<h3 id="Closure">Closure</h3><blockquote>
+<p>用于代表匿名函数的类<br>匿名函数会产生这个类型的对象。自PHP5.4起，这个类有一些方法，可以对匿名函数的创建做更多的控制  </p>
+</blockquote>
+<h2 id="要注意的地方">要注意的地方</h2><h3 id="some_quirks_in_PHP5-3">some quirks in PHP5.3</h3><ul>
+<li><p>You must send the function all of the variables you want to bound to the scope of the Closure using the keywords <code>use</code>.This is different from the other languages,where this is done automatically(e.g. Javascript)</p>
+<pre><code><span class="variable">$foo</span> = <span class="string">'foo'</span>;
+<span class="variable">$baz</span> = <span class="string">'baz'</span>;
+<span class="variable">$bar</span> = <span class="keyword">function</span>() {
+    echo <span class="variable">$foo</span>, <span class="variable">$baz</span>;
+};
+<span class="variable">$bar</span>();
+//output:Notice:Undefined variable
+
+<span class="variable">$foo</span> = <span class="string">'foo'</span>;
+<span class="variable">$baz</span> = <span class="string">'baz'</span>;
+<span class="variable">$bar</span> = <span class="keyword">function</span>() use (<span class="variable">$foo</span>, <span class="variable">$baz</span>) {
+    echo <span class="variable">$foo</span>, <span class="variable">$baz</span>;
+};
+<span class="variable">$bar</span>();
+//output:foobaz
+</code></pre></li>
+<li><p>The bound variables are <strong>copies</strong>, of the variable, not references. If you want to be able to change the variable inside in the Closure,you MUST send it by reference.</p>
+<pre><code><span class="variable">$foo</span> = <span class="string">'foo'</span>;
+<span class="variable">$baz</span> = <span class="string">'baz'</span>;
+<span class="variable">$bar</span> = <span class="keyword">function</span>() use (<span class="variable">$foo</span>, <span class="variable">$baz</span>) {
+    <span class="variable">$foo</span> = <span class="string">'hello'</span>;
+    <span class="variable">$baz</span> = <span class="string">'world'</span>;
+};
+<span class="variable">$bar</span>();
+echo <span class="variable">$foo</span>,<span class="variable">$baz</span>;
+//output:foobaz
+
+<span class="variable">$foo</span> = <span class="string">'foo'</span>;
+<span class="variable">$baz</span> = <span class="string">'baz'</span>;
+<span class="variable">$bar</span> = <span class="keyword">function</span>() use (&amp;<span class="variable">$foo</span>, &amp;<span class="variable">$baz</span>) {
+    <span class="variable">$foo</span> = <span class="string">'hello'</span>;
+    <span class="variable">$baz</span> = <span class="string">'world'</span>;
+};
+<span class="variable">$bar</span>();
+echo <span class="variable">$foo</span>,<span class="variable">$baz</span>;
+//output:helloworld
+</code></pre></li>
+<li><p>In PHP5.3 if you are using a Closure inside of a class, the Closure will not have access to <code>$this</code>.You must send a reference to <code>$this</code>,however,you cannot send <code>$this</code> directly.But In PHP5.4,they have added support for the usage of <code>$this</code> in Closure. They do this by binding the object to the Closure at the time of definition. You can also change which object your Closure is bound by using the <code>bind()</code> and <code>bindTo()</code> methods.</p>
+</li>
+</ul>
+<h3 id="How_should_we_know_when_to_call_it_a_Closure_or_Anonymous_Function?">How should we know when to call it a Closure or Anonymous Function?</h3><p>You can always call it a Closure(because all Anonymous functions are Closure),and if it dosen’t have a name,it is Anonymous.</p>
+<h3 id="参考文章">参考文章</h3><ul>
+<li><a href="http://dhorrigan.com/post/29209695084/anonymous-functions-vs-closures" target="_blank" rel="external">ANONYMOUS FUNCTIONS VS. CLOSURES</a></li>
+<li><a href="http://www.recessframework.org/page/functional-php-anonymous-functions-lambdas-closures" target="_blank" rel="external">Functional PHP 5.3 Part I - What are Anonymous Functions and Closures?</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Anonymous_function" target="_blank" rel="external">Anonymous function</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>今天看到一些关于PHP中匿名函数和闭包函数的讨论，大都是对两个的概念不清楚，经常混淆，而且PHP的匿名函数和其他语言的匿名函数还是有些不一样的地方，特整理此文章，梳理一下对这些概念的认识。</p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[PHP Code Style Guide---PSR0]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/12/06/php-code-style-guide-psr0/"/>
+    <id>http://chanxiaoxi.github.io/2014/12/06/php-code-style-guide-psr0/</id>
+    <published>2014-12-05T18:01:39.000Z</published>
+    <updated>2015-11-14T06:23:03.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这是<a href="http://feiyang.me/2013/03/php-psr-in-chinese/" target="_blank" rel="external">PHP的PSR规范中文版</a>中看到的一段话：<br>在谷歌，我可以查看任何的代码，进入所有谷歌的代码库，我有权查看它们。事实上，这种权限是很少人能拥有的。但是，让我感到惊讶的却是，如此多的编码规范—缩进，命名，文件结构，注释风格—这一切让我出乎意料的轻松的阅读任意一段代码，并轻易的看懂它们。这让我震惊—因为我以为这些规范是微不足道的东西。它们不可能有这么大的作用—但它们却起到了这么大的作用。当你发现只通过看程序的基本语法结构就能读懂一段代码，这种时间上的节省不能不让人震撼！——<a href="http://www.vaikan.com/google-coding-standards/" target="_blank" rel="external">《Google为何要执行严格的代码规范》</a></p>
+</blockquote>
+<a id="more"></a>
+<h2 id="PHP_Code_Style_Guide—PSR0">PHP Code Style Guide—PSR0</h2><h3 id="规范">规范</h3><ul>
+<li>一个完全标准的命名空间和类的结构是这样的：<figure class="highlight"><figcaption><span>name>\(<namespace\>*<class name=""> ```</class></namespace\></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* &#27599;&#20010;&#21629;&#21517;&#31354;&#38388;&#37117;&#24517;&#39035;&#26377;&#19968;&#20010;&#39030;&#32423;&#30340;&#31354;&#38388;&#21517;&#65288;Vendor Name&#65289;&#10;* &#27599;&#20010;&#21629;&#21517;&#31354;&#38388;&#37117;&#21487;&#20197;&#26377;&#20219;&#24847;&#22810;&#20010;&#23376;&#21629;&#21517;&#31354;&#38388;&#10;* &#24403;&#31995;&#32479;&#21152;&#36733;&#30340;&#26102;&#20505;&#65292;&#27599;&#20010;&#21629;&#21517;&#31354;&#38388;&#30340;&#20998;&#38548;&#31526;&#37117;&#20250;&#36716;&#25442;&#25104;&#36335;&#24452;&#20998;&#38548;&#31526;&#10;* &#27599;&#19968;&#20010;className&#20013;&#30340;&#39;\_&#39;&#31526;&#21495;&#37117;&#20250;&#34987;&#36716;&#25442;&#25104;&#19968;&#20010;&#36335;&#24452;&#20998;&#38548;&#31526;&#65292;&#39;\_&#39;&#22312;&#21629;&#21517;&#31354;&#38388;&#20013;&#27809;&#26377;&#29305;&#27530;&#30340;&#21547;&#20041;&#10;* &#24403;&#20174;&#25991;&#20214;&#31995;&#32479;&#20013;&#21152;&#36733;&#30340;&#26102;&#20505;&#65292;&#19968;&#20010;&#23436;&#20840;&#31526;&#21512;&#35268;&#33539;(fully-qualified)&#30340;&#21629;&#21517;&#31354;&#38388;&#21644;&#31867;&#37117;&#26159;&#20197;``` .php ```&#20026;&#21518;&#32512;&#21517;&#30340;&#10;* &#32452;&#32455;&#21517;(Vendor Name)&#12289;&#31354;&#38388;&#21517;(Namespace)&#12289;&#31867;&#21517;(class)&#37117;&#26159;&#26377;&#22823;&#23567;&#20889;&#23383;&#27597;&#32452;&#25104;&#30340;&#10;&#10;### &#31034;&#20363;&#10;&#10;&#9;Doctrine\Common\IsolatedClassLoader =&#62; /path/to/project/lib/vendor/Doctrine/Common/IsolatedClassLoder.php&#10;&#9;\Symfony\Core\Request =&#62; /path/to/project/lib/vendor/Symfony/Core/Request.php&#10;&#9;\Zend\Acl =&#62; /path/to/project/lib/vendor/Zend/Acl.php&#10;&#10;### &#21629;&#21517;&#31354;&#38388;&#21644;&#31867;&#21517;&#31216;&#30340;&#19979;&#21010;&#32447;&#10;&#10;&#9;\namespace\package\Class_Name =&#62; /path/to/project/lib/vendor/namespace/Class/Name.php&#10;&#9;\namespace\package_name\Class_Name =&#62; /path/to/project/lib/vendor/namespace_name/Class/Name.php&#10;&#10;&#20197;&#19978;&#26159;&#25105;&#20204;&#20026;&#23454;&#29616;&#36890;&#29992;&#30340;&#33258;&#21160;&#21152;&#36733;&#32780;&#21046;&#23450;&#30340;&#26368;&#20302;&#26631;&#20934;&#12290;&#20320;&#21487;&#20197;&#21033;&#29992;&#33021;&#22815;&#33258;&#21160;&#21152;&#36733;PHP5.3&#31867;&#30340;``` SplClassLoder ```&#26469;&#27979;&#35797;&#20320;&#30340;&#20195;&#30721;&#26159;&#21542;&#31526;&#21512;&#36825;&#20123;&#26631;&#20934;&#10;&#10;### &#23454;&#20363;&#10;&#10;&#36825;&#37324;&#32473;&#20986;&#20102;&#21629;&#21517;&#35268;&#21017;&#32422;&#23450;&#65292;&#20294;&#26159;&#22914;&#20309;&#21033;&#29992;&#36825;&#20123;&#21629;&#21517;&#35268;&#21017;&#32422;&#23450;&#26469;&#23454;&#29616;&#33258;&#21160;&#21152;&#36733;&#65292;&#36825;&#37324;&#26377;&#19968;&#20010;&#26681;&#25454;&#35813;&#32422;&#23450;&#26469;&#23454;&#29616;&#33258;&#21160;&#21152;&#36733;&#30340;&#27169;&#26495;&#65292;&#22914;&#26524;&#36981;&#23432;&#20102;&#19978;&#36848;&#32422;&#23450;&#65292;&#37027;&#20040;&#23601;&#21487;&#20197;&#26681;&#25454;&#19979;&#38754;&#30340;autoload&#27169;&#26495;&#26469;&#23454;&#29616;&#33258;&#21160;&#21152;&#36733;&#10;&#10;&#9;function autoload($className) &#123;&#10;&#9;&#9;$className = ltrim($className, &#39;\\&#39;);&#10;&#9;&#9;$fileName = &#39;&#39;;&#10;&#9;&#9;$namespace = &#39;&#39;;&#10;&#9;&#9;if ($lastNsPos = strrpos($className, &#39;\\&#39;)) &#123;&#10;&#9;&#9;&#9;$namespace = substr($className, 0, $lastNsPos);&#10;&#9;&#9;&#9;$className = substr($className, $lastNsPos +1);&#10;&#9;&#9;&#9;$fileName = str_replace(&#39;\\&#39;, DIRECTORY_SEPARATOR, $namespace).DIRECTORY_SEPARATOR;&#10;&#9;&#9;&#125;&#10;&#9;&#9;$fileName .= str_replace(&#39;_&#39;, DIRECTORY_SEPARATOR, $className).&#39;php&#39;;&#10;&#9;&#9;require $fileName;&#10;&#9;&#125;&#10;&#10;&#10;### PHP&#23454;&#29616;autoload&#30340;&#26041;&#27861;&#10;&#10;#### __autoload()&#10;&#10;&#62; &#24456;&#22810;&#24320;&#21457;&#32773;&#20889;&#38754;&#21521;&#23545;&#35937;&#30340;&#24212;&#29992;&#31243;&#24207;&#26102;&#23545;&#27599;&#20010;&#31867;&#30340;&#23450;&#20041;&#24314;&#31435;&#19968;&#20010; PHP &#28304;&#25991;&#20214;&#12290;&#19968;&#20010;&#24456;&#22823;&#30340;&#28902;&#24700;&#26159;&#19981;&#24471;&#19981;&#22312;&#27599;&#20010;&#33050;&#26412;&#24320;&#22836;&#20889;&#19968;&#20010;&#38271;&#38271;&#30340;&#21253;&#21547;&#25991;&#20214;&#21015;&#34920;&#65288;&#27599;&#20010;&#31867;&#19968;&#20010;&#25991;&#20214;&#65289;&#12290;&#10;&#10;&#62; &#22312; PHP 5 &#20013;&#65292;&#19981;&#20877;&#38656;&#35201;&#36825;&#26679;&#20102;&#12290;&#21487;&#20197;&#23450;&#20041;&#19968;&#20010; [__autoload()](http://php.net/manual/zh/function.autoload.php) &#20989;&#25968;&#65292;&#23427;&#20250;&#22312;&#35797;&#22270;&#20351;&#29992;&#23578;&#26410;&#34987;&#23450;&#20041;&#30340;&#31867;&#26102;&#33258;&#21160;&#35843;&#29992;&#12290;&#36890;&#36807;&#35843;&#29992;&#27492;&#20989;&#25968;&#65292;&#33050;&#26412;&#24341;&#25806;&#22312; PHP &#20986;&#38169;&#22833;&#36133;&#21069;&#26377;&#20102;&#26368;&#21518;&#19968;&#20010;&#26426;&#20250;&#21152;&#36733;&#25152;&#38656;&#30340;&#31867;&#12290;&#10;&#10;PHP&#25163;&#20876;&#20013;&#21516;&#26102;&#20063;&#25351;&#20986;&#65292;spl\_autoload_register() &#25552;&#20379;&#20102;&#19968;&#31181;&#26356;&#21152;&#28789;&#27963;&#30340;&#26041;&#24335;&#26469;&#23454;&#29616;&#31867;&#30340;&#33258;&#21160;&#21152;&#36733;&#12290;&#22240;&#27492;&#65292;&#19981;&#20877;&#24314;&#35758;&#20351;&#29992; __autoload() &#20989;&#25968;&#65292;&#22312;&#20197;&#21518;&#30340;&#29256;&#26412;&#20013;&#23427;&#21487;&#33021;&#34987;&#24323;&#29992;&#12290;&#10;&#10;&#20351;&#29992;__autoload()&#20989;&#25968;&#23454;&#29616;&#33258;&#21160;&#21152;&#36733;&#65292;&#21152;&#20837;&#25105;&#20204;&#30340;&#39033;&#30446;&#30340;&#30446;&#24405;&#32467;&#26500;&#26159;&#36825;&#26679;&#30340;&#65306;&#10;&#10;&#9;|-www &#26681;&#30446;&#24405;&#10;&#9;|--lib &#24211;&#10;&#9;|----Chanxiaoxi &#39033;&#30446;&#30340;&#24211;(vendor)&#10;&#9;|--------Controller(namespace)&#10;&#9;|------------PageShow.php&#10;&#9;|--------View&#10;&#9;|------------page.php&#10;&#9;|--------Model&#10;&#9;|------------Page.php&#10;&#9;|----Slim &#10;&#9;|----Symfony&#10;&#10;&#21482;&#35201;&#31245;&#24494;&#25913;&#19968;&#19979;&#19978;&#38754;&#30340;&#33258;&#21160;&#21152;&#36733;&#27169;&#26495;&#65292;&#23601;&#21487;&#20197;&#36731;&#26494;&#23454;&#29616;&#33258;&#21160;&#21152;&#36733;&#65306;&#10;&#10;&#9;function __autoload($className) &#123;&#10;&#9;&#9;$className = ltrim($className, &#39;\\&#39;);&#10;&#9;&#9;$fileName = &#39;&#39;;&#10;&#9;&#9;$namespace = &#39;&#39;;&#10;&#9;&#9;if ($lastNsPos = strrpos($className, &#39;\\&#39;)) &#123;&#10;&#9;&#9;&#9;$namespace = substr($className, 0, $lastNsPos);&#10;&#9;&#9;&#9;$className = substr($className, $lastNsPos +1);&#10;&#9;&#9;&#9;$fileName = dirname(__FILE__).DIRECTORY_SEPARATOR.&#39;lib&#39;.DIRECTORY_SEPARATOR.str_replace(&#39;\\&#39;, DIRECTORY_SEPARATOR, $namespace).DIRECTORY_SEPARATOR;&#10;&#9;&#9;&#125;&#10;&#9;&#9;$fileName .= str_replace(&#39;_&#39;, DIRECTORY_SEPARATOR, $className).&#39;.php&#39;;&#10;&#9;&#9;require_once $fileName;&#10;&#9;&#125;&#10;&#9;&#10;&#9;$page = new \Chanxiaoxi\Model\Page();&#10;&#9;&#10;&#9;$page-&#62;foo();&#10;&#10;&#36825;&#37324;&#30340;&#31867;&#37117;&#35201;&#26377;namespace,&#22914;chanxiaoxi\Page&#10;&#10;#### spl\_autoload_register()&#10;&#10;&#27880;&#20876; ``` __autoload() ```&#20989;&#25968;&#65292;&#23558;&#20989;&#25968;&#27880;&#20876;&#21040; ``` SPL__autoload ```&#20989;&#25968;&#26632;&#20013;&#65292;&#22914;&#26524;&#35813;&#26632;&#20013;&#30340;&#20989;&#25968;&#23578;&#26410;&#28608;&#27963;&#65292;&#21017;&#28608;&#27963;&#23427;&#20204;&#12290;&#22914;&#26524;&#20320;&#30340;&#31243;&#24207;&#24050;&#32463;&#23454;&#29616;&#20102;```__autoload()```&#20989;&#25968;,&#23427;&#24517;&#39035;&#26174;&#24335;&#27880;&#20876;&#21040;```__autoload```&#26632;&#20013;&#65292;&#22240;&#20026;```spl_autoload_register()```&#20989;&#25968;&#20250;&#23558;Zend Engine&#20013;&#30340;```__autoload()```&#20989;&#25968;&#21462;&#20195;&#20026;```spl_autoload()```&#25110;```spl_autoload_call</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>先来看看PHP的标准库<a href="http://php.net/manual/zh/book.spl.php" target="_blank" rel="external">SPL</a>:SPL是用来解决典型问题的一组接口与类的集合。SPL中关于autoload的函数有一下几个<a href="http://stackoverflow.com/questions/7651509/someone-explain-spl-autoload-autoload-and-spl-autoload-register" target="_blank" rel="external">someone explain <code>spl_autoload</code>, <code>__autoload</code> and <code>spl_autoload_register</code>?</a>：</p>
+<ol>
+<li>spl_autoload_call: 尝试调用所有已注册的__autoload()函数来装载请求类</li>
+<li>spl_autoload_extensions: 注册并返回spl_autoload()函数使用的默认文件扩展名</li>
+<li>spl_autoload_functions: 返回所有已注册的__autoload()函数</li>
+<li>spl_autoload_register: 注册__autoload()函数</li>
+<li>spl_autoload: __autoload()函数的默认实现</li>
+</ol>
+<p>可以看出，我们能够同时注册多个自动加载方法，来实现文件的自动加载，而且还可以定义不同的扩展名，这就大大的方便了autoload机制的实现。使用spl_autoload_register()实现上面的自动加载，写一个自动加载的方法，并将它注册到autoload函数栈中。</p>
+<pre><code><span class="variable">$defaultAutoload</span> = <span class="keyword">function</span> (<span class="variable">$className</span>) {
+    <span class="variable">$className</span> = ltrim(<span class="variable">$className</span>, <span class="string">'\\'</span>);
+    <span class="variable">$fileName</span> = <span class="string">''</span>;
+    <span class="variable">$namespace</span> = <span class="string">''</span>;
+    if (<span class="variable">$lastNsPos</span> = strrpos(<span class="variable">$className</span>, <span class="string">'\\'</span>)) {
+        <span class="variable">$namespace</span> = substr(<span class="variable">$className</span>, <span class="number">0</span>, <span class="variable">$lastNsPos</span>);
+        <span class="variable">$className</span> = substr(<span class="variable">$className</span>, <span class="variable">$lastNsPos</span>+<span class="number">1</span>);
+        <span class="variable">$fileName</span> = dirname(__FILE_<span class="number">_</span>).DIRECTORY_SEPARATOR.<span class="string">'lib'</span>.DIRECTORY_SEPARATOR
+            .str_replace(<span class="string">'\\'</span>, DIRECTORY_SEPARATOR, <span class="variable">$namespace</span>).DIRECTORY_SEPARATOR;
+    }
+    <span class="variable">$fileName</span> .= str_replace(<span class="string">'_'</span>, DIRECTORY_SEPARATOR, <span class="variable">$className</span>).<span class="string">'.php'</span>;
+    require_once <span class="variable">$fileName</span>;
+};
+
+spl_autoload_register(<span class="variable">$defaultAutoload</span>);
+spl_autoload_register(<span class="variable">$modelAutoload</span>);//多个autoload注册
+
+<span class="variable">$page</span> = new \chanxiaoxi\model\Page();
+
+<span class="variable">$page-</span>&gt;foo();
+</code></pre><h2 id="相关话题">相关话题</h2><h3 id="autoload的好处">autoload的好处</h3><ol>
+<li>PHP5支持面向对象，用面向对象的思想去开发项目的时候会有很多的类文件，对于小项目来说使用require或include没有什么问题，但是如果项目比较大的话，require和include就非常不方便，随着文件越来越多，项目越来越复杂，压根就没办法管理这些加载的文件，autoload的好处就是我们只要定义好加载规则，就不需要每次都用require或include，还有就是当删除或新增某个文件的时候，不用去一个一个找，到底在哪儿include或require了这些文件。</li>
+<li>PHP是脚本语言，每次执行的时候都要编译，统一的autoload能够在一定程度上减少编译次数，提高脚本的执行速度</li>
+<li>PHP的autoload提供了lazy load的机制，当第一次需要使用到相关类时调用，这样就不会加载不必要的类</li>
+</ol>
+<h3 id="加载文件用require还是include">加载文件用require还是include</h3><p>require当文件不存在时会抛出一个fatal error[E_COMPILE_ERROR]，include当文件不存在时会抛出一个warning[E_WARNING]，如果一个类不存在，这完全会影响到后面的程序，那么加载一个不存在的文件，要不要让脚本接着往下跑呢，还是让它直接终止执行，这里的共识是用require，不存在时直接终止脚本，这样可以更严格的控制流程。</p>
+<h2 id="相关文章">相关文章</h2><ol>
+<li><a href="http://feiyang.me/2013/03/php-psr-in-chinese/" target="_blank" rel="external">PHP的PSR规范中文版</a></li>
+<li><a href="http://www.paulund.co.uk/difference-between-php-include-and-require" target="_blank" rel="external">Difference Between PHP Include And Require</a></li>
+<li><a href="https://gist.github.com/jwage/221634" target="_blank" rel="external">SplClassLoader</a></li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这是<a href="http://feiyang.me/2013/03/php-psr-in-chinese/">PHP的PSR规范中文版</a>中看到的一段话：<br>在谷歌，我可以查看任何的代码，进入所有谷歌的代码库，我有权查看它们。事实上，这种权限是很少人能拥有的。但是，让我感到惊讶的却是，如此多的编码规范—缩进，命名，文件结构，注释风格—这一切让我出乎意料的轻松的阅读任意一段代码，并轻易的看懂它们。这让我震惊—因为我以为这些规范是微不足道的东西。它们不可能有这么大的作用—但它们却起到了这么大的作用。当你发现只通过看程序的基本语法结构就能读懂一段代码，这种时间上的节省不能不让人震撼！——<a href="http://www.vaikan.com/google-coding-standards/">《Google为何要执行严格的代码规范》</a></p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Sourcetree LF/CRLF auto change on Windows]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/"/>
+    <id>http://chanxiaoxi.github.io/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/</id>
+    <published>2014-12-01T09:48:40.000Z</published>
+    <updated>2015-04-20T16:25:27.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>最近在用Sourcetree的时候发现一个奇怪的问题，就是repo中的文件的EOL为LF的文件在windows下会自动变成CRLF，但是由于每次commit之后compare的时候并没有发现LF改成CRLF,所以就一直没有在意。无意之中发现了有关这个的问题，就在此记录一下。</p>
+</blockquote>
+<p>repo中的LF在本地变成了CRLF这是Sourcetree自动转换的，目的是为了windows平台和Linux平台下的EOL的一致，所以当你发现repo中的LF在本地变成了CRLF，如果你用Sourcetree提交的话可以不用管，他会在提交的时候自动转换回LF。<a id="more"></a></p>
+<blockquote>
+<p>We were trying to be helpful here and make sure that by default if you worked on cross-platform projects you would see CRLFs locally but LFs would be stored in the repo for compatibility with Linux and OS X machines, but the trouble is that if you have existing projects with a mixture of line endings embedded in the repo, enabling the conversion will suddenly give you modified files that you have to commit to resolve.</p>
+</blockquote>
+<p>这里也说明了经常遇到的怪事，就是我在编辑的过程中发现文件变成了CRLF,当我用IDE成LF之后，sourcetree会提示说修改了文件，但是却看不到修改的内容，当你暂存文件之后，sourcetree有自动把它统一成了LF，所以每次add之后都没法commit</p>
+<p>sourcetree保存在repo中的始终是LF，但是有时候我们的repo中默认就是CRLF,这中情况下现在还没找到解决的办法,<a href="https://answers.atlassian.com/questions/186470/how-do-i-stop-sourcetree-from-changing-line-endings-when-discarding-changes" target="_blank" rel="external">How Do I Stop SourceTree From Changing Line Endings When Discarding Changes</a>这里提供了解决的办法，但是老版本的解决方案。</p>
+<p>这里记这个主要是想说在项目中最好还是统一使用LF,这样的话在windows和Linux下都方便开发，如果一开始就使用CRLF，这样在Linux下就很蛋疼了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>最近在用Sourcetree的时候发现一个奇怪的问题，就是repo中的文件的EOL为LF的文件在windows下会自动变成CRLF，但是由于每次commit之后compare的时候并没有发现LF改成CRLF,所以就一直没有在意。无意之中发现了有关这个的问题，就在此记录一下。</p>
+</blockquote>
+<p>repo中的LF在本地变成了CRLF这是Sourcetree自动转换的，目的是为了windows平台和Linux平台下的EOL的一致，所以当你发现repo中的LF在本地变成了CRLF，如果你用Sourcetree提交的话可以不用管，他会在提交的时候自动转换回LF。]]>
+    
+    </summary>
+    
+      <category term="Sourcetree" scheme="http://chanxiaoxi.github.io/categories/Sourcetree/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Learning Mysqli Part1]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/11/29/learning-mysqli-part1/"/>
+    <id>http://chanxiaoxi.github.io/2014/11/29/learning-mysqli-part1/</id>
+    <published>2014-11-29T10:22:05.000Z</published>
+    <updated>2015-04-20T16:25:12.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。</p>
+</blockquote>
+<h2 id="Mysqli简介">Mysqli简介</h2><p>MySQL增强版扩展，mysqli允许我们访问MySQL4.1及以上版本提供的功能。<a id="more"></a></p>
+<h2 id="Mysqli和Mysql扩展以及PDO的区别">Mysqli和Mysql扩展以及PDO的区别</h2><ol>
+<li>mysql扩展提供了一个面向过程的接口，并且是针对mysql4.1.3或更早版本设计的</li>
+<li>mysqli面向对象，prepared语句支持，多语句执行支持，增强的调试能力，嵌入式服务支持</li>
+<li>PDO是PHP应用中的一个数据层抽象规范，PDO提供了一个统一的接口，让你不必去关心数据库服务器类型。他可以让你在需要的时候随时无缝切换数据库服务器，仅仅需要少量的代码。</li>
+</ol>
+<h2 id="Mysqli_Dual_procedural_and_object-oriented_interface">Mysqli Dual procedural and object-oriented interface</h2><p>mysqli提供面向对象的和面向过程的两种接口，用户从旧的mysql扩展迁移更喜欢面向过程的接口，mysqli面向过程的接口和mysql非常相似，大多数情况下函数名的不同仅仅在于前缀(prefix)，一些mysqli的函数需要一个连接句柄（connection handle）作为它的第一个参数，这是为了配合旧的mysql接口的一些函数将数据库连接句柄作为最后一个参数。</p>
+<p>面向过程的数据库操作范例（从mysql迁移时更喜欢的一种连接）：</p>
+<pre><code><span class="variable">$mysqli</span> = mysqli_connect(<span class="string">"localhost"</span>, <span class="string">"user"</span>, <span class="string">"password"</span>, <span class="string">"database"</span>);
+<span class="variable">$res</span> = mysqli_query(<span class="variable">$mysqli</span>, <span class="string">"SELECT 'Please, do not use' AS_msg FROM DUAL"</span>);
+<span class="variable">$row</span> = mysqli_fetch_assoc(<span class="variable">$res</span>);
+echo <span class="variable">$row</span>[<span class="string">'_msg'</span>];    
+</code></pre><p>面向对象的数据库操作范例：</p>
+<pre><code><span class="variable">$localhost</span> = <span class="string">"localhost"</span>;
+<span class="variable">$user</span> = <span class="string">"user"</span>;
+<span class="variable">$password</span> = <span class="string">"password"</span>;
+<span class="variable">$database</span> = <span class="string">"database"</span>;
+<span class="variable">$mysqli</span> = new mysqli(<span class="variable">$localhost</span>, <span class="variable">$user</span>, <span class="variable">$password</span>, <span class="variable">$database</span>);
+<span class="keyword">if</span> (<span class="variable">$mysqli-</span>&gt;connect_error) {
+    echo <span class="string">"Failed to connect to MySQL:"</span>.<span class="variable">$mysqli-</span>&gt;connect_error;
+}
+<span class="variable">$res</span> = <span class="variable">$mysqli-</span>&gt;query(<span class="string">"SELECT 'Please, do not use' AS_msg FROM DUAL"</span>);
+<span class="variable">$row</span> = <span class="variable">$res-</span>&gt;fetch_assoc();
+echo <span class="variable">$row</span>[<span class="string">'_msg'</span>];
+</code></pre><p>mysqli有一个构造方法，所以我们可以通过实例化mysqli类来建立连接：</p>
+<pre><code>public <span class="keyword">function</span> __construct (
+    <span class="variable">$host</span>,
+    <span class="variable">$username</span>,
+    <span class="variable">$passwd</span>,
+    <span class="variable">$dbname</span>,
+    <span class="variable">$port</span>,
+    <span class="variable">$socket</span>
+) {}
+</code></pre><h2 id="Executing_statements">Executing statements</h2><h3 id="1-Buffered_result_sets">1.Buffered result sets</h3><p>在语句执行完之后，结果会马上被缓存在客户端或者一行一行读出。客户端将结果集缓存会允许服务器端尽快释放查询结果资源，换句话说，客户端在缓慢的消耗结果集。因此，建议缓存结果集。<figure class="highlight"><figcaption><span>``` 可以将语句执行和结果集缓存结合起来。PHP应用可以自由的操作缓存结果集，这个操作是非常快速的，因为数据被保存(are held)在客户端内存，记住，客户端scale要比服务器端scale更加容易。一般情况下我们的操作其实都是Buffered result sets的，比如：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;    $mysqli = new mysqli(&#34;localhost&#34;, &#34;root&#34;, &#34;&#34;, &#34;weibo&#34;);&#10;    if ($mysqli-&#62;connect_error) &#123;&#10;    &#9;echo &#34;Failed to connect MySQL:&#34;.$mysqli-&#62;connect_error;&#10;    &#125;&#10;    &#10;    if (!$mysqli-&#62;query(&#34;DROP TABLE IF EXISTS test2&#34;) ||&#10;    &#9;!$mysqli-&#62;query(&#34;CREATE TABLE test2(id INT)&#34;) ||&#10;    &#9;!$mysqli-&#62;query(&#34;INSERT INTO test2(id) VALUES(1),(2),(3)&#34;)) &#123;&#10;    &#9;echo &#34;Table creation Failed:(error_no&#34;.$mysqli-&#62;errno.&#34;) &#34;.$mysqli-&#62;error;&#10;    &#125;&#10;    &#10;    $res = $mysqli-&#62;query(&#34;SELECT id FROM test2 ORDER BY id ASC&#34;);&#10;    &#10;    echo &#34;reverse order:&#60;br /&#62;&#34;;&#10;    for ($row_no = $res-&#62;num_rows-1; $row_no&#62;=0; $row_no--) &#123;&#10;    &#9;$res-&#62;data_seek($row_no);&#10;    &#9;$row = $res-&#62;fetch_assoc();&#10;    &#9;echo &#34; id= &#34;.$row[&#39;id&#39;]. &#34;&#60;br /&#62;&#34;;&#10;    &#125;&#10;&#10;### 2.Unbuffered result sets&#10;&#10;&#22914;&#26524;&#23458;&#25143;&#31471;&#20869;&#23384;&#36739;&#23567;&#24182;&#19988;&#23613;&#21487;&#33021;&#30340;&#37322;&#25918;&#26381;&#21153;&#22120;&#36164;&#28304;&#38477;&#20302;&#26381;&#21153;&#22120;&#36127;&#36733;(keep server load low)&#19981;&#26159;&#24517;&#39035;&#30340;&#65292;&#37027;&#20040;unbuffered results&#23601;&#21487;&#20197;&#20351;&#29992;&#20102;&#65292;&#22312;&#25152;&#26377;&#30340;&#32467;&#26524;&#38598;&#26410;&#23436;&#20840;&#35835;&#20986;&#30340;&#26102;&#20505;&#26159;&#19981;&#33021;&#22815;&#28378;&#21160;unbuffered result rets&#30340;&#12290;&#10;&#10;    $mysqli = new mysqli(&#34;localhost&#34;, &#34;root&#34;, &#34;&#34;, &#34;weibo&#34;);&#10;    if ($mysqli-&#62;connect_error) &#123;&#10;    &#9;echo &#34;Failed to connect MySQL:&#34;.$mysqli-&#62;connect_error;&#10;    &#125;&#10;    &#10;    if (!$mysqli-&#62;query(&#34;DROP TABLE IF EXISTS test2&#34;) ||&#10;    &#9;!$mysqli-&#62;query(&#34;CREATE TABLE test2(id INT)&#34;) ||&#10;    &#9;!$mysqli-&#62;query(&#34;INSERT INTO test2(id) VALUES(1),(2),(3)&#34;)) &#123;&#10;    &#9;echo &#34;Table creation Failed:(error_no&#34;.$mysqli-&#62;errno.&#34;) &#34;.$mysqli-&#62;error;&#10;    &#125;&#10;    &#10;    $mysqli-&#62;real_query(&#34;SELECT id FROM test2 ORDER BY id ASC&#34;);&#10;    $res = $mysqli-&#62;use_result();&#10;    &#10;    echo &#34;Result set order...&#60;br /&#62;&#34;;&#10;    while ($row = $res-&#62;fetch_assoc()) &#123;&#10;    &#9;echo &#34; id=&#34;.$row[&#39;id&#39;].&#34;&#60;br /&#62;&#34;;&#10;    &#125;&#10;&#10;### 3.Result set values data type&#10;&#10;``` mysqli_query(),mysqli_real_query()&#21644;mysqli_mutil_query() ``` &#20182;&#20204;&#34987;&#29992;&#26469;&#25191;&#34892;&#27809;&#26377;&#39044;&#22788;&#29702;&#30340;&#35821;&#21477;(non-prepared statements)&#65292;&#22312;MySQL&#23458;&#25143;&#31471;&#26381;&#21153;&#22120;&#21327;&#35758;&#30340;&#27700;&#24179;&#19978;&#65292;``` COM_QUERY ``` &#21629;&#20196;&#23601;&#22914;&#21516;&#25991;&#26412;&#21327;&#35758;&#30340;&#25191;&#34892;&#35821;&#21477;&#12290;&#25991;&#26412;&#21327;&#35758;&#23618;&#65292;MySQL&#26381;&#21153;&#22120;&#20250;&#22312;&#21457;&#36865;&#32467;&#26524;&#21069;&#23558;&#25152;&#26377;&#32467;&#26524;&#38598;&#25968;&#25454;&#36716;&#25442;&#25104;string&#65292;&#36825;&#20010;&#36716;&#25442;&#26159;&#19981;&#31649;SQL&#32467;&#26524;&#38598;&#22312;&#25968;&#25454;&#24211;&#20013;&#30340;&#26159;&#20160;&#20040;&#31867;&#22411;&#30340;&#12290;&#23458;&#25143;&#31471;&#24211;&#20197;string&#30340;&#31867;&#22411;&#25509;&#25910;&#25152;&#26377;&#32467;&#26524;&#38598;&#25968;&#25454;&#65292;MySQL&#23458;&#25143;&#31471;&#20250;&#36827;&#19968;&#27493;&#23558;&#36825;&#20123;&#25968;&#25454;&#36716;&#25442;&#25104;&#30456;&#24212;&#30340;&#21407;&#29983;&#25968;&#25454;&#31867;&#22411;(native type)&#65292;&#28982;&#32780;&#25152;&#26377;&#30340;&#25968;&#25454;&#31867;&#22411;&#20250;&#20197;PHP string&#31867;&#22411;&#25552;&#20379;&#12290;&#10;&#10;&#22914;&#26524;&#20351;&#29992;&#20102;```mysqlnd```&#24211;&#65292;&#21487;&#20197;&#36890;&#36807;&#35774;&#32622;``` MYSQLI_OPT_INT_AND_FLOAT_NATIVE ```&#30340;&#36830;&#25509;&#36873;&#39033;&#23558;INTEGER&#21644;FLOAT&#21015;&#36716;&#25442;&#25104;PHP numbers&#31867;&#22411;&#12290;&#22914;&#26524;PHP&#25968;&#25454;&#31867;&#22411;&#20540;&#30340;&#33539;&#22260;&#20801;&#35768;&#30340;&#35805;&#65292;mysqlnd&#24211;&#20250;&#26816;&#26597;&#32467;&#26524;&#38598;&#20803;&#25968;&#25454;(meta data)&#31867;&#22411;&#65292;&#24182;&#19988;&#23558;SQL&#25968;&#20540;&#31867;&#22411;&#30340;&#21015;&#30340;&#25968;&#25454;&#36716;&#25442;&#25104;PHP numbers&#12290;&#27604;&#22914;MySQL INT&#31867;&#22411;&#30340;&#21015;&#20250;&#20197;integer&#31867;&#22411;&#36820;&#22238;&#12290;&#10;&#10;### 4.mysqli_query()&#8212;&#8212;&#23545;&#25968;&#25454;&#24211;&#25191;&#34892;&#19968;&#27425;&#26597;&#35810;&#10;&#10;    &#31867;&#22411;&#65306;&#10;    mixed mysqli::query( string&#12288;$query[, int $resultmode = MSYQLI_STORE_RESULT]) &#10;    mixed mysqli_query( string $query[, int $resultmode = MYSQLI_STORE_RESULT])&#10;    &#21442;&#25968;&#65306;&#10;&#9;link&#65306; &#20165;&#20197;&#36807;&#31243;&#21270;&#26679;&#24335;&#65306;&#26159;mysqli_connect()&#25110;mysqli_init()&#36820;&#22238;&#30340;&#38142;&#25509;&#26631;&#35782;&#10;&#9;query: query string&#10;&#9;resultmode: &#26377;MYSQLI_USE_RESULT&#21644;MYSQLI_STORE_RESULT&#21487;&#20197;&#36873;&#25321;&#65292;&#40664;&#35748;&#20026;MYSQLI_STORE_RESULT,&#22914;&#26524;&#36873;&#25321;&#20102;MYSQLI_USE_RESULT&#37027;&#20040;&#21518;&#32493;&#30340;&#35843;&#29992;&#37117;&#20250;&#20135;&#29983;&#21629;&#20196;&#19981;&#21516;&#27493;&#30340;&#38169;&#35823;&#65292;&#38500;&#38750;&#20320;&#35843;&#29992;&#20102;mysqli_free_result()(&#20174;&#20869;&#23384;&#20013;&#37322;&#25918;&#20851;&#32852;&#32467;&#26524;)&#10;&#9;&#36820;&#22238;&#20540;: &#22833;&#36133;&#26102;&#36820;&#22238;FALSE&#65292;&#36890;&#36807;mysqli_query()&#25104;&#21151;&#25191;&#34892;SELECT,SHOW,DESCRIBE&#25110;EXPLAN&#26597;&#35810;&#20250;&#36820;&#22238;&#19968;&#20010;mysqli_result&#23545;&#35937;&#65292;&#20854;&#20182;&#26597;&#35810;&#21017;&#20250;&#36820;&#22238;TRUE&#10;&#10;### 5.mysqli_real_query()&#8212;&#8212;&#25191;&#34892;&#19968;&#20010;mysql&#26597;&#35810;&#10;&#10;&#25191;&#34892;&#19968;&#20010;&#21333;&#26465;&#25968;&#25454;&#24211;&#26597;&#35810;&#65292;&#20854;&#32467;&#26524;&#21487;&#20197;&#20351;&#29992;``` mysqli_store_result()&#25110;mysqli_use_result() ``` &#26816;&#32034;&#25110;&#26597;&#35810;&#12290;&#20026;&#20102;&#30830;&#23450;&#32473;&#23450;&#30340;&#32467;&#26524;&#26159;&#21542;&#30495;&#30340;&#36820;&#22238;&#19968;&#20010;&#32467;&#26524;&#38598;&#65292;&#21487;&#20197;&#26597;&#30475;``` mysqli_field_count()</span><br></pre></td></tr></table></figure></p>
+<pre><code>bool mysqli_real_query(string <span class="variable">$query</span>)
+bool mysqli::real_query(string <span class="variable">$query</span>)
+返回值：TRUE|FALSE
+</code></pre><h4 id="mysqli_query()和mysqli_real_query()的区别"><code>mysqli_query()和mysqli_real_query()的区别</code></h4><blockquote>
+<p>mysqli_query() cannot be used for statements that contain binary data,you must use mysqli_real_query() instead.(Binary data may contain the “\0” character, which mysqli_query() interprets as the end of the statement string.) In addition,mysql_real_query() is faster than mysqli_query() because it does not call strlen() on the statement string</p>
+</blockquote>
+<h3 id="6-mysqli_multi_query()——执行一个或多个查询">6.mysqli_multi_query()——执行一个或多个查询</h3><pre><code>bool mysqli::<span class="function"><span class="title">multi_query</span><span class="params">(string <span class="variable">$query</span>)</span></span>
+bool <span class="function"><span class="title">mysqli_multi_query</span><span class="params">(string <span class="variable">$query</span>)</span></span>
+返回值：失败返回FALSE,要从其他的语句中检索后续的错误可以先调用<span class="function"><span class="title">mysqli_next_result</span><span class="params">()</span></span>
+</code></pre><p>从第一个query中检索结果可以使用<code>mysqli_use_result()或者mysqli_store_result()</code>,可以通过<code>mysqli_more_result()和mysqli_next_result()</code>处理后续的结果集。多个语句之间用分好隔开。示例如下：</p>
+<pre><code><span class="variable">$mysqli</span> = new mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);
+<span class="keyword">if</span> (<span class="variable">$mysqli-</span>&gt;connect_error) {
+    echo <span class="string">"Failed to connect MySQL:"</span>.<span class="variable">$mysqli-</span>&gt;connect_error;
+}
+
+<span class="keyword">if</span> (!<span class="variable">$mysqli-</span>&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) ||
+    !<span class="variable">$mysqli-</span>&gt;query(<span class="string">"CREATE TABLE test2(id INT)"</span>) ||
+    !<span class="variable">$mysqli-</span>&gt;query(<span class="string">"INSERT INTO test2(id) VALUES(1),(2),(3)"</span>)) {
+    echo <span class="string">"Table creation Failed:(error_no"</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">") "</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="variable">$query</span> = <span class="string">"SELECT * FROM test2 WHERE id=1;"</span>;
+<span class="variable">$query</span> .= <span class="string">"SELECT * FROM test2"</span>;
+<span class="keyword">if</span> (<span class="variable">$mysqli-</span>&gt;multi_query(<span class="variable">$query</span>)) {
+    do {
+        /* store first result set */
+        if (<span class="variable">$result</span> = <span class="variable">$mysqli-</span>&gt;store_result()) {
+            while (<span class="variable">$row</span> = <span class="variable">$result-</span>&gt;fetch_row()) {
+                printf(<span class="string">"%s\n"</span>, <span class="variable">$row</span>[<span class="number">0</span>]);
+            }
+            <span class="variable">$result-</span>&gt;free();
+        }
+        /* print divider */
+        if (<span class="variable">$mysqli-</span>&gt;more_results()) {
+            printf(<span class="string">"--------------------------------------\n"</span>);
+        }
+    } while (<span class="variable">$mysqli-</span>&gt;next_result());
+}
+</code></pre><h2 id="Prepared_Statement">Prepared Statement</h2><p>MySQL数据库支持预处理(prepared statement)语句，一个预处理语句的或者参数化的语句会被高效的反复执行。工作流程是这样的：一个预处理语句包含两个阶段：预处理和执行。在预处理阶段，语句的模板会发送到数据库服务器，服务器执行语法检查和初始化内部资源以供后续使用。MySQL服务器支持匿名参数(anonymous)和?占位符(positional placeholder)</p>
+<pre><code>/* Prepared statement, stage <span class="number">1</span>:prepare */
+<span class="keyword">if</span> (!<span class="variable">$stmt</span> = <span class="variable">$mysqli-</span>&gt;prepare(<span class="string">"INSERT INTO test2(id) VALUES (?)"</span>)) {
+    echo <span class="string">"Prepared failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;errno;
+}
+</code></pre><p>预处理之后就是执行，执行的过程中，客户端会保定参数值然后把他们发送给MySQL服务器。MySQL服务器会根据预处理阶段接收的语句模板创建一条执行语句给先前初始化好的内部资源使用。</p>
+<pre><code>/* Prepared statement, stage2:bind and execute */
+<span class="variable">$id</span> = <span class="number">4</span>;
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;bind_param(<span class="string">'i'</span>, <span class="variable">$id</span>)) {
+    echo <span class="string">"Binding parameters failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;execute()) {
+    echo <span class="string">"Execute failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+</code></pre><p>重复执行：预处理语句可以重复执行，每次执行之前都会评估现在的绑定的参数的值并且将其发送给MySQL服务器，这个语句不需要再解析，语句模板也无需再次从客户端发送到服务器。</p>
+<p>一个完整的示例：</p>
+<pre><code><span class="variable">$mysqli</span> = new mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);
+<span class="keyword">if</span> (<span class="variable">$mysqli-</span>&gt;connect_error) {
+    echo <span class="string">"mysql connect failed:("</span>.<span class="variable">$mysqli-</span>&gt;connect_errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;connect_errno;
+}
+
+/* non-prepared statement */
+<span class="keyword">if</span> (!<span class="variable">$mysqli-</span>&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) || !<span class="variable">$mysqli-</span>&gt;query(<span class="string">"CREATE TABLE test2(id INT)"</span>)) {
+    echo <span class="string">"table test2 create failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+
+/* Prepared statement, stage <span class="number">1</span>: prepare */
+<span class="keyword">if</span> (!<span class="variable">$stmt</span> = <span class="variable">$mysqli-</span>&gt;prepare(<span class="string">"INSERT INTO test2(id) VALUES (?)"</span>)) {
+    echo <span class="string">"prepared statement failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+
+/* Prepared statement, stage <span class="number">2</span>: bind and execute */
+<span class="variable">$id</span> = <span class="number">1</span>;
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;bind_param(<span class="string">"i"</span>, <span class="variable">$id</span>)) {
+    echo <span class="string">"Binding parameters failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;execute()) {
+    echo <span class="string">"executed failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+
+/* Prepared statement: repeated execution, <span class="keyword">only</span> data transferred from client <span class="keyword">to</span> server */
+<span class="keyword">for</span> (<span class="variable">$id</span> = <span class="number">2</span>; <span class="variable">$id</span> &lt; <span class="number">5</span>; <span class="variable">$id</span>++) {
+    if (!<span class="variable">$stmt-</span>&gt;execute()) {
+        echo <span class="string">"execute failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+    }
+}
+
+/* explicit close recommend */
+<span class="variable">$stmt-</span>&gt;close();
+
+/* non-prepared statement */
+<span class="variable">$res</span> = <span class="variable">$mysqli-</span>&gt;query(<span class="string">"SELECT id FROM test2"</span>);
+var_dump(<span class="variable">$res-</span>&gt;fetch_all());
+</code></pre><p>每一个预处理语句都会占用服务器资源，<strong>预处理语句在使用完之后必须明确的关闭</strong> ,如果不去明确的关闭，那么会在PHP释放预处理语句句柄的时候被关闭。</p>
+<p>使用预处理语句(Prepared statement)并不总是非常有效的执行语句的方法，一个预处理语句只执行一次会比执行没有与处理的语句引起更多的客户端-服务器往返(client-server round-trips)，这也是为什么上面的示例都没有执行SELECT的预处理语句的原因。</p>
+<p>此外，还要考虑MySQL多字段插入语法的使用。比如（未预处理语句）多字段插入比预处理语句多字段的插入产生更少的服务器和客户端的往返。例如：</p>
+<pre><code><span class="keyword">if</span> (!<span class="variable">$mysqli-</span>&gt;query(<span class="string">"INSERT INTO test2(id) VALUES (1), (2), (3), (4)"</span>)) {
+    echo <span class="string">"multi-insert failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+</code></pre><h4 id="结果集值的数据类型_result_set_values_data_type">结果集值的数据类型 result set values data type</h4><p>MySQL客户端服务协议对预处理语句和一般语句定义了不同的数据传输协议，预处理语句会使用一种二进制协议，MySQL服务器以二进制格式发送结果集数据，在发送之前，结果集语句并没有序列化成字符串，MySQL客户端并不只会接收字符串类型数据，它也会接收二进制数据并尝试把它转换成一种适当的PHP类型，比如数据库中int类型的数据会被以PHP的integer类型来提供。这种处理和普通的语句是不一样的，普通的语句查询默认以字符串的形式返回。这种默认的返回是可以通过修改connection的选项来改变的，如果改变了那就没有区别了。</p>
+<h4 id="通过绑定变量来获取结果_fetching_results_using_bound_variables">通过绑定变量来获取结果 fetching results using bound variables</h4><p>预处理语句执行的结果既可以通过绑定输出变量的形式取回，也可以通过请求一个 <code>mysqli_result</code>对象来获取。</p>
+<pre><code><span class="variable">$mysqli</span> = new mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);
+<span class="keyword">if</span> (<span class="variable">$mysqli-</span>&gt;connect_errno) {
+    echo <span class="string">"mysql connect failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">if</span> (!<span class="variable">$mysqli-</span>&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) ||
+    !<span class="variable">$mysqli-</span>&gt;query(<span class="string">"CREATE TABLE test2(id INT, label CHAR (1))"</span>) ||
+    !<span class="variable">$mysqli-</span>&gt;query(<span class="string">"INSERT INTO test2(id, label) VALUES (1, 'A')"</span>)) {
+    echo <span class="string">"table create failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">if</span> (!(<span class="variable">$stmt</span> = <span class="variable">$mysqli-</span>&gt;prepare(<span class="string">"SELECT id, label FROM test2"</span>))) {
+    echo <span class="string">"prepare failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;execute()) {
+    echo <span class="string">"execute failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="variable">$out</span>_id = null;
+<span class="variable">$out</span>_label = null;
+<span class="keyword">if</span> (!<span class="variable">$stmt-</span>&gt;bind_result(<span class="variable">$out</span>_id, <span class="variable">$out</span>_label)) {
+    echo <span class="string">"binding output parameters failed:("</span>.<span class="variable">$mysqli-</span>&gt;errno.<span class="string">")"</span>.<span class="variable">$mysqli-</span>&gt;error;
+}
+<span class="keyword">while</span> (<span class="variable">$stmt-</span>&gt;fetch()) {
+    printf(<span class="string">"id = %s (%s), label = %s (%s) \n"</span>, <span class="variable">$out</span>_id, gettype(<span class="variable">$out</span>_id), <span class="variable">$out</span>_label, gettype(<span class="variable">$out</span>_label));
+}
+</code></pre><p>这里并没有向前面说的执行<code>$stmt-&gt;close()</code> 这是因为在prepared的时候传过去的是一个具体的statement而不是一个template，所以server并没有执行和前面一样的操作，这里之所以要prepared是因为他要使用$stmt-&gt;bind_result()来绑定结果集，这个操作说白了是在数据返回到client之后的操作，所以没必要close了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。</p>
+</blockquote>
+<h2 id="Mysqli简介">Mysqli简介</h2><p>MySQL增强版扩展，mysqli允许我们访问MySQL4.1及以上版本提供的功能。]]>
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[认识composer]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/11/29/whats-composer/"/>
+    <id>http://chanxiaoxi.github.io/2014/11/29/whats-composer/</id>
+    <published>2014-11-29T08:37:37.000Z</published>
+    <updated>2015-04-20T16:25:19.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>如果知道PEAR的话那么对composer就不会很陌生，只要一说它是什么大概就明白了它是干嘛的。以前在学PHP的时候经常看到PEAR相关的东西，但是没想到PEAR早就已经被大家抛弃了，只能怪当初看的那些书的技术都太老，还停留在PEAR的年代。想composer这样的工具在项目中经常用到，所以有必要仔细研究一下。</p>
+</blockquote>
+<p><a href="http://www.phpcomposer.com/" target="_blank" rel="external">Composer</a>是PHP用来管理依赖关系(dependency)的工具，只要在自己的项目中声明所依赖的外部关系库，composer会自动安装这些依赖文件。关于Composer的安装使用，在它的文档中都有详细的介绍，没必要重复记录，这里只记一些在使用的时候要注意的事情。<a id="more"></a></p>
+<h3 id="依赖管理">依赖管理</h3><p>所谓的依赖管理，就是管理一些项目开发过程中需要依赖的第三方的库文件，我们只需要编写好相关的配置文件，它就能自动管理这些外部库，包括对他们进行安装、更新等操作。这样在项目的开发过程中极大的方便了我们对第三方库的管理。</p>
+<h3 id="外部包的安装">外部包的安装</h3><p>添加一个外部包的方式很简单，只要在composer.json配置文件中制定要添加的包即可：</p>
+<pre><code>{
+    "<span class="attribute">require</span>" : <span class="value">{
+        "<span class="attribute">slim/slim</span>" : <span class="value"><span class="string">"2.*"</span>
+    </span>}
+</span>}
+</code></pre><p><code>slim/slim</code>是包名称，包名称有供应商名称和项目名称组成，这样可以有效解决命名冲突的问题。<code>2.*</code>是包版本，它会匹配从2.0开始的每个版本，一般可以理解为2.0以上版本，对于版本的其他限定可以参考文明文档。</p>
+<p>一旦写好配置文件composer.json之后，就可以使用composer的安装命令对所需的外部包进行安装：</p>
+<pre><code>php composer<span class="class">.phar</span> install
+</code></pre><p>composer会把外部包下载在一个叫vendor的目录中（不建议把这个目录提交到项目的repo中），此外还会生成一个composer.lock文件，该文件里保存着安装时确切的版本号列表，这个列表为以后的update以及其他命令的使用提供依据，所以建议将composer.json和composer.lock提交到项目的repo中去。更新外部包的命令是：</p>
+<pre><code>php composer<span class="class">.phar</span> update
+</code></pre><p>也可以更新指定的外部包：</p>
+<pre><code>php composer<span class="class">.phar</span> update slim/slim
+</code></pre><h3 id="自动加载">自动加载</h3><p>composer安装完成之后会自动生成一个自动加载文件<code>(vendor/autoload.php)</code>，我们可以在项目中直接引入该文件以获得加载支持。此外，还可以在composer.json中增加自己的autoloader:</p>
+<pre><code>{
+    "<span class="attribute">require</span>" : <span class="value">{
+        "<span class="attribute">slim/slim</span>" : <span class="value"><span class="string">"2.*"</span></span>,
+        "<span class="attribute">monolog/monolog</span>" : <span class="value"><span class="string">"1.0.*"</span>
+    </span>}</span>,
+    "<span class="attribute">autoload</span>" : <span class="value">{
+        "<span class="attribute">psr-4</span>" : <span class="value">{
+            "<span class="attribute">namespace\\</span>" : <span class="value">[<span class="string">"src/db/lib"</span>, <span class="string">"src/api/lib"</span>, <span class="string">"src/xxx/lib"</span>]
+        </span>}
+    </span>}
+</span>}
+</code></pre><p>修改了composer.json之后不要忘记install一下</p>
+<p>还有一种添加自动加载类的方法，在加载 <code>vendor/autoload.php</code>文件的时候会返回一个实例，可以通过调用该实例的方法来完成自动加载：</p>
+<pre><code><span class="variable">$loader</span> = require <span class="string">'vendor/autoload.php'</span>;
+<span class="variable">$loader-</span>&gt;add(<span class="string">'Acme\\Test\\'</span>, __DIR_<span class="number">_</span>);
+</code></pre><h3 id="每个项目都是一个包">每个项目都是一个包</h3><p>只要你有一个composer.json在目录中，那么整个目录就是一个包，require一个外部库到你的项目中，其实就是创建了一个依赖其他库的包。和外部的库相比，你们之间的唯一区别就是你的项目没有包名而已。可以通过在composer.json中添加name字段来定义包名：</p>
+<pre><code>{
+    "<span class="attribute">name</span>" : <span class="value"><span class="string">"chanxiaoxi/test"</span></span>,
+    "<span class="attribute">require</span>" : <span class="value">{
+        "<span class="attribute">slim/slim</span>" : <span class="value"><span class="string">"2.*"</span>
+    </span>}</span>,
+    "<span class="attribute">autoload</span>" : <span class="value">{
+        "<span class="attribute">psr-4</span>" : <span class="value">{
+            "<span class="attribute">namespace\\</span>" : <span class="value">[<span class="string">"src/db/lib"</span>, <span class="string">"src/api/lib"</span>, <span class="string">"src/xxx/lib"</span>]
+        </span>}
+    </span>}
+</span>}
+</code></pre><p>包名的命名方法前面已经说过：供应商名/项目名。此外还可以通过 <code>version</code>字段来指明版本。</p>
+<p>如果你的一个包含composer.json的库存储在线上版本控制器中，你的库就可以被composer安装。在应用中，只要在composer.json配置文件中添加库的地址就可以让composer找到该库并安装。</p>
+<pre><code>{
+    "<span class="attribute">name</span>" : <span class="value"><span class="string">"chanxiaoxi/test"</span></span>,
+    "<span class="attribute">repositories</span>" : <span class="value">[
+        {
+            "<span class="attribute">type</span>" : <span class="value"><span class="string">"vcs"</span></span>,
+            "<span class="attribute">url</span>" : <span class="value"><span class="string">"https://github.com/chanxiaoxi/test"</span>
+        </span>}
+    ]</span>,
+    "<span class="attribute">require</span>" : <span class="value">{
+        "<span class="attribute">slim/slim</span>" : <span class="value"><span class="string">"2.*"</span></span>,
+        "<span class="attribute">chanxiaoxi/test</span>" : <span class="value"><span class="string">"dev-master"</span>
+    </span>}
+</span>}
+</code></pre><p>这是barryvdh库的composer.json文件，它里面几乎包含了完整的字段信息，可供参考：</p>
+<pre><code>{
+    "<span class="attribute">name</span>": <span class="value"><span class="string">"barryvdh/laravel-ide-helper"</span></span>,
+    "<span class="attribute">description</span>": <span class="value"><span class="string">"Laravel IDE Helper, generates correct PHPDocs for all Facade classes, to improve auto-completion."</span></span>,
+    "<span class="attribute">keywords</span>": <span class="value">[<span class="string">"laravel"</span>, <span class="string">"autocomplete"</span>, <span class="string">"ide"</span>, <span class="string">"helper"</span>, <span class="string">"phpstorm"</span>, <span class="string">"netbeans"</span>, <span class="string">"sublime"</span>, <span class="string">"codeintel"</span>, <span class="string">"phpdoc"</span>]</span>,
+    "<span class="attribute">license</span>": <span class="value"><span class="string">"MIT"</span></span>,
+    "<span class="attribute">authors</span>": <span class="value">[
+        {
+            "<span class="attribute">name</span>": <span class="value"><span class="string">"Barry vd. Heuvel"</span></span>,
+            "<span class="attribute">email</span>": <span class="value"><span class="string">"barryvdh@gmail.com"</span>
+        </span>}
+    ]</span>,
+    "<span class="attribute">require</span>": <span class="value">{
+        "<span class="attribute">php</span>": <span class="value"><span class="string">"&gt;=5.3.0"</span></span>,
+        "<span class="attribute">illuminate/support</span>": <span class="value"><span class="string">"4.x"</span></span>,
+        "<span class="attribute">illuminate/console</span>": <span class="value"><span class="string">"4.x"</span></span>,
+        "<span class="attribute">illuminate/filesystem</span>": <span class="value"><span class="string">"4.x"</span></span>,
+        "<span class="attribute">phpdocumentor/reflection-docblock</span>": <span class="value"><span class="string">"2.0.x"</span></span>,
+        "<span class="attribute">symfony/class-loader</span>": <span class="value"><span class="string">"~2.3"</span>
+    </span>}</span>,
+    "<span class="attribute">require-dev</span>": <span class="value">{
+        "<span class="attribute">doctrine/dbal</span>": <span class="value"><span class="string">"~2.3"</span>
+    </span>}</span>,
+    "<span class="attribute">suggest</span>": <span class="value">{
+        "<span class="attribute">doctrine/dbal</span>": <span class="value"><span class="string">"Load information from the database about models for phpdocs (~2.3)"</span>
+    </span>}</span>,
+    "<span class="attribute">autoload</span>": <span class="value">{
+        "<span class="attribute">psr-4</span>": <span class="value">{
+            "<span class="attribute">Barryvdh\\LaravelIdeHelper\\</span>": <span class="value"><span class="string">"src"</span>
+        </span>}
+    </span>}</span>,
+    "<span class="attribute">extra</span>": <span class="value">{
+        "<span class="attribute">branch-alias</span>": <span class="value">{
+            "<span class="attribute">dev-master</span>": <span class="value"><span class="string">"1.11-dev"</span>
+        </span>}
+    </span>}
+</span>}
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>如果知道PEAR的话那么对composer就不会很陌生，只要一说它是什么大概就明白了它是干嘛的。以前在学PHP的时候经常看到PEAR相关的东西，但是没想到PEAR早就已经被大家抛弃了，只能怪当初看的那些书的技术都太老，还停留在PEAR的年代。想composer这样的工具在项目中经常用到，所以有必要仔细研究一下。</p>
+</blockquote>
+<p><a href="http://www.phpcomposer.com/">Composer</a>是PHP用来管理依赖关系(dependency)的工具，只要在自己的项目中声明所依赖的外部关系库，composer会自动安装这些依赖文件。关于Composer的安装使用，在它的文档中都有详细的介绍，没必要重复记录，这里只记一些在使用的时候要注意的事情。]]>
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[对于PHP中Interface和Abstract Class的认识]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/11/29/difference-between-interface-and-abstract-class-in-php/"/>
+    <id>http://chanxiaoxi.github.io/2014/11/29/difference-between-interface-and-abstract-class-in-php/</id>
+    <published>2014-11-29T04:24:48.000Z</published>
+    <updated>2015-04-20T16:25:04.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>这两天一直在纠结于Interface和Aabstract Class之间的区别，这种纠结以前也有，但是没有仔细去了解，最近有碰到了这样的问题，所以有必要记下来，可能现在理解的不是很透彻，以后在实际使用中慢慢补充。</p>
+</blockquote>
+<h2 id="Interface">Interface</h2><p>先来看一下<a href="http://php.net/manual/zh/language.oop5.interfaces.php" target="_blank" rel="external">PHP Document</a>中对Interface的说明 <a id="more"></a></p>
+<h3 id="定义接口">定义接口</h3><ul>
+<li>使用接口，可以指定某各类必须实现那些方法，但不需要定义这些方法的具体内容。(这里不是不需要，而是不能定义，因为接口的方法默认隐式就是abstract的)  </li>
+<li>接口是通过interface关键字来定义的，就像定义一个标准的类一样，但其中定义所有的方法都是空的  </li>
+<li>接口中定义的所有方法都必须共有，这是接口的特性  </li>
+<li>接口中也可以定义常量。接口常量和类常量的使用完全相同，但是不能被子类或子接口覆盖(接口中不能定义变量，但是抽象类中是可以的)</li>
+</ul>
+<p>如果在接口中定义了方法体，也就是方法的具体内容，那么PHP会报一个Fatal Error:</p>
+<pre><code>Interface <span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="type">::sayHello</span><span class="params">()</span> <span class="title">cannot</span> <span class="title">contain</span> <span class="title">body</span></span>
+</code></pre><p>接口中的方法也必须是public的，因为既然定义了接口又必须去实现它，那么它就不可能是protected或private，这样不就无法实现了么</p>
+<h3 id="实现接口">实现接口</h3><ul>
+<li>类可以实现多个接口，用逗号来分割多个接口的名称  </li>
+<li>接口也可以继承，用关键字extends  </li>
+<li>类要实现接口，必须使用和接口中所定义的方法完全一致的方式，实现接口的所有方法，否则，别绪把这个类声明称abstract  </li>
+<li>接口加上类型约束(Type Hinting)，提供了一种很好的方式来确保某个对象包含某些方法  </li>
+</ul>
+<p>一个简单的情况就是当一个类继承多个接口时，我们可以通过Type Hint来分离这些接口，明确告诉这个对象是包含了那些方法的，也就是明确该对象一定要继承某个接口。  </p>
+<h2 id="Abstract_Class">Abstract Class</h2><ul>
+<li>PHP5支持<a href="http://php.net/manual/zh/language.oop5.abstract.php" target="_blank" rel="external">抽象类</a>和抽象方法  </li>
+<li>定义为抽象的类不能实例化，如果一个类里面至少有一个方法被声明成抽象的，那么这个类就必须声明成抽象的，抽象方法不能定义具体实现  </li>
+<li>继承一个抽象方法，子类必须实现父类所有的抽象方法，他们的访问控制要和父类一样或者比父类宽松，但是不能够比父类严格。</li>
+</ul>
+<p>一个类只能继承一个抽象类，它只能通过纵向的多重继承来实现扩展，但是接口就不同了，它可以同时实现多个接口，可以横向扩展。</p>
+<h2 id="接口和抽象类的区别">接口和抽象类的区别</h2><p>关于接口和抽象类的区别可以参看<a href="http://blog.csdn.net/sunlylorn/article/details/6124319" target="_blank" rel="external">《PHP中的抽象类(abstract class)和接口(interface)》</a>和<a href="http://www.techflirt.com/tutorials/oop-in-php/abstract-classes-interface.html" target="_blank" rel="external">Abstract Classes and Interface in PHP</a>其实很多时候我们纠结的是到底该用接口还是该用抽象类，对于这种纠结的情况，可以根据下面几点去判断：</p>
+<ul>
+<li>接口其实就是一系列方法的集合，它虽然也可以声明静态变量，但是最好还是不要这么做，因为它与接口的设计原则相违背，在面向对象的思想中，接口其实就是强制一些类去实现一些方法的，所以根据它的本质，当我们需要某些类仅仅利用自身去实现一些方法的时候我们就可以用接口来实现。</li>
+<li>如果既需要统一的接口，又需要实例变量或缺省的方法的情况下，那么就用抽象类。因为抽象类除了约定必须实现的一些抽象方法之外还能定义其他的一些方法或者变量，这个在某些类的关系的组织中是非常有用的，而接口恰恰做不到这些。</li>
+<li>继承和实现的区别，继承的关系是一种从属关系，一旦继承了某各类，意味着继承了该类的所有方法和属性，而实现不同，实现只是为了满足被实现的接口的一些要求，并没有额外的东西。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>这两天一直在纠结于Interface和Aabstract Class之间的区别，这种纠结以前也有，但是没有仔细去了解，最近有碰到了这样的问题，所以有必要记下来，可能现在理解的不是很透彻，以后在实际使用中慢慢补充。</p>
+</blockquote>
+<h2 id="Interface">Interface</h2><p>先来看一下<a href="http://php.net/manual/zh/language.oop5.interfaces.php">PHP Document</a>中对Interface的说明]]>
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[RESTful API设计实战]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/11/23/restful-api-practise/"/>
+    <id>http://chanxiaoxi.github.io/2014/11/23/restful-api-practise/</id>
+    <published>2014-11-23T15:09:23.000Z</published>
+    <updated>2015-11-14T06:23:42.000Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api" target="_blank" rel="external">Best Practices for Designing a Pragmatic RESTful API</a>，读完之后顿觉彻悟，故此将自己的一些理解记录下来。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="API的基本要求">API的基本要求</h2><p>要正真设计好一个接口，那么从一开始就要理解好接口的重要性，为什么非要费这么大的劲去做这件事，意义何在？在设计一个接口的时候我们常常会考虑到一些问题，比如安全认证怎么做，URI的规则怎么设定，是否要加入版本号，错误返回如何统一格式，HTTP状态码如何设定等等问题。如果从一开始不想好这些，而是在后面去修补，那么就会带来巨大的工作量，而且很容易产生混乱，不仅无法共同开发，而且也会给使用接口的开发者带来一定的困扰。一下就是博客中给我们的几点建议，这也是设计一个接口之前应该想到的基本要求：</p>
+<ul>
+<li>尽可能的遵循web标准</li>
+<li>尽可能的对开发者友好，这个友好指的是URI要尽量设计的要开发者一眼就能够看明白是干嘛的，而且所有的接口都是可以通过浏览器直接访问的</li>
+<li>尽可能的简单、直观，看上去显得优雅</li>
+<li>必须有足够的灵活性去支持项目的UI</li>
+<li>尽量去权衡上述几点要求</li>
+</ul>
+<p>API其实就是开发者的UI，这和普通的UI对于开发者同样重要，也要注意开发者的体验！</p>
+<h2 id="RESTful_URI和action的使用">RESTful URI和action的使用</h2><p>博客中引用了<a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank" rel="external">Network based Software Architectures</a>中的一句话，如果还有一样东西能够获得广泛的采用，那就是RESTful原则了。RESTful API的核心原则就是服务器资源，并通过HTTP的PUT/GET/DELETE/POST方法来操作这些资源。那么问题来了，如何去拆分这些资源呢？如何去使用HTTP的方法呢？</p>
+<h3 id="如何拆分资源">如何拆分资源</h3><p>在开发者开来，资源应该是名词（最好不要用动词来描述资源），尽管你内部的数据模型能够灵活的对应到相应的资源，但是一对一的对应不是必要的，这里面的关键就是隐藏内部资源，只暴露必要的外部资源供开发者使用。这里还要注意，有时候接口需要的数据模型和内部系统的模型是一样的，但是接口需要的数据量可能要比内部系统少的多。所以在设计接口的时候一定要注意所有从接口出来的数据都要“洗”一下，把没有必要数据都给去掉，只提供必须的数据。（不管怎么说，接口都是一个对外的口子，是很多人都可以使用的，所以任何多余的信息都不要泄露到外面）</p>
+<pre><code>GET /tickets ---------- Get Tickets List
+GET /tickets/<span class="number">12</span> ------- Get Tickets which id = <span class="number">12</span>
+POST /tickets --------- Create Tickets
+PUT /tickets/<span class="number">12</span> ------- Update tickets which id = <span class="number">12</span>
+DELETE /tickets/<span class="number">12</span> ---- Delete tickets which id = <span class="number">12</span>
+</code></pre><p>没有额外的支持，仅仅是利用了HTTP的方法就实现了对资源的CURD操作。而且你所做的仅仅也只是定义了一个tickets资源映射到你内部的相关资源。</p>
+<h4 id="端点(end_point)应该是单数还是复数">端点(end point)应该是单数还是复数</h4><p>这个在实际开发中也是经常遇到的一个问题，因为你有时候操作的是一个单独的资源，有时候操作的是一个资源列表，在URI中一会儿用单数一会儿用复数，这会给开发者造成很到的困扰，特别是像一些单词的单复数差别很大，这会让开发者认为他们是不同的资源，其实他们只是单复数的区别而已。所以为了让URI更加规整，更加统一，一般统一都用复数，就如同上面例子中的tickets，不管是操作一个还是多个，都是tickets</p>
+<h4 id="关联（Relations）">关联（Relations）</h4><p>关联，是的，资源之间的关联。这个是要单独拎出来说的，这也URI的结构组织的重要内容。怎么理解呢，比如我现在有一个标签资源ticket，我还有一个消息资源message，这些消息都是在ticket下面的，也就是说ticket包含了message。那么问题来了，我如何设计对message操作的URI,是单独定义一个message的URI吗？很显然单独的message资源是没有意义的，你也可以通过其他的操作来让ticket和message关联，但是这样就太复杂了，违背了REST的初衷。所以不要废话了，对于这种包含关系或者说属于关系就按照层级来设计URI,粗暴一点就理解成路径把，也就是说你找的不是单独的message，而是ticket文件夹下的message，那么URI就应该是这个样子：</p>
+<pre><code>GET /tickets/<span class="number">12</span>/messages
+GET /tickets/<span class="number">12</span>/messages/<span class="number">3</span>
+POST /tickets/<span class="number">12</span>/messages
+PUT /tickets/<span class="number">12</span>/messages/<span class="number">5</span>
+DELETE /tickets/<span class="number">12</span>/messages/<span class="number">5</span>
+</code></pre><p>除了包含其他的关系呢，这个就不能这样解决了，因为除了包含之外的其他关系都是相互依赖，实际中我们需要的也只是这种关系的资源，那么就直接把这种关系表示为资源好了，至于内部的联系如何处理，那些对于接口的调用和开发者来说都是透明的，他们要的只是这种关系而已，规定好他们想要的数据模型，返回给他们就行了。</p>
+<h4 id="不符合CURD的操作">不符合CURD的操作</h4><p>很多时候，CURD之外我们还需要一些其他的操作，比如点赞，加星之类，他是一种操作，这没为题，但是它不是CURD中的操作。好了，HTTP的四种方法都有明确的操作，剩下的这类问题怎么办，重复使用这四种方法？这个肯定不行，已经违背了REST初中，势必带来混乱。</p>
+<ol>
+<li>重构action，当你的行为不需要参数时，你可以把active对应到actived这个资源，并使用patch方法来更新。不建议</li>
+<li>以子资源对待。例如github上的加星操作：<code>PUT /gists/:id/star</code>,取消星操作：<code>DELETE /gists/:id/unstar</code></li>
+<li>有一些action压根就对应不到某个资源，怎么办，类似2的做法，就当成是子资源把，然后和开发者约定好，在文档中说清楚就行了。</li>
+</ol>
+<h2 id="始终使用SSL">始终使用SSL</h2><p>为什么？因为你无法保证你的接口会被谁调用，你对外面开了个口子，但是你不注意安全保护，那就什么人都可以来拿数据，特别是一些重要的数据。使用SSL可以减少认证的成本，你只需要一个简单的token就可以认证了，而不是每次都让用户对请求签名。</p>
+<p>值得注意的是：不要让非SSL的url访问重定向到SSL的URL</p>
+<h2 id="文档">文档</h2><p>文档的重要性就不要多说了，一个好的文档的重要性想必大家都知道，这里只是推荐一个文档生成利器<a href="http://apidocjs.com/" target="_blank" rel="external">apiDoc</a>,当然估计还有其他好用的工具。</p>
+<h2 id="版本化">版本化</h2><p>版本的好处就是便于区别，同时也能在不同版本之间平稳过渡。关于把版本信息放在header还是URL中，可以参照一下stack overflow中的相关提问<a href="http://stackoverflow.com/questions/389169/best-practices-for-api-versioning" target="_blank" rel="external">API version should be included in the URL or in a header</a>，争论的焦点也就在于如果把版本号放在URL中就容易跨版本访问资源，这样显然是不好的。还有人把主版本信息放在URL中，子版本信息放在header头中，个人感觉这几个方法都可以。但是还是建议版本化。</p>
+<h2 id="结果处理">结果处理</h2><p>所谓结果处理，就是对返回给用户的结果的过滤、排序、搜索等。这些相关的功能最后用查询参数(query parameter)来实现。</p>
+<h3 id="结果过滤">结果过滤</h3><p>如果要提供结果过滤，那么就要对所有的接口使用统一的过滤规则。比如设定了一个state的变量来表示资源的状态，结合博客中的例子，如果想要获取所有已打开的标签，那么就会是这样：</p>
+<pre><code>GET /tickets?<span class="keyword">state</span>=open
+</code></pre><p>state在这里就是过滤的query parameter，很多的API都有不同的过滤规则，所以我们在定义这些parameter的时候一定要注意统一。</p>
+<h3 id="排序">排序</h3><p>类似于列表这样的接口，肯定会涉及到排序和分页，与上面的情况类似，我们需要定义一些相关的query parameter来完成排序和分页的功能。比如，我们规定from为其实位置，size为每页大小，sort为排序规则，那么就可以这样设计接口URI</p>
+<pre><code>GET /tickets？<span class="keyword">from</span>=<span class="number">2</span>&amp;<span class="built_in">size</span>=<span class="number">20</span>&amp;<span class="built_in">sort</span>=-id,+createTime
+</code></pre><p>这里要注意，sort的值为-id,+createTime，是因为我们定义了两个查询规则，按照id DESC，按照createTime ASC,因为用到的+、-，所以URL一定要<code>urlencode()</code>,否则会被浏览器忽略掉。</p>
+<h3 id="搜索">搜索</h3><p>搜索的时候可能上面说的简单的条件是不够的，条件多了总不至于把他们都拼接在URI之后，这是可以考虑七个别名来统一一类搜索，所需要的值就在文档中规定好，URI也不会因此变得更复杂。如：</p>
+<pre><code><span class="attribute">GET /tickets?q</span>=<span class="string">recently_closed</span>
+</code></pre><h3 id="限制API返回值的域">限制API返回值的域</h3><p>对于返回值的域的规定我们在上面就已经提到过相关的内容。除了安全之外，灵活的提供一个<code>field</code>参数让用户自己去规定要返回什么数据也是一个非常不错的方法。这样用户就能以最少的代价获取只是自己想要的，没有任何多余的东西。比如：</p>
+<pre><code>GET /tickets?fields=<span class="property">id</span>,subname,customer_name
+</code></pre><h3 id="更新和创建操作应该返回资源">更新和创建操作应该返回资源</h3><p>POST/PUT/PATCH这些操作常常有一些副作用，比如说时间戳，这个会在你执行操作之后发送变化，为了防止用户多次提交API，在每次执行操作是都返回新资源的URI，和201(created)状态码，这样用户就能够判断是否执行成功和返回的值是否和预期一致。</p>
+<h2 id="值提供JSON作为返回资源">值提供JSON作为返回资源</h2><p>对于接口来说JSON已经足够用了，这里之所以强调这个，是和XML进行比较的时候建议用JSON，因为XML既冗长，也不利于编程语言解析，而JSON格式简单清晰，所以在接口数据格式化的时候，建议使用XML。</p>
+<h2 id="变量命名方式">变量命名方式</h2><p>有两种主流的命名方式snake_case和camelCase,博客中说的是snake_case比camelCase更容易阅读，但是这没有任何强制性限制，喜欢那种完全取决于你，不需要强制性要求。</p>
+<h2 id="压缩输出确保gzip的支持">压缩输出确保gzip的支持</h2><p>我们可以在接口之后添加pretty字段来设置是否开启gzip压缩，如：</p>
+<pre><code>/tickets?pretty=<span class="literal">true</span>
+</code></pre><p>通过gzip压缩可以节省60%的带宽，<strong>never return a response that’s not compressed</strong></p>
+<h2 id="接口请求的时候数据格式最好也是JSON">接口请求的时候数据格式最好也是JSON</h2><p>通过json格式化之后就能够支持复杂的结构，这样比传统的post或get传值更加方便</p>
+<h2 id="自动load相关的资源表现层">自动load相关的资源表现层</h2><p>添加expand或embed query parameter，构造的时候，.表示该资源的某一个字段，连接类似这样：</p>
+<pre><code>GET /tickets/<span class="number">12</span>?expand=customer.<span class="property">name</span>,assigned_user
+</code></pre><h2 id="overriding_HTTP_方法">overriding HTTP 方法</h2><p>有些http client只支持GET和POST请求，为了突破这种限制，API需要一种override HTTP method的方法，一般的做法是在请求头里设置<code>X-HTTP-Method-Override</code>的值是PUT,PATCH,DELETE<br>。</p>
+<p><strong>注意：</strong>这样的override只支持POST请求，不支持GET请求</p>
+<h2 id="速度限制_Rate_Limit">速度限制 Rate Limit</h2><p>为了防止接口滥用，给接口加一些速度限制是很有必要的，HTTP状态码409(too many requests)就是为这种情况准备的。下面这几个是一般常用的返回头:</p>
+<ul>
+<li><code>X-Rate-Limit-Limit</code> 当前时段允许的最大请求数</li>
+<li><code>X-Rate-Limit-Remaining</code> 当前时段允许保留的请求数</li>
+<li><code>X-Rate-Rest</code>  当前时段剩余秒数</li>
+</ul>
+<h5 id="为什么剩余秒数用X-Rate-Limit-Reset而不是用time_stamp时间戳">为什么剩余秒数用X-Rate-Limit-Reset而不是用time stamp时间戳</h5><p>时间戳包含了很多信息，有些信息使用不到的，用户只想知道下次什么时候请求以及响应这个请求需要的最少的附加处理，这也也可以避免有关clock skew的问题</p>
+<p>一些API使用UNIX时间戳而不是X-Rate-Limit-Reset，不要这样做，HTTP已经规定了使用RFC 1123的时间格式</p>
+<h2 id="认证_Authtication">认证 Authtication</h2><p>RESTful API是没有状态的，这意味着请求的认证不能依靠session和cookie，所以每一个请求都要携带一个凭证，以便进行请求认证。</p>
+<p>通过使用SSL，每个请求可以不需要提供用户名和密码，我们可以给用户返回一个随机的token，这样极大地方便使用浏览器访问API的用户，这种方法适用于用户可以第一次通过用户名-密码验证并且得到token。</p>
+<p>如果不方便，可以使用<a href="http://oauth.net/2/" target="_blank" rel="external">OAuth2</a>来进行token的安全传输。</p>
+<p>支持<a href="http://en.wikipedia.org/wiki/JSONP" target="_blank" rel="external">JSONP</a>的API需要额外的认证方法，因为JSONP请求无法发送HTTP Basic Auth credentials or <a href="http://tools.ietf.org/html/rfc6750" target="_blank" rel="external">Bearer tokens</a>，这种情况下可以设置一个查询参数如<code>access_token</code>来传递凭证，这儿有个固有的问题就是大多数web服务器会把请求参数保存在服务器日志里。</p>
+<p>这三种传输方法底层传输的token是一样的。</p>
+<h2 id="cache_缓存">cache 缓存</h2><p>HTTP提供一个自带的缓存框架，你所要做的就是添加一些附加的响应头信息，在接收请求的时候对请求头进行一些验证</p>
+<p>这里有两种方法：<a href="http://en.wikipedia.org/wiki/HTTP_ETag" target="_blank" rel="external">E-Tga</a>和<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.29" target="_blank" rel="external">Last-Modefied</a></p>
+<p>E-Tag:在生成一个请求的时候，在HTTP请求头里会加入一个ETag，其中包含一些HASH或者表现的校验值，这个值随着输出的表现的变化而变化。如果一个进入的HTTP请求包含<code>If-None-Match</code>的请求头信息，并且和ETag的值是一样的，那么API就应该返回一个304 Not Modified的状态码，而不是输出资源的表现。</p>
+<p>Last-Modified:基本的功能类似于ETag，只是多了一个时间戳，相应的返回头的Last-Modified会包含一个时间戳，它会和If-Modified-Since进行校验。HTTP的规范里有三种时间格式，不过web服务器都能够处理。</p>
+<h2 id="Error_出错处理">Error 出错处理</h2><p>就像HTML会显示出错信息一样，API也应该返回错误信息，并且它的格式应该和表现层一致。API应该返回相应的状态码，API的典型错误被分为400系列错误和500系列错误，400系列表示客户端错误，如错误的请求格式等。500系列错误表示服务器错误。API应该将所有的400错误以JSON的格式返回，如果可能，500系列的错误也应该如此，json格式的错误应该包含两部分内容，一个有用的错误信息和一个唯一的错误代码，以及任何可能的详细描述。比如：</p>
+<pre><code>{
+    "<span class="attribute">code</span>" : <span class="value"><span class="number">1234</span></span>,
+    "<span class="attribute">message</span>" : <span class="value"><span class="string">"something had happend:("</span></span>,
+    "<span class="attribute">description</span>" : <span class="value"><span class="string">"More details about the error here )"</span>
+</span>}
+</code></pre><p>对于PUT,PATCH,POST输入的校验错误也应该有返回格式：</p>
+<pre><code>{
+    "<span class="attribute">code</span>" : <span class="value"><span class="number">2014</span></span>,
+    "<span class="attribute">message</span>" : <span class="value"><span class="string">"validate failed"</span></span>,
+    "<span class="attribute">errors</span>" : <span class="value">[
+        {
+            "<span class="attribute">code</span>" : <span class="value"><span class="number">2014</span></span>,
+            "<span class="attribute">field</span>" : <span class="value"><span class="string">"first_name"</span></span>,
+            "<span class="attribute">message</span>" : <span class="value"><span class="string">"first name can not have number"</span>
+        </span>},
+        {
+            "<span class="attribute">code</span>" : <span class="value"><span class="number">2014</span></span>,
+            "<span class="attribute">field</span>" : <span class="value"><span class="string">"first_name"</span></span>,
+            "<span class="attribute">message</span>" : <span class="value"><span class="string">"first name can not have number"</span>
+        </span>}
+    ]
+</span>}
+</code></pre><h2 id="HTTP状态码">HTTP状态码</h2><p>每个接口处理完成返回时都要对应相应的HTTP状态码，常用的状态码如下：</p>
+<pre><code>200 |<span class="string">ok     </span>|<span class="string"> 成功状态，对应GET,PUT,DELETE,PATCH,不能用于POST,这并不是创建的结果状态
+201 </span>|<span class="string">created</span>|<span class="string"> 创建成功，应该绑定一个Location Header指向创建的新资源
+204 </span>|<span class="string">No Content</span>|<span class="string"> 响应一个成功的请求并返回一个没有body的结果
+304 </span>|<span class="string">Not Modified</span>|<span class="string"> HTTP缓存有效
+400 </span>|<span class="string">Bad Request</span>|<span class="string"> 请求格式错误
+401 </span>|<span class="string">Unauthorized</span>|<span class="string"> 未授权
+403 </span>|<span class="string">Forbidden</span>|<span class="string"> 授权成功，但该用户没有权限
+404 </span>|<span class="string">Not Found</span>|<span class="string"> 请求的资源不存在
+405 </span>|<span class="string">Method Not Allowed</span>|<span class="string">授权成功的用户不允许使用该HTTP方法
+410 </span>|<span class="string">Gone </span>|<span class="string"> 当前URL对应的资源不存在或不可用
+415 </span>|<span class="string">Unsupport Media Type</span>|<span class="string">请求时的内容的类型不正确
+422 </span>|<span class="string">Unprocessable Entity</span>|<span class="string">用户校验错误
+429 </span>|<span class="string">Too Many Request</span>|<span class="string">请求过多</span>
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api">Best Practices for Designing a Pragmatic RESTful API</a>，读完之后顿觉彻悟，故此将自己的一些理解记录下来。</p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="php" scheme="http://chanxiaoxi.github.io/categories/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[初识REST]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/05/11/rest-web-service/"/>
+    <id>http://chanxiaoxi.github.io/2014/05/11/rest-web-service/</id>
+    <published>2014-05-11T04:46:36.000Z</published>
+    <updated>2015-04-20T16:24:39.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="REST是什么">REST是什么</h4><p>REST(Representational State Transfer)，即表现层状态转化，它是一种互联网软件的架构原则，一个架构符合REST原则，就称它是RESTful架构</p>
+<h5 id="如何理解Representational_State_Transfer">如何理解Representational State Transfer</h5><p><strong>资源：</strong>表现层状态转化其实是“资源表现层状态转化”，因为和我们交互的是一个网络上具体存在的实体，或者说是一个具体的信息体，我们通过URI指向这个资源，并且与之互动，URI就是资源的唯一标识符。<a id="more"></a></p>
+<p><strong>表现层：</strong>URI只代表资源的实体，不代表它的形式。资源的具体表现形式应该是在HTTP请求的头信息中用Accept和Content-Type字段指定，这两个字段才是对表现层的表述。</p>
+<p><strong>状态转化：</strong>互联网通信协议HTTP协议是一个无状态的协议（无状态协议就是事务处理没有记忆的能力，每一次请求都是与之前请求毫无关系的独立事务，这也就是为什么会有cookie和session技术存在的原因），客户端如何才能使服务器发生状态转化，我们只能通过HTTP协议提供的四个动作：GET/POST/PUT/DELETE来实现，<em>我们将这四个动作对应增删改查四个操作：GET用来获取资源、POST用来新建资源、PUT用来更新资源、DELETE删除资源</em></p>
+<p><em>对于POST/GET/PUT/DELETE请求的却别参考扩展资料——理解RESTful架构</em></p>
+<p>所以我们一般这样设计请求URI:</p>
+<pre><code><span class="type">GET</span> http:://www.domain.com/api/service/<span class="keyword">method</span>/params_key/params_value.extension
+</code></pre><p>这里有状态转化的具体动作，有指定的service和method以及params，最后还指定了表现层的表现形式</p>
+<p><strong>所谓REST表现层状态转化，就是通过URI来唯一标识资源，在客户端和服务器之间传递该资源的某种表现层，并且通过HTTP提供的四个动词，对服务器资源进行操作，实现状态转化</strong></p>
+<p>扩展资料：<br><a href="http://www.ruanyifeng.com/blog/2011/09/restful.html" target="_blank" rel="external">理解RESTful架构</a><br><a href="http://blog.2partsmagic.com/restful-uri-design/" target="_blank" rel="external">REST-ful URI design</a></p>
+<h4 id="使用PHP实现一个简单的RESTful架构">使用PHP实现一个简单的RESTful架构</h4><p>上面关于REST的介绍让我们知道了REST的基本原则，但是具体实现一个RESTful的架构远远没有那么简单，这里记录一下实现一个RESTful架构我们要做什么</p>
+<h5 id="HTTP的PUT/DELETE请求">HTTP的PUT/DELETE请求</h5><p>目前浏览器只支持GET和POST请求，并不支持PUT、DELETE请求，据说HTML5也放弃了对他们的支持，所以我们先要实现对这两个请求的模拟，一般的方式就是在表单中设置隐藏域来标记PUT和DELETE请求，当然也可以通过其他手段来实现</p>
+<h5 id="请求URI重写">请求URI重写</h5><p>REST原则告诉我们资源的URI是唯一的，它是对资源的唯一标识，具体的实现过程我们则是要对URI进行重写，从而提取具体的模型和方法来让程序执行相应的操作，最后通过制定的表现形式来返回其代表的唯一资源，比如Apache通过.htaccess文件来重写URI</p>
+<pre><code><span class="comment"># Turn on the rewrite engine</span>
+<span class="type">Options</span> +<span class="type">FollowSymlinks</span>
+<span class="type">RewriteEngine</span> on
+
+<span class="comment"># Request routing</span>
+<span class="type">RewriteRule</span> ^([a-zA-<span class="type">Z_</span>-]*)\.(html|json|xml)?$   index.php?<span class="keyword">method</span>=$<span class="number">1</span>&amp;format=$<span class="number">2</span> [nc,qsa]
+</code></pre><p>stackoverflow上面对于<a href="http://stackoverflow.com/questions/8291712/using-clean-urls-in-restful-api" target="_blank" rel="external">Using Clean URLs in RESTful API</a>的问题有很好的回答和相关资料的推荐</p>
+<h5 id="资源具体表现的实现">资源具体表现的实现</h5><p>做到以上步骤，我们就可以通过相应的程序找到指定的资源，那么剩下的就是以什么样的形式返回了，这个也就是前面提到的HTTP协议的Content-Type的要做的事情了，实现就不细说了。对于具体的实现，可以看看这几篇文章：  </p>
+<p><a href="http://www.sitepoint.com/writing-a-restful-web-service-with-slim/" target="_blank" rel="external">Writing a RESTful Web Service with Slim</a><br><a href="http://markroland.com/blog/restful-php-api/" target="_blank" rel="external">How to Build a RESTful API Web Service with PHP</a><br><a href="http://hmw.iteye.com/blog/1190827" target="_blank" rel="external">使用PHP创建一个REST API(Create a REST API with PHP)</a><br><a href="http://bullsoft.org/phalcon-docs/reference/tutorial-rest.html" target="_blank" rel="external">创建简单的REST API</a></p>
+<p>略过整个过程的中间程序的执行过程，一个简单的RESTful架构也就可以分解为这么简单的几步，至于更深层次的理解和应用目前在我的能力范围之外，不过有几篇很不错的文章可以分享</p>
+<p><a href="http://www.ibm.com/developerworks/cn/web/wa-aj-multitier/" target="_blank" rel="external">用于构建 RESTful Web 服务的多层架构</a><br><a href="http://www.infoq.com/cn/articles/rest-introduction/" target="_blank" rel="external">深入浅出REST</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="REST是什么">REST是什么</h4><p>REST(Representational State Transfer)，即表现层状态转化，它是一种互联网软件的架构原则，一个架构符合REST原则，就称它是RESTful架构</p>
+<h5 id="如何理解Representational_State_Transfer">如何理解Representational State Transfer</h5><p><strong>资源：</strong>表现层状态转化其实是“资源表现层状态转化”，因为和我们交互的是一个网络上具体存在的实体，或者说是一个具体的信息体，我们通过URI指向这个资源，并且与之互动，URI就是资源的唯一标识符。]]>
+    
+    </summary>
+    
+      <category term="架构" scheme="http://chanxiaoxi.github.io/categories/%E6%9E%B6%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[PHP设计模式之单例模式]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/05/10/singleton-pattern-for-php/"/>
+    <id>http://chanxiaoxi.github.io/2014/05/10/singleton-pattern-for-php/</id>
+    <published>2014-05-10T03:43:36.000Z</published>
+    <updated>2015-04-20T16:24:31.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="什么是单例模式">什么是单例模式</h4><p>单例模式又称单件模式，作为对象的创建模式，它保证一个对象在程序中自始至终只有一个实例（PHP本身不支持多线程，所以不存在多线程的安全问题，支持多线程的语言在实现单例模式的时候要注意这一点，比如Java），自行实例化并且为该唯一单例提供一个全局访问点（一般是静态的方法）。<a id="more"></a></p>
+<p>单例模式只有三个要点：</p>
+<ul>
+<li>一个类只有一个实例</li>
+<li>它必须自行创建这个实例</li>
+<li>必须自行向整个系统提供这个实例</li>
+</ul>
+<h4 id="单例模式的适用场景">单例模式的适用场景</h4><p>当一个对象使用频繁，而频繁的去new这个对象的操作会增加不必要的资源消耗的情况下，我们就可以考虑使用单例模式，最典型的就是数据库操作中对象的实例化了</p>
+<p>便利的全局调用是单例模式的另一个适用场景，可以通过单例模式来创建一个可以全局控制配置信息的类或者调试类</p>
+<h4 id="单例模式的具体实现">单例模式的具体实现</h4><p>在实现一个单例模式的时候我们要满足以下几个要求：</p>
+<ul>
+<li>必须有一个存储实例化对象的私有静态变量$_instance</li>
+<li>构造函数必须是私有的，防止外部实例化</li>
+<li>有一个公有的getInstance方法来返回唯一实例的对象引用</li>
+<li>必须override clone()方法，禁止对象被克隆</li>
+</ul>
+<p>PHP代码示例：</p>
+<pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+<span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>{
+    <span class="comment">//定义一个私有静态变量，用于存储实例化对象</span>
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="variable">$_instance</span>;
+
+    <span class="comment">//构造函数必须声明为私有的，防止外部实例化对象</span>
+    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>{
+
+    }
+
+    <span class="comment">//类唯一实例的全局访问点，判断对象是否实例化并返回实例，共外部调用</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">()</span></span>{
+        <span class="keyword">if</span>(is_null(<span class="keyword">self</span>::<span class="variable">$_instance</span>)){
+            <span class="keyword">self</span>::<span class="variable">$_instance</span> = <span class="keyword">new</span> Singleton();
+        }
+        <span class="keyword">return</span> <span class="keyword">self</span>::<span class="variable">$_instance</span>;
+    }
+
+    <span class="comment">//重载clone方法，不允许克隆对象实例</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span></span>{
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="keyword">Exception</span>(<span class="string">'object_can_not_be_clone'</span>);
+    }
+
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>{
+        <span class="comment">// 其他业务方法</span>
+    }    
+}
+<span class="preprocessor">?&gt;</span></span>
+</code></pre><h4 id="单例模式+工厂模式实现数据库对象实例化">单例模式+工厂模式实现数据库对象实例化</h4><pre><code>class DBFactory{
+    private static $_instance;
+    private function __construct(){
+
+    }
+    public static function getInstance(<span class="variable">$dbName</span>, <span class="variable">$params</span>){
+        switch(<span class="variable">$dbName</span>){
+            case <span class="string">'PDO_MYSQL'</span> : 
+                <span class="variable">$dsn</span> = <span class="string">"mysql:host="</span>.<span class="variable">$params</span>[<span class="string">'host'</span>].<span class="string">";dbname="</span>.<span class="variable">$params</span>[<span class="string">'dbName'</span>];
+                break;
+            case <span class="string">'PDO_SQLSRV'</span> :
+                <span class="variable">$dsn</span> = <span class="string">"sqlsrv:Server="</span>.<span class="variable">$params</span>[<span class="string">'host'</span>].<span class="string">";Database="</span>.<span class="variable">$params</span>[<span class="string">'dbName'</span>];
+                break;
+            case <span class="string">'PDO_OCI'</span> :
+                <span class="variable">$dsn</span> = <span class="string">"oci:dbname="</span>.<span class="variable">$params</span>[<span class="string">'host'</span>];
+                break;
+            default :
+                <span class="variable">$dsn</span> = <span class="string">"mysql:host="</span>.<span class="variable">$params</span>[<span class="string">'host'</span>].<span class="string">";dbname="</span>.<span class="variable">$params</span>[<span class="string">'dbName'</span>];
+        }
+        if(is_null(self::$_instance)){
+            <span class="variable">$options</span> = array(PDO::MYSQL_ATTR_INIT_COMMAND =&gt; <span class="string">'SET NAMES utf8'</span>);
+            try{
+                self::$_instance = new PDO(<span class="variable">$dsn</span>, <span class="variable">$params</span>[<span class="string">'dbUserName'</span>], <span class="variable">$params</span>[<span class="string">'dbUserPwd'</span>]);
+            }catch(PDOException <span class="variable">$e</span>){
+                exit(<span class="variable">$e-</span>&gt;getMessage());
+            }
+        }
+        return self::$_instance;
+    }
+    public function __clone(){
+
+    }
+    public function __destruct(){
+        self::$_instance = NULL;
+    }
+}
+</code></pre><p>工厂模式分割了数据库对象的具体创建方式和实例化过程，单例模式实现了对象的全局共享，这样一个基本的数据库对象工厂类就产生了</p>
+<h4 id="关于单例模式的几点说明">关于单例模式的几点说明</h4><ul>
+<li>每次PHP页面执行完之后会释放所有资源，这样说单例模式并不能够发挥它的能力，即使这样，单例模式还是有使用价值的</li>
+<li>单例模式一般要求构造方法是private，这样它就无法被继承，如果要通过继承来扩展一个单例，那么其构造方法就必须是public或者protected，对于单例的继承到底有没有必要，目前来说个人觉得没有必要，因为单例主要是实现全局控制和共享，如果对其继承和扩展，极有可能导致其失控</li>
+</ul>
+<h4 id="参考文档">参考文档</h4><ul>
+<li><a href="http://www.thinkphp.cn/topic/4496.html" target="_blank" rel="external">为什么要使用PHP单例模式及应用实例</a></li>
+<li><a href="http://blog.samoay.me/post/view/13" target="_blank" rel="external">PHP设计模式之单例模式(Singleton)</a></li>
+<li><a href="http://www.phppan.com/2010/06/php-design-pattern-6-singleton/" target="_blank" rel="external">PHP设计模式笔记：使用PHP实现单例模式</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="什么是单例模式">什么是单例模式</h4><p>单例模式又称单件模式，作为对象的创建模式，它保证一个对象在程序中自始至终只有一个实例（PHP本身不支持多线程，所以不存在多线程的安全问题，支持多线程的语言在实现单例模式的时候要注意这一点，比如Java），自行实例化并且为该唯一单例提供一个全局访问点（一般是静态的方法）。]]>
+    
+    </summary>
+    
+      <category term="设计模式" scheme="http://chanxiaoxi.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[PHP输出缓冲控制ob_start()及其多级缓冲]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/05/07/php-output-cache-control/"/>
+    <id>http://chanxiaoxi.github.io/2014/05/07/php-output-cache-control/</id>
+    <published>2014-05-07T15:54:44.000Z</published>
+    <updated>2015-04-20T16:24:02.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="PHP输出缓冲控制">PHP输出缓冲控制</h4><p>PHP的输出缓冲控制用来控制PHP脚本的输出，这也是PHP的一种缓冲机制的一种，PHP Manual对其有如下介绍</p>
+<blockquote>
+<p>The Output Control functions allow you to control when output is sent from the script. This can be useful in several different situations, especially if you need to send headers to the browser after your script has began outputting data. The Output Control functions do not affect headers sent using header() or setcookie(), only functions such as echo and data between blocks of PHP code.</p>
+</blockquote>
+<ul>
+<li>我们都知道PHP是通过header()来设置HTTP报文的，它要求header()必须在任何实际输出之前调用，不管是普通的html标签还是文件里面的空行，空格或者是PHP文件里的空行，空格。</li>
+<li>setcookie()函数也是用来设置HTTP报文头，为其添加cookie的，所以他也满足header()函数的要求</li>
+</ul>
+<p>作为一种输出缓冲控制，在实际中他也有很多用途，这里大概介绍一下，详细的内容可参照<a href="http://rickykwan.iworkshop.com.hk/2010/03/656.html" target="_blank" rel="external">Ricky Kwan</a>的博客<a id="more"></a></p>
+<h5 id="1-静态模板技术">1.静态模板技术</h5><p>这其实是用一种动态的方式生成静态模板的技术，在一些类似于CMS的系统中是非常有用的。大致的实现思路是：在动态调用脚本生成相应的HTML之后，我们可以通过该技术来生成静态的模板，供用户下次访问使用，前提是这些模板的内容大多是一成不变的，或者在一定时间内不变的</p>
+<pre><code>&lt;?php
+ob_start();// 打開緩沖區
+?&gt;
+&lt;?
+<span class="variable">$content</span> = ob_get_contents();//取得php頁面輸出的全部內容
+<span class="variable">$fp</span> = fopen(<span class="string">"output00001.html"</span>, <span class="string">"w"</span>); //創建一個文件，并打開，準備寫入
+fwrite(<span class="variable">$fp</span>, <span class="variable">$content</span>); //把php頁面的內容全部寫入output00001.html，然后……
+fclose(<span class="variable">$fp</span>);
+?&gt;
+</code></pre><h5 id="2-捕捉输出">2.捕捉输出</h5><p>利用输出缓存机制我们将一些输出内容捕捉，再进行处理，比如PHP语法高亮显示</p>
+<pre><code>&lt;?
+Function run_code(<span class="variable">$code</span>) {
+    If(<span class="variable">$code</span>) {
+        ob_start();
+        eval(<span class="variable">$code</span>);
+        <span class="variable">$contents</span> = ob_get_contents();
+        ob_end_clean();
+    }else {
+        echo <span class="string">"錯誤！沒有輸出"</span>;
+        exit();
+    }
+    return <span class="variable">$contents</span>;
+}
+</code></pre><h5 id="3-加快传输">3.加快传输</h5><p>利用该机制，对输出类容进行压缩处理，来加快其传输效率</p>
+<pre><code>&lt;?
+/*
+** Title.........: PHP4 HTTP Compression Speeds up the Web
+** Version.......: <span class="number">1.20</span>
+** Author........: catoc &lt;[email]catoc@<span class="number">163</span>.net[/email]&gt;
+** Filename......: gzdoc.php
+** Last changed..: <span class="number">18</span>/<span class="number">10</span>/<span class="number">2000</span>
+** Requirments...: PHP4 &gt;= <span class="number">4.0</span>.<span class="number">1</span>
+** PHP was configured with --with-zlib[=DIR]
+** Notes.........: Dynamic Content Acceleration compresses
+** the data transmission data on the fly
+** code <span class="keyword">by</span> sun jin hu (catoc) &lt;[email]catoc@<span class="number">163</span>.net[/email]&gt;
+** Most newer browsers since <span class="number">1998</span>/<span class="number">1999</span> have
+** been equipped <span class="keyword">to</span> support the HTTP <span class="number">1.1</span>
+** standard known <span class="keyword">as</span> \<span class="string">"content-encoding.\"</span>
+** Essentially the browser indicates <span class="keyword">to</span> the
+** server that it can accept \<span class="string">"content encoding\"</span>
+** and <span class="keyword">if</span> the server is capable it will <span class="keyword">then</span>
+** compress the data and transmit it. The
+** browser decompresses it and <span class="keyword">then</span> renders
+** the page.
+**
+** Modified <span class="keyword">by</span> John Lim ([email]jlim@natsoft.com.my[/email])
+** based on ideas <span class="keyword">by</span> Sandy McArthur, Jr
+** Usage........:
+** No space before the beginning <span class="keyword">of</span> the first \<span class="string">'&lt;?\'</span> tag.
+** ------------Start <span class="keyword">of</span> file----------
+** |&lt;?
+** | include(\<span class="string">'gzdoc.php\'</span>);
+** |? &gt;
+** |&lt;HTML&gt;
+** |... the page ...
+** |&lt;/HTML&gt;
+** |&lt;?
+** | gzdocout();
+** |? &gt;
+** -------------End <span class="keyword">of</span> file-----------
+*/
+ob_start();
+ob_implicit_flush(<span class="number">0</span>);
+<span class="keyword">function</span> CheckCanGzip(){
+global <span class="variable">$HTTP</span>_ACCEPT_ENCODING;
+if (headers_sent() || connection_timeout() || connection_aborted()){
+    return <span class="number">0</span>;
+}
+if (strpos(<span class="variable">$HTTP</span>_ACCEPT_ENCODING, \<span class="string">'x-gzip\'</span>) !== false) return \<span class="string">"x-gzip\"</span>;
+if (strpos(<span class="variable">$HTTP</span>_ACCEPT_ENCODING,\<span class="string">'gzip\'</span>) !== false) return \<span class="string">"gzip\"</span>;
+return <span class="number">0</span>;
+}
+
+/* <span class="variable">$level</span> = compression level <span class="number">0</span>-<span class="number">9</span>, <span class="number">0</span>=none, <span class="number">9</span>=max */
+<span class="keyword">function</span> GzDocOut(<span class="variable">$level</span>=<span class="number">1</span>,<span class="variable">$debug</span>=<span class="number">0</span>){
+<span class="variable">$ENCODING</span> = CheckCanGzip();
+if (<span class="variable">$ENCODING</span>){
+    print \<span class="string">"n&lt;!-- Use compress $ENCODING --&gt;n\"</span>;
+    <span class="variable">$Contents</span> = ob_get_contents();
+    ob_end_clean();
+
+    if (<span class="variable">$debug</span>){
+        <span class="variable">$s</span> = \<span class="string">"&lt;p&gt;Not compress length: \"</span>.strlen(<span class="variable">$Contents</span>);
+        <span class="variable">$s</span> .= \<span class="string">"
+        Compressed length: \"</span>.strlen(gzcompress(<span class="variable">$Contents</span>,<span class="variable">$level</span>));
+        <span class="variable">$Contents</span> .= <span class="variable">$s</span>;
+    }
+    header(\<span class="string">"Content-Encoding: $ENCODING\"</span>);
+    print \<span class="string">"x1fx8bx08x00x00x00x00x00\"</span>;
+    <span class="variable">$Size</span> = strlen(<span class="variable">$Contents</span>);
+    <span class="variable">$Crc</span> = crc32(<span class="variable">$Contents</span>);
+    <span class="variable">$Contents</span> = gzcompress(<span class="variable">$Contents</span>,<span class="variable">$level</span>);
+    <span class="variable">$Contents</span> = substr(<span class="variable">$Contents</span>, <span class="number">0</span>, strlen(<span class="variable">$Contents</span>) - <span class="number">4</span>);
+    print <span class="variable">$Contents</span>;
+    print pack(\<span class="string">'V\'</span>,<span class="variable">$Crc</span>);
+    print pack(\<span class="string">'V\'</span>,<span class="variable">$Size</span>);
+    exit;
+}else{
+    ob_end_flush();
+    exit;
+}
+}
+?&gt;
+</code></pre><h4 id="ob_start()多级缓冲">ob_start()多级缓冲</h4><p><a href="http://my.oschina.net/CuZn/blog/68650" target="_blank" rel="external">CuZn</a>的一篇博文大概介绍了一下ob_start()的多级缓冲，详细的说明可以参看他的博文，这里只做简单的总结</p>
+<p>PHP的输出控制是多级缓冲机制，程序为每个ob_start()开辟一个缓冲区，并且PHP程序本身也有一个最终的输出缓冲区（这里用F代表），举个栗子</p>
+<pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+ob_start();             <span class="comment">//开启缓冲区A</span>
+<span class="keyword">echo</span>   <span class="string">'level 1&lt;br/&gt; '</span>; <span class="comment">//将level 1&lt;br/&gt;保存在A区</span>
+ob_start();             <span class="comment">//开启缓冲区B</span>
+<span class="keyword">echo</span>   <span class="string">'level 2&lt;br/&gt; '</span>; <span class="comment">//将level 2&lt;br/&gt;保存在B区</span>
+ob_start();             <span class="comment">//开启缓冲区C</span>
+<span class="keyword">echo</span>   <span class="string">'level 3&lt;br/&gt; '</span>; <span class="comment">//将level 3&lt;br/&gt;保存在C区</span>
+ob_end_flush();            <span class="comment">//将缓冲区C输入B区，并关闭 B:level 2&lt;br/&gt;level 3&lt;br/&gt;</span>
+ob_end_flush();            <span class="comment">//B-&gt;A，并关闭B A:level 1&lt;br/&gt;level 2&lt;br/&gt;level 3&lt;br/&gt;</span>
+ob_end_flush();            <span class="comment">//A-&gt;F，并关闭A F:level 1&lt;br/&gt;level 2&lt;br/&gt;level 3&lt;br/&gt;</span></span>
+</code></pre><p>他的输出顺序是 level 1 level 2 level 3，再看一个例子</p>
+<pre><code><span class="php"><span class="preprocessor">&lt;?php</span>
+ob_start(); <span class="comment">//A:null</span>
+<span class="keyword">echo</span>   <span class="string">'level 1&lt;br/&gt; '</span>; <span class="comment">//A:level 1&lt;br/&gt;</span>
+ob_start(); <span class="comment">//B:null</span>
+<span class="keyword">echo</span>   <span class="string">'level 2&lt;br/&gt; '</span>; <span class="comment">//B:level 2&lt;br/&gt;</span>
+ob_start(); <span class="comment">//C:null</span>
+<span class="keyword">echo</span>   <span class="string">'level 3&lt;br/&gt; '</span>; <span class="comment">//C:level 3&lt;br/&gt;</span>
+ob_end_clean(); <span class="comment">//清除C并关闭 </span>
+ob_end_flush(); <span class="comment">//B-&gt;A并关闭B A:level 2&lt;br/&gt;level 1&lt;br/&gt;</span>
+ob_end_clean(); <span class="comment">//清除A并关闭 F:null</span></span>
+</code></pre><p>这里什么都不会输出，由此可以看出，ob_<br>start()的储存是栈的形式，所以每次ob_start()总是取最近的一个，但是ob_end_flush()是队列的形式存取的，所以每次先进的先出</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="PHP输出缓冲控制">PHP输出缓冲控制</h4><p>PHP的输出缓冲控制用来控制PHP脚本的输出，这也是PHP的一种缓冲机制的一种，PHP Manual对其有如下介绍</p>
+<blockquote>
+<p>The Output Control functions allow you to control when output is sent from the script. This can be useful in several different situations, especially if you need to send headers to the browser after your script has began outputting data. The Output Control functions do not affect headers sent using header() or setcookie(), only functions such as echo and data between blocks of PHP code.</p>
+</blockquote>
+<ul>
+<li>我们都知道PHP是通过header()来设置HTTP报文的，它要求header()必须在任何实际输出之前调用，不管是普通的html标签还是文件里面的空行，空格或者是PHP文件里的空行，空格。</li>
+<li>setcookie()函数也是用来设置HTTP报文头，为其添加cookie的，所以他也满足header()函数的要求</li>
+</ul>
+<p>作为一种输出缓冲控制，在实际中他也有很多用途，这里大概介绍一下，详细的内容可参照<a href="http://rickykwan.iworkshop.com.hk/2010/03/656.html">Ricky Kwan</a>的博客]]>
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[PHP5.5.X连接MS SQL SEVER]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/05/05/new/"/>
+    <id>http://chanxiaoxi.github.io/2014/05/05/new/</id>
+    <published>2014-05-05T00:40:27.000Z</published>
+    <updated>2015-04-20T16:23:36.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="准备工作">准备工作</h4><h5 id="1-_安装Microsoft_SQL_Server_2012_Native_Client">1. 安装Microsoft SQL Server 2012 Native Client</h5><p>这个是必须要安装的，微软给出了如下说明</p>
+<blockquote>
+<p>The x86 version of SQL Server Native Client is required on the computer where PHP is running. If you are using a 64-bit operating system, the x86 version of SQL Server Native Client will be installed with the x64 version of SQL Server Native Client (do not install the x86 version of SQL Server Native Client on an x64 operating system).</p>
+</blockquote>
+<p>可能你会对MS提供的下载包产生迷惑，选择相应版本的sqlncli.msi下载就可以了，这是Microsoft SQL Server 2008的客户端下载连接<a href="http://www.microsoft.com/en-us/download/details.aspx?id=27596" target="_blank" rel="external">Microsoft SQL Server 2008 Service Pack 3 Feature Pack</a><a id="more"></a></p>
+<h5 id="2-_安装Microsoft_Drivers_for_PHP_for_SQL_Server">2. 安装Microsoft Drivers for PHP for SQL Server</h5><p>这里有version 2.0和version3.0两个版本可供下载，<a href="http://technet.microsoft.com/en-us/library/cc296170(v=sql.105).aspx" target="_blank" rel="external">这里</a>有详细的说明，不在赘述，官方并没有提供5.5以后版本的driver，如果你的PHP版本是5.5以后的，请参照遇到的问题的解决办法。下载之后将驱动安装在PHP的相应扩展目录下，并配置php.ini文件</p>
+<h5 id="3-配置PHP">3.配置PHP</h5><p>我们需要再php.ini文件中添加如下内容：</p>
+<pre><code>[PHP_PDO_SQLSRV]
+extension=php_pdo_sqlsrv_55_ts<span class="class">.dll</span> <span class="comment">//PHP DAO 扩展</span>
+[PHP_SQLSRV]
+extension=php_sqlsrv_55_ts<span class="class">.dll</span> <span class="comment">//sqlsrv扩展</span>
+</code></pre><h4 id="遇到的问题">遇到的问题</h4><h5 id="1-_PHP_5-5-X没有官方的驱动dll">1. PHP 5.5.X没有官方的驱动dll</h5><p>官方并没有提供PHP 5.5.X的驱动dll，但是有第三方的可以选择，如果你不想改变你的PHP环境，那么就下载第三方的dll来使用 <a href="http://www.hmelihkara.com/files/php_sqlsrv_55.rar" target="_blank" rel="external">下载地址</a></p>
+<h5 id="2-_MSVCP110-dll_Missing">2. MSVCP110.dll Missing<br></h5><p>在准备过程中我还遇到了MSVCP110.dll缺失的问题，stackoverflow给出了相关的解决方法<a href="http://stackoverflow.com/questions/21622116/could-not-find-driver-using-sqlsrv-for-pdo" target="_blank" rel="external">“could not find driver” using sqlsrv for PDO</a></p>
+<blockquote>
+<p>The issue was that I didn’t have the Visual C++ Redistributable package. I realized this after rebooting the computer and getting a MSVCP110.dll missing error in a system dialog box rather than a dialog box from XAMPP.</p>
+<p>If anyone else is having this very same issue, download Visual C++ Redistributable for Visual Studio 2012 Update 4 here, in the Microsoft website. Although the computer works with a x64 architecture, I downloaded the x86 version and it worked. Make your choice but I’d recommend doing the same, because PHP is x86 only (x64 is merely experimental and the drivers are x86 aswell).</p>
+</blockquote>
+<p>安装了Redistributable发现还是不行，原来是没有仔细看人家的方法，虽然是计算机的版本是64位的，XAMPP，所以应该安装32位的Redistributable,安装了32位的之后，it works</p>
+<h4 id="PHP_MS_SQL_Server操作">PHP MS SQL Server操作</h4><p>PHP有针对MS SQL Server的扩展函数供我们使用，具体的使用方式参照<a href="http://www.php.net/manual/zh/book.mssql.php" target="_blank" rel="external">PHP文档</a>，当然你也可以使用PHP的<a href="http://cn2.php.net/manual/zh/ref.pdo-sqlsrv.php" target="_blank" rel="external">PDO</a>扩展来操作MS SQL Server</p>
+<h4 id="测试连接">测试连接</h4><p>完成配置后就可以测试连接啦，这里使用PHP提供的sqlsrv扩展函数来测试</p>
+<pre><code>&lt;?php
+    <span class="variable">$serverName</span> = <span class="string">"serverName\sqlexpress"</span>; //serverName\instanceName
+    <span class="variable">$connectionOptions</span> = <span class="keyword">array</span>(<span class="string">"Database"</span> =&gt; <span class="string">"Database"</span>, <span class="string">"UID"</span> =&gt; <span class="string">"UID"</span> , <span class="string">"PWD"</span> =&gt; <span class="string">"PWD"</span>);
+    <span class="variable">$conn</span> = sqlsrv_connect(<span class="variable">$serverName</span>, <span class="variable">$connectionOptions</span>);
+    <span class="keyword">if</span>(<span class="variable">$conn</span>){
+        echo <span class="string">"connection established.&lt;br&gt;"</span>;
+    }<span class="keyword">else</span>{
+        echo <span class="string">"connection could not be established.&lt;br&gt;"</span>;
+        die(print_r(sqlsrv_errors(), true));
+    }
+?&gt;
+</code></pre><p>使用PHP PDO扩展测试连接</p>
+<pre><code><span class="keyword">try</span>{
+    <span class="variable">$pdo</span> = new PDO(<span class="string">'sqlsrv:Server=210.28.32.161;Database=teacher'</span>,<span class="string">"xscpjk1"</span>,<span class="string">"xscpjk1"</span>);
+    <span class="variable">$sql</span> = <span class="string">"SELECT * FROM XSCPJK_XSXK WHERE XH='111003131'"</span>;
+    foreach(<span class="variable">$pdo-</span>&gt;query(<span class="variable">$sql</span>) as <span class="variable">$row</span>){
+        print_r(<span class="variable">$row</span>);
+    }
+    <span class="variable">$pdo</span> = null; //close connect
+}<span class="keyword">catch</span>(PDOException <span class="variable">$e</span>){
+    print <span class="string">"Error!:"</span>.<span class="variable">$e-</span>&gt;getMessage().<span class="string">"&lt;br&gt;"</span>;
+    die();
+}
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="准备工作">准备工作</h4><h5 id="1-_安装Microsoft_SQL_Server_2012_Native_Client">1. 安装Microsoft SQL Server 2012 Native Client</h5><p>这个是必须要安装的，微软给出了如下说明</p>
+<blockquote>
+<p>The x86 version of SQL Server Native Client is required on the computer where PHP is running. If you are using a 64-bit operating system, the x86 version of SQL Server Native Client will be installed with the x64 version of SQL Server Native Client (do not install the x86 version of SQL Server Native Client on an x64 operating system).</p>
+</blockquote>
+<p>可能你会对MS提供的下载包产生迷惑，选择相应版本的sqlncli.msi下载就可以了，这是Microsoft SQL Server 2008的客户端下载连接<a href="http://www.microsoft.com/en-us/download/details.aspx?id=27596">Microsoft SQL Server 2008 Service Pack 3 Feature Pack</a>]]>
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[搭建属于自己的octopress技术博客]]></title>
+    <link href="http://chanxiaoxi.github.io/2014/04/28/create-octopress/"/>
+    <id>http://chanxiaoxi.github.io/2014/04/28/create-octopress/</id>
+    <published>2014-04-28T12:02:35.000Z</published>
+    <updated>2015-04-30T06:45:20.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="为什么选择octopress">为什么选择octopress</h3><p>之所以想用octopress是因为感觉到使用markdown来写博客是一件很令人兴奋的事。而且基于github的octopress使得我们免费且放心的将我们的博文托管到github上，换用官方的说法是，使用octopress像hacker一样写博客，其实就实际情况来说也是这样的，不是搞技术的，在现在博客平台那么多的情况下，谁也不愿意去那么繁琐的搭建一个博客<a id="more"></a></p>
+<h3 id="搭建octopress">搭建octopress</h3><ul>
+<li>Mac OS下搭建：<a href="http://segmentfault.com/a/1190000000364677" target="_blank" rel="external">在Mac上从零开始搭建基于Github的Octopress博客</a></li>
+<li>Win7下搭建：<a href="http://www.techelex.org/setup-octopress-windows7/" target="_blank" rel="external">Setup Octopress On Windows7</a></li>
+</ul>
+<h3 id="注意事项">注意事项</h3><p>搭建octopress的方法网上的教程很多，这里之记录我在搭建过程中遇到的一些问题，以备后用</p>
+<h5 id="替换gem源">替换gem源</h5><p>在安装的时候使用官方的源实在太慢，建议替换成淘宝的镜像源：</p>
+<pre><code>GavinWu:chanxiaoxi<span class="class">.github</span><span class="class">.com</span> GavinWu$ gem sources -<span class="tag">a</span> http:<span class="comment">//ruby.taobao.org/</span>
+http:<span class="comment">//ruby.taobao.org/ added to sources</span>
+</code></pre><h5 id="gem相关工具介绍">gem相关工具介绍</h5><p>如果不懂Ruby，那么在安装过程中，对安装的工具可以大致了解一下：</p>
+<ul>
+<li>RVM：帮你安装Ruby环境，管理多个Ruby环境，管理你开发的每个Ruby应用使用机器上的那个Ruby环境，Ruby环境不仅仅是Ruby本身，还包括依赖的第三方Ruby插件，都有RVM管理</li>
+<li>Rails：著名的Ruby开发框架</li>
+<li>RubyGems：RubyGems是一个方便儿强大的Ruby程序包管理器，类似RedHat的RPM，它将一个Ruby应用程序打包到一个gem里，作为一个安装单元</li>
+<li>Gem：封装起来的Ruby应用程序或代码库，终端使用的gem命令，是指通过RubyGems管理Gem包</li>
+<li>Gemfile：定义你的应用依赖哪些第三方包，bundle根据配置去寻找这些包</li>
+<li>Rake：所有需要安装的gem中最重要的一个，并且它应该始终是你在系统上安装的第一个gem，Rake是一个构件工具和Make很相似</li>
+<li>Bundle：相当于多个RubyGems批处理执行，在配置文件gemfile里说明你的应用依赖包，他会自动帮你下载</li>
+</ul>
+<h5 id="octopress的配置文件config-yml">octopress的配置文件config.yml</h5><p>1.config.yml是博客重要的配置文件，在发布之前我们必须修改它的一些默认配置</p>
+<ul>
+<li><code>Main Configs</code> 这里我们要配置它的<code>url</code>,<code>subtitle</code>和<code>author</code></li>
+<li><code>Jekyll &amp; Plugins</code> 一定要检查<code>root</code>的路径是否正确，这个影响到博客的样式文件和JS文件</li>
+<li><code>3rd Party Settings</code> 建议关掉twitter，google等国内无法访问的帐号</li>
+</ul>
+<p>2.修改定制文件/source/_includes/custom/head.html 把google的自定义字体去掉</p>
+<h5 id="输入中文标题的问题">输入中文标题的问题</h5><p>如果使用终端，是无法输入中文标题的，可以在octopress生成的markdown文件中改变标题</p>
+<h3 id="发布博客">发布博客</h3><p>每次写博文的时候都需要<code>$ rake new_post[“new_title”]</code> 命令来生成固定格式命名的markdown文件，然后再编辑博客<br>编辑好博客之后运行<code>$ rake generate</code>命令来编译文件<br>编译好文件之后我们将现有的项目提交到github之上，建议提交的分支不要为master，这样每次都让master来merge该分支<code>之所以要提交，是因为博客的source需要单独提交</code><br>最后运行<code>$ rake deploy</code> 命令来发布博文</p>
+<h5 id="关于分支">关于分支</h5><p>octopress主要有两个分支<code>master</code>和<code>source</code>, octopress主目录下的分支是<code>source</code>没有<code>master</code>分支，<code>master</code>分支在<code>_deploy</code>目录下。</p>
+<h5 id="rake_generate——生成静态站点文件"><code>rake generate</code>——生成静态站点文件</h5><p><code>rake generate</code>的过程是这样的：octopress根据配置文件把<code>/source</code>中的文件生成之后放在<code>/public</code>下面，<code>/public</code>下面就是生成的站点的所有文件。实际访问的网站也是在这个目录下</p>
+<h5 id="rake_deploy——push到github"><code>rake deploy</code>——push到github</h5><p>deploy的过程是这样的：octopress会先去github上pull一下看有没有更新，完了之后会删掉<code>/_deploy</code>中的所有文件，把<code>/public</code>下最新的文件复制到<code>/_deploy</code>下面，然后在<code>/_deploy</code>下面使用<code>master</code>分支提交到github，deploy只是把生成好的文件push到github，并没有把source上得源文件push到github，所以deploy之后我们需要切换到source分支去提交源文件</p>
+<h3 id="个性化配置">个性化配置</h3><p>提高访问速度，设置链接在新窗口打开，首页摘要显示，代码着色，添加分类、评论、统计以及SEO等可以参照如下文章：</p>
+<ul>
+<li><a href="http://tianweili.github.io/blog/2015/01/11/setup-octopress-blog/" target="_blank" rel="external">Octopress博客的个性化配置</a></li>
+<li><a href="http://shanewfx.github.io/blog/2012/08/13/improve-blog-theme/" target="_blank" rel="external">Octopress主题改造</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="为什么选择octopress">为什么选择octopress</h3><p>之所以想用octopress是因为感觉到使用markdown来写博客是一件很令人兴奋的事。而且基于github的octopress使得我们免费且放心的将我们的博文托管到github上，换用官方的说法是，使用octopress像hacker一样写博客，其实就实际情况来说也是这样的，不是搞技术的，在现在博客平台那么多的情况下，谁也不愿意去那么繁琐的搭建一个博客]]>
+    
+    </summary>
+    
+      <category term="octopress" scheme="http://chanxiaoxi.github.io/categories/octopress/"/>
+    
+  </entry>
+  
+</feed>

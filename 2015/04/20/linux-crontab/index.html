@@ -1,12 +1,19 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="zh">
+    
 <head>
-  <meta charset="utf-8">
-  
-  <title>Linux Crontab | 还是码农的缠小溪</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是crontab在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab">
-<meta property="og:type" content="article">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>Linux Crontab - 还是码农的缠小溪</title>
+    <meta name="author" content="Gavin Wu">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="什么是crontab在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab">
+<meta property="og:type" content="blog">
 <meta property="og:title" content="Linux Crontab">
 <meta property="og:url" content="http://chanxiaoxi.github.io/2015/04/20/linux-crontab/index.html">
 <meta property="og:site_name" content="还是码农的缠小溪">
@@ -15,82 +22,182 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux Crontab">
 <meta name="twitter:description" content="什么是crontab在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab">
-  
-    <link rel="alternative" href="/atom.xml" title="还是码农的缠小溪" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
-  
-
+<meta name="twitter:creator" content="@https://twitter.com/chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="http://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css" type="text/css">
+    <!--STYLES END-->
+    
 </head>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">还是码农的缠小溪</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">不懂生活的码农不是好的programer</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://chanxiaoxi.github.io"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-linux-crontab" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/20/linux-crontab/" class="article-date">
-  <time datetime="2015-04-20T08:01:45.000Z" itemprop="datePublished">2015-04-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Linux/">Linux</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
     
-    
-      <header class="article-header">
         
-  
-    <h1 class="article-title" itemprop="name">
-      Linux Crontab
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
     </h1>
-  
-
-      </header>
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="什么是crontab">什么是crontab</h3><p>在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab <a id="more"></a></p>
+        
+            <a  class="header-right-picture "
+                href="/#about">
+        
+        
+            <img class="header-picture" src="http://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="http://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">Gavin Wu</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Linux Crontab
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon Apr 20 2015 16:01:45 GMT+0800">
+	
+		    Apr 20, 2015
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Linux/">Linux</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="什么是crontab">什么是crontab</h3><p>在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab <a id="more"></a></p>
 <h3 id="使用者设定">使用者设定</h3><p>可以通过配置来限定使用者使用crontab命令，配置文件主要有两个：<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;* __/etc/cron/allow__&#65306;&#23558;&#21487;&#20197;&#20351;&#29992;crontab&#30340;&#36134;&#21495;&#20889;&#20837;&#20854;&#20013;&#65292;&#19981;&#22312;&#20854;&#20013;&#30340;&#23601;&#19981;&#33021;&#20351;&#29992;&#10;* __/etc/cron/deny__&#65306;&#23558;&#19981;&#21487;&#20197;&#20351;&#29992;crontab&#30340;&#36134;&#21495;&#20889;&#20837;&#20854;&#20013;&#65292;&#22312;&#20854;&#20013;&#30340;&#23601;&#19981;&#33021;&#20351;&#29992;&#10;&#10;```/etc/cron.allow```&#27604;```/etc/cron.deny```&#35201;&#20248;&#20808;&#65292;&#19968;&#33324;&#21482;&#24314;&#35758;&#20445;&#30041;&#19968;&#20010;&#65292;&#19968;&#33324;&#20250;&#20445;&#30041;/etc/cron.deny&#65292;&#19968;&#34892;&#19968;&#20010;&#36134;&#21495;&#23601;&#34892;&#20102;&#65292;&#27809;&#26377;&#20854;&#20182;&#35821;&#27861;&#10;&#10;&#24403;&#24314;&#31435;&#19968;&#20010;crontab&#20043;&#21518;&#65292;&#35813;&#39033;&#24037;&#20316;&#20250;&#34987;&#35760;&#24405;&#22312;/var/spool/cron/&#37324;&#38754;&#65292;&#32780;&#19988;&#26159;&#20197;&#36134;&#21495;&#20316;&#20026;&#21028;&#21035;&#30340;&#65292;&#36825;&#37324;&#19968;&#23450;&#35201;&#27880;&#24847;&#65292;&#19981;&#35201;&#30452;&#25509;&#29992;vi&#32534;&#36753;&#35813;&#26723;&#26696;&#65292;&#21487;&#33021;&#20250;&#22240;&#20026;&#35821;&#27861;&#38169;&#35823;&#32780;&#23548;&#33268;crontab&#26080;&#27861;&#36816;&#34892;&#65292;&#22312;/var/spool/cron&#30446;&#24405;&#37324;&#38754;&#20250;&#26377;&#23545;&#24212;&#30340;&#36134;&#21495;&#30340;&#25991;&#20214;&#65292;&#35813;&#25991;&#20214;&#23427;&#38271;&#36825;&#20010;&#26679;&#23376;&#65306;&#10;&#10;&#9;[root@iZ23lihcd7xZ cron]# cat root 0 6 * * * /server/php/bin/php -q /mcis_php/cronjob/PaymentNotification.php &#10;&#9;&#10;&#27492;&#22806;&#65292;crontab&#30340;&#27599;&#19968;&#39033;&#24037;&#20316;&#36824;&#20250;&#34987;&#35760;&#24405;&#22312;/var/log/cron&#36825;&#20010;&#25991;&#20214;&#20013;&#65292;&#22914;&#26524;&#35201;&#26816;&#26597;&#20320;&#30340;Linux&#26159;&#19981;&#26159;&#34987;&#26893;&#20837;&#26408;&#39532;&#65292;&#21487;&#20197;&#26597;&#30475;&#19968;&#19979;&#36825;&#20010;&#25991;&#20214;&#20013;&#30340;crontab&#26159;&#19981;&#26159;&#26377;&#20363;&#22806;&#30340;,&#23427;&#30340;&#20869;&#23481;&#22823;&#27010;&#26159;&#36825;&#20010;&#26679;&#23376;&#65306;&#10;&#10;&#9;Apr 19 03:30:01 iZ23lihcd7xZ CROND[17613]: (root) CMD (/usr/lib64/sa/sa1 1 1)&#10;&#9;Apr 19 03:30:01 iZ23lihcd7xZ CROND[17612]: (root) MAIL (mailed 56 bytes of output but got status 0x004b#012)&#10;&#9;&#10;### crontab&#21629;&#20196;&#26684;&#24335;&#10;&#10;![Image of crontab](/images/blogImage/20150420/cronjob1.png)&#10;&#10;&#19968;&#33324;&#24773;&#20917;&#19979;&#65292;&#25105;&#20204;&#21487;&#20197;&#20351;&#29992;crontab -e&#21629;&#20196;&#26469;&#32534;&#36753;&#35774;&#32622;crontab&#65292;&#20851;&#20110;&#26102;&#38388;&#30340;&#35774;&#23450;&#35828;&#26126;&#22914;&#19979;&#65306;&#10;&#10;![Image of crontab](/images/blogImage/20150420/cronjob2.png)&#10;&#10;&#36825;&#37324;&#35201;&#29305;&#27530;&#35828;&#26126;&#19968;&#19979;&#65292;0&#21644;7&#37117;&#20195;&#34920;&#26143;&#26399;&#26085;&#65292;&#20851;&#20110;&#36741;&#21161;&#23383;&#31526;&#30340;&#35828;&#26126;&#65306;&#10;&#10;![Image of crontab](/images/blogImage/20150420/cronjob3.png)&#10;&#10;&#20030;&#20010;&#26647;&#23376;&#65306;&#10;&#10;&#9;59 23 1 5 * mail gavin &#60; /home/gavin/lover.txt //&#35774;&#32622;&#21629;&#20196;&#30340;&#26102;&#20505;&#65292;&#26368;&#22909;&#20351;&#29992;&#32477;&#23545;&#22320;&#22336;&#65292;&#38450;&#27490;&#25191;&#34892;&#20219;&#21153;&#30340;&#26102;&#20505;&#25214;&#19981;&#21040;&#30456;&#24212;&#30340;&#25991;&#20214;&#10;&#9;&#10;&#20351;&#29992;crontab -l&#21629;&#20196;&#26469;&#26597;&#30475;&#24403;&#21069;&#25191;&#34892;&#30340;crontab&#65292;&#22914;&#26524;&#25105;&#20204;&#35201;&#21024;&#38500;crontab&#20013;&#30340;&#26576;&#19968;&#20010;&#65292;&#37027;&#20040;&#26368;&#22909;&#29992;crontab -e&#32534;&#36753;&#21024;&#25481;&#30456;&#24212;&#30340;crontab&#65292;&#22914;&#26524;&#20351;&#29992;crontab -r &#21629;&#20196;&#65292;&#20250;&#21024;&#38500;&#25972;&#20010;crontab&#25991;&#20214;&#10;&#10;### &#35774;&#32622;&#31995;&#32479;crontab&#10;&#10;&#22914;&#26524;&#26159;&#31995;&#32479;&#30340;crontab&#65292;&#37027;&#20040;&#23601;&#19981;&#38656;&#35201;&#20351;&#29992;crontab -e&#26469;&#37197;&#32622;&#65292;&#30452;&#25509;&#37197;&#32622;```/etc/crontab```&#25991;&#20214;&#21363;&#21487;&#35774;&#32622;&#31995;&#32479;&#24615;&#20363;&#34892;&#20219;&#21153;&#65292;&#36825;&#37324;&#35201;&#21306;&#21035;&#19968;&#19979;&#65292;crontab -e&#21629;&#20196;&#32534;&#36753;&#30340;&#26159;```/usr/bin/crontab```&#36825;&#20010;&#25991;&#20214;&#65292;&#35201;&#37197;&#32622;&#31995;&#32479;&#20363;&#34892;&#20107;&#21153;&#65292;&#25105;&#20204;&#35201;&#20351;&#29992;root&#26435;&#38480;&#26469;&#37197;&#32622;```/etc/crontab```&#36825;&#20010;&#25991;&#20214;&#10;&#10;ron&#36825;&#20010;&#26381;&#21153;&#30340;&#26368;&#20302;&#20390;&#27979;&#38480;&#21046;&#26102;&#20998;&#38047;&#65292;&#25152;&#20197;cron&#26381;&#21153;&#20250;&#27599;&#20998;&#38047;&#35835;&#21462;&#19968;&#27425;```/etc/crontab```&#21644;```/var/spool/cron```&#37324;&#38754;&#30340;&#36164;&#26009;&#20869;&#23481;&#65292;&#22240;&#27492;&#65292;&#21482;&#35201;&#32534;&#36753;```/etc/crontab```&#36825;&#20010;&#25991;&#20214;&#65292;cron&#30340;&#35774;&#23450;&#23601;&#25191;&#34892;&#20102;&#12290;&#22914;&#26524;&#24314;&#31435;&#20102;&#26032;&#30340;crontab&#20043;&#21518;&#19981;&#33021;&#39532;&#19978;&#36816;&#34892;&#65292;&#23601;&#38656;&#35201;&#37325;&#26032;&#21551;&#21160;cron&#26381;&#21153;```/etc/init.d/crond start</span><br></pre></td></tr></table></figure></p>
 <h3 id="一些需要注意的事项">一些需要注意的事项</h3><ul>
 <li>如果大量的crontab在同一时刻运行，那么我们需要把这些错开，可以避免系统太过繁忙</li>
@@ -103,126 +210,230 @@
 </code></pre><p>但是在本地测的时候cmd是没有问题的，后来发现，这里不能直接用PHP命令，要调用PHP的绝对路径去使用它，所以应该写成这样：</p>
 <pre><code>0 6 <span class="keyword">*</span> <span class="keyword">*</span> <span class="keyword">*</span> /alidata/server/php/bin/php -q PaymentNotification.php 
 </code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://chanxiaoxi.github.io/2015/04/20/linux-crontab/" data-id="cigypdw5500002h0rmvzzh8jt" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/05/17/hi-docker/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Docker学习笔记(一)——认识Docker
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2014/12/07/lambda-anonymous-function-and-closure/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Lambda, Anonymous Function And Closure</div>
-    </a>
-  
-</nav>
+            
+                
 
-  
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/05/17/hi-docker/"  data-tooltip="Docker学习笔记(一)——认识Docker">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/12/07/lambda-anonymous-function-and-closure/" data-tooltip="Lambda, Anonymous Function And Closure">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.github.io/2015/04/20/linux-crontab/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.github.io/2015/04/20/linux-crontab/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.github.io/2015/04/20/linux-crontab/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Sourcetree/">Sourcetree</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/octopress/">octopress</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/php/">php</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/架构/">架构</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/设计模式/">设计模式</a><span class="category-list-count">1</span></li></ul>
-    </div>
-  </div>
 
-  
-    
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04/">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/12/">December 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-  </div>
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recents</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2015/05/17/hi-docker/">Docker学习笔记(一)——认识Docker</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/20/linux-crontab/">Linux Crontab</a>
-          </li>
-        
-          <li>
-            <a href="/2014/12/07/lambda-anonymous-function-and-closure/">Lambda, Anonymous Function And Closure</a>
-          </li>
-        
-          <li>
-            <a href="/2014/12/06/php-code-style-guide-psr0/">PHP Code Style Guide---PSR0</a>
-          </li>
-        
-          <li>
-            <a href="/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">Sourcetree LF/CRLF auto change on Windows</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2015 Gavin Wu<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2015 Gavin Wu. All Rights Reserved.
+    </span>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/05/17/hi-docker/"  data-tooltip="Docker学习笔记(一)——认识Docker">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/12/07/lambda-anonymous-function-and-closure/" data-tooltip="Lambda, Anonymous Function And Closure">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.github.io/2015/04/20/linux-crontab/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.github.io/2015/04/20/linux-crontab/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.github.io/2015/04/20/linux-crontab/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.github.io/2015/04/20/linux-crontab/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.github.io/2015/04/20/linux-crontab/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.github.io/2015/04/20/linux-crontab/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="http://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">Gavin Wu</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
 
-
-<script src="/js/script.js" type="text/javascript"></script>
-
-  </div>
-</body>
 </html>
