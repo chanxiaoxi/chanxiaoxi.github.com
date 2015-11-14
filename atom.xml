@@ -4,7 +4,7 @@
   <subtitle><![CDATA[不懂生活的码农不是好的programer]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://chanxiaoxi.github.io/"/>
-  <updated>2015-11-14T06:22:38.000Z</updated>
+  <updated>2015-11-14T07:46:16.000Z</updated>
   <id>http://chanxiaoxi.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://chanxiaoxi.github.io/2015/05/17/hi-docker/"/>
     <id>http://chanxiaoxi.github.io/2015/05/17/hi-docker/</id>
     <published>2015-05-17T10:38:44.000Z</published>
-    <updated>2015-11-14T06:22:38.000Z</updated>
+    <updated>2015-11-14T07:46:16.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>Docker很火，但是一直没有深入的了解，所以也就只有个概念，不知道对于开发者来说，docker到底有什么用处，直到某天看到了——<a href="http://dockone.io/article/378" target="_blank" rel="external">《开发者可以使用Docker做什么？》</a>,于是想深入的了解一下这个玩意儿。对于了解和学习新的技术，总要弄清楚这么几个问题：它是做什么的？它的优势是什么？为什么要用它？怎么用它？</p>
 </blockquote>
@@ -68,7 +68,7 @@
     <link href="http://chanxiaoxi.github.io/2015/04/20/linux-crontab/"/>
     <id>http://chanxiaoxi.github.io/2015/04/20/linux-crontab/</id>
     <published>2015-04-20T08:01:45.000Z</published>
-    <updated>2015-04-21T04:32:58.000Z</updated>
+    <updated>2015-11-14T07:45:35.000Z</updated>
     <content type="html"><![CDATA[<h3 id="什么是crontab">什么是crontab</h3><p>在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab <a id="more"></a></p>
 <h3 id="使用者设定">使用者设定</h3><p>可以通过配置来限定使用者使用crontab命令，配置文件主要有两个：<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;* __/etc/cron/allow__&#65306;&#23558;&#21487;&#20197;&#20351;&#29992;crontab&#30340;&#36134;&#21495;&#20889;&#20837;&#20854;&#20013;&#65292;&#19981;&#22312;&#20854;&#20013;&#30340;&#23601;&#19981;&#33021;&#20351;&#29992;&#10;* __/etc/cron/deny__&#65306;&#23558;&#19981;&#21487;&#20197;&#20351;&#29992;crontab&#30340;&#36134;&#21495;&#20889;&#20837;&#20854;&#20013;&#65292;&#22312;&#20854;&#20013;&#30340;&#23601;&#19981;&#33021;&#20351;&#29992;&#10;&#10;```/etc/cron.allow```&#27604;```/etc/cron.deny```&#35201;&#20248;&#20808;&#65292;&#19968;&#33324;&#21482;&#24314;&#35758;&#20445;&#30041;&#19968;&#20010;&#65292;&#19968;&#33324;&#20250;&#20445;&#30041;/etc/cron.deny&#65292;&#19968;&#34892;&#19968;&#20010;&#36134;&#21495;&#23601;&#34892;&#20102;&#65292;&#27809;&#26377;&#20854;&#20182;&#35821;&#27861;&#10;&#10;&#24403;&#24314;&#31435;&#19968;&#20010;crontab&#20043;&#21518;&#65292;&#35813;&#39033;&#24037;&#20316;&#20250;&#34987;&#35760;&#24405;&#22312;/var/spool/cron/&#37324;&#38754;&#65292;&#32780;&#19988;&#26159;&#20197;&#36134;&#21495;&#20316;&#20026;&#21028;&#21035;&#30340;&#65292;&#36825;&#37324;&#19968;&#23450;&#35201;&#27880;&#24847;&#65292;&#19981;&#35201;&#30452;&#25509;&#29992;vi&#32534;&#36753;&#35813;&#26723;&#26696;&#65292;&#21487;&#33021;&#20250;&#22240;&#20026;&#35821;&#27861;&#38169;&#35823;&#32780;&#23548;&#33268;crontab&#26080;&#27861;&#36816;&#34892;&#65292;&#22312;/var/spool/cron&#30446;&#24405;&#37324;&#38754;&#20250;&#26377;&#23545;&#24212;&#30340;&#36134;&#21495;&#30340;&#25991;&#20214;&#65292;&#35813;&#25991;&#20214;&#23427;&#38271;&#36825;&#20010;&#26679;&#23376;&#65306;&#10;&#10;&#9;[root@iZ23lihcd7xZ cron]# cat root 0 6 * * * /server/php/bin/php -q /mcis_php/cronjob/PaymentNotification.php &#10;&#9;&#10;&#27492;&#22806;&#65292;crontab&#30340;&#27599;&#19968;&#39033;&#24037;&#20316;&#36824;&#20250;&#34987;&#35760;&#24405;&#22312;/var/log/cron&#36825;&#20010;&#25991;&#20214;&#20013;&#65292;&#22914;&#26524;&#35201;&#26816;&#26597;&#20320;&#30340;Linux&#26159;&#19981;&#26159;&#34987;&#26893;&#20837;&#26408;&#39532;&#65292;&#21487;&#20197;&#26597;&#30475;&#19968;&#19979;&#36825;&#20010;&#25991;&#20214;&#20013;&#30340;crontab&#26159;&#19981;&#26159;&#26377;&#20363;&#22806;&#30340;,&#23427;&#30340;&#20869;&#23481;&#22823;&#27010;&#26159;&#36825;&#20010;&#26679;&#23376;&#65306;&#10;&#10;&#9;Apr 19 03:30:01 iZ23lihcd7xZ CROND[17613]: (root) CMD (/usr/lib64/sa/sa1 1 1)&#10;&#9;Apr 19 03:30:01 iZ23lihcd7xZ CROND[17612]: (root) MAIL (mailed 56 bytes of output but got status 0x004b#012)&#10;&#9;&#10;### crontab&#21629;&#20196;&#26684;&#24335;&#10;&#10;![Image of crontab](/images/blogImage/20150420/cronjob1.png)&#10;&#10;&#19968;&#33324;&#24773;&#20917;&#19979;&#65292;&#25105;&#20204;&#21487;&#20197;&#20351;&#29992;crontab -e&#21629;&#20196;&#26469;&#32534;&#36753;&#35774;&#32622;crontab&#65292;&#20851;&#20110;&#26102;&#38388;&#30340;&#35774;&#23450;&#35828;&#26126;&#22914;&#19979;&#65306;&#10;&#10;![Image of crontab](/images/blogImage/20150420/cronjob2.png)&#10;&#10;&#36825;&#37324;&#35201;&#29305;&#27530;&#35828;&#26126;&#19968;&#19979;&#65292;0&#21644;7&#37117;&#20195;&#34920;&#26143;&#26399;&#26085;&#65292;&#20851;&#20110;&#36741;&#21161;&#23383;&#31526;&#30340;&#35828;&#26126;&#65306;&#10;&#10;![Image of crontab](/images/blogImage/20150420/cronjob3.png)&#10;&#10;&#20030;&#20010;&#26647;&#23376;&#65306;&#10;&#10;&#9;59 23 1 5 * mail gavin &#60; /home/gavin/lover.txt //&#35774;&#32622;&#21629;&#20196;&#30340;&#26102;&#20505;&#65292;&#26368;&#22909;&#20351;&#29992;&#32477;&#23545;&#22320;&#22336;&#65292;&#38450;&#27490;&#25191;&#34892;&#20219;&#21153;&#30340;&#26102;&#20505;&#25214;&#19981;&#21040;&#30456;&#24212;&#30340;&#25991;&#20214;&#10;&#9;&#10;&#20351;&#29992;crontab -l&#21629;&#20196;&#26469;&#26597;&#30475;&#24403;&#21069;&#25191;&#34892;&#30340;crontab&#65292;&#22914;&#26524;&#25105;&#20204;&#35201;&#21024;&#38500;crontab&#20013;&#30340;&#26576;&#19968;&#20010;&#65292;&#37027;&#20040;&#26368;&#22909;&#29992;crontab -e&#32534;&#36753;&#21024;&#25481;&#30456;&#24212;&#30340;crontab&#65292;&#22914;&#26524;&#20351;&#29992;crontab -r &#21629;&#20196;&#65292;&#20250;&#21024;&#38500;&#25972;&#20010;crontab&#25991;&#20214;&#10;&#10;### &#35774;&#32622;&#31995;&#32479;crontab&#10;&#10;&#22914;&#26524;&#26159;&#31995;&#32479;&#30340;crontab&#65292;&#37027;&#20040;&#23601;&#19981;&#38656;&#35201;&#20351;&#29992;crontab -e&#26469;&#37197;&#32622;&#65292;&#30452;&#25509;&#37197;&#32622;```/etc/crontab```&#25991;&#20214;&#21363;&#21487;&#35774;&#32622;&#31995;&#32479;&#24615;&#20363;&#34892;&#20219;&#21153;&#65292;&#36825;&#37324;&#35201;&#21306;&#21035;&#19968;&#19979;&#65292;crontab -e&#21629;&#20196;&#32534;&#36753;&#30340;&#26159;```/usr/bin/crontab```&#36825;&#20010;&#25991;&#20214;&#65292;&#35201;&#37197;&#32622;&#31995;&#32479;&#20363;&#34892;&#20107;&#21153;&#65292;&#25105;&#20204;&#35201;&#20351;&#29992;root&#26435;&#38480;&#26469;&#37197;&#32622;```/etc/crontab```&#36825;&#20010;&#25991;&#20214;&#10;&#10;ron&#36825;&#20010;&#26381;&#21153;&#30340;&#26368;&#20302;&#20390;&#27979;&#38480;&#21046;&#26102;&#20998;&#38047;&#65292;&#25152;&#20197;cron&#26381;&#21153;&#20250;&#27599;&#20998;&#38047;&#35835;&#21462;&#19968;&#27425;```/etc/crontab```&#21644;```/var/spool/cron```&#37324;&#38754;&#30340;&#36164;&#26009;&#20869;&#23481;&#65292;&#22240;&#27492;&#65292;&#21482;&#35201;&#32534;&#36753;```/etc/crontab```&#36825;&#20010;&#25991;&#20214;&#65292;cron&#30340;&#35774;&#23450;&#23601;&#25191;&#34892;&#20102;&#12290;&#22914;&#26524;&#24314;&#31435;&#20102;&#26032;&#30340;crontab&#20043;&#21518;&#19981;&#33021;&#39532;&#19978;&#36816;&#34892;&#65292;&#23601;&#38656;&#35201;&#37325;&#26032;&#21551;&#21160;cron&#26381;&#21153;```/etc/init.d/crond start</span><br></pre></td></tr></table></figure></p>
 <h3 id="一些需要注意的事项">一些需要注意的事项</h3><ul>
@@ -87,6 +87,8 @@
     
     </summary>
     
+      <category term="crontab" scheme="http://chanxiaoxi.github.io/tags/crontab/"/>
+    
       <category term="Linux" scheme="http://chanxiaoxi.github.io/categories/Linux/"/>
     
   </entry>
@@ -96,7 +98,7 @@
     <link href="http://chanxiaoxi.github.io/2014/12/07/lambda-anonymous-function-and-closure/"/>
     <id>http://chanxiaoxi.github.io/2014/12/07/lambda-anonymous-function-and-closure/</id>
     <published>2014-12-07T08:33:17.000Z</published>
-    <updated>2015-11-14T06:22:10.000Z</updated>
+    <updated>2015-11-14T07:43:54.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>今天看到一些关于PHP中匿名函数和闭包函数的讨论，大都是对两个的概念不清楚，经常混淆，而且PHP的匿名函数和其他语言的匿名函数还是有些不一样的地方，特整理此文章，梳理一下对这些概念的认识。</p>
 </blockquote>
@@ -180,7 +182,7 @@ echo <span class="variable">$foo</span>,<span class="variable">$baz</span>;
     <link href="http://chanxiaoxi.github.io/2014/12/06/php-code-style-guide-psr0/"/>
     <id>http://chanxiaoxi.github.io/2014/12/06/php-code-style-guide-psr0/</id>
     <published>2014-12-05T18:01:39.000Z</published>
-    <updated>2015-11-14T06:23:03.000Z</updated>
+    <updated>2015-11-14T07:46:02.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>这是<a href="http://feiyang.me/2013/03/php-psr-in-chinese/" target="_blank" rel="external">PHP的PSR规范中文版</a>中看到的一段话：<br>在谷歌，我可以查看任何的代码，进入所有谷歌的代码库，我有权查看它们。事实上，这种权限是很少人能拥有的。但是，让我感到惊讶的却是，如此多的编码规范—缩进，命名，文件结构，注释风格—这一切让我出乎意料的轻松的阅读任意一段代码，并轻易的看懂它们。这让我震惊—因为我以为这些规范是微不足道的东西。它们不可能有这么大的作用—但它们却起到了这么大的作用。当你发现只通过看程序的基本语法结构就能读懂一段代码，这种时间上的节省不能不让人震撼！——<a href="http://www.vaikan.com/google-coding-standards/" target="_blank" rel="external">《Google为何要执行严格的代码规范》</a></p>
 </blockquote>
@@ -236,6 +238,8 @@ spl_autoload_register(<span class="variable">$modelAutoload</span>);//多个auto
     
     </summary>
     
+      <category term="PSR0" scheme="http://chanxiaoxi.github.io/tags/PSR0/"/>
+    
       <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
     
   </entry>
@@ -245,7 +249,7 @@ spl_autoload_register(<span class="variable">$modelAutoload</span>);//多个auto
     <link href="http://chanxiaoxi.github.io/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/"/>
     <id>http://chanxiaoxi.github.io/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/</id>
     <published>2014-12-01T09:48:40.000Z</published>
-    <updated>2015-04-20T16:25:27.000Z</updated>
+    <updated>2015-11-14T07:45:14.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>最近在用Sourcetree的时候发现一个奇怪的问题，就是repo中的文件的EOL为LF的文件在windows下会自动变成CRLF，但是由于每次commit之后compare的时候并没有发现LF改成CRLF,所以就一直没有在意。无意之中发现了有关这个的问题，就在此记录一下。</p>
 </blockquote>
@@ -274,7 +278,7 @@ spl_autoload_register(<span class="variable">$modelAutoload</span>);//多个auto
     <link href="http://chanxiaoxi.github.io/2014/11/29/learning-mysqli-part1/"/>
     <id>http://chanxiaoxi.github.io/2014/11/29/learning-mysqli-part1/</id>
     <published>2014-11-29T10:22:05.000Z</published>
-    <updated>2015-04-20T16:25:12.000Z</updated>
+    <updated>2015-11-14T07:44:44.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。</p>
 </blockquote>
@@ -443,6 +447,8 @@ var_dump(<span class="variable">$res-</span>&gt;fetch_all());
     
     </summary>
     
+      <category term="Mysqli" scheme="http://chanxiaoxi.github.io/tags/Mysqli/"/>
+    
       <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
     
   </entry>
@@ -452,7 +458,7 @@ var_dump(<span class="variable">$res-</span>&gt;fetch_all());
     <link href="http://chanxiaoxi.github.io/2014/11/29/whats-composer/"/>
     <id>http://chanxiaoxi.github.io/2014/11/29/whats-composer/</id>
     <published>2014-11-29T08:37:37.000Z</published>
-    <updated>2015-04-20T16:25:19.000Z</updated>
+    <updated>2015-11-14T07:45:04.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>如果知道PEAR的话那么对composer就不会很陌生，只要一说它是什么大概就明白了它是干嘛的。以前在学PHP的时候经常看到PEAR相关的东西，但是没想到PEAR早就已经被大家抛弃了，只能怪当初看的那些书的技术都太老，还停留在PEAR的年代。想composer这样的工具在项目中经常用到，所以有必要仔细研究一下。</p>
 </blockquote>
@@ -560,6 +566,8 @@ var_dump(<span class="variable">$res-</span>&gt;fetch_all());
     
     </summary>
     
+      <category term="composer" scheme="http://chanxiaoxi.github.io/tags/composer/"/>
+    
       <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
     
   </entry>
@@ -569,7 +577,7 @@ var_dump(<span class="variable">$res-</span>&gt;fetch_all());
     <link href="http://chanxiaoxi.github.io/2014/11/29/difference-between-interface-and-abstract-class-in-php/"/>
     <id>http://chanxiaoxi.github.io/2014/11/29/difference-between-interface-and-abstract-class-in-php/</id>
     <published>2014-11-29T04:24:48.000Z</published>
-    <updated>2015-04-20T16:25:04.000Z</updated>
+    <updated>2015-11-14T07:44:18.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>这两天一直在纠结于Interface和Aabstract Class之间的区别，这种纠结以前也有，但是没有仔细去了解，最近有碰到了这样的问题，所以有必要记下来，可能现在理解的不是很透彻，以后在实际使用中慢慢补充。</p>
 </blockquote>
@@ -620,7 +628,7 @@ var_dump(<span class="variable">$res-</span>&gt;fetch_all());
     <link href="http://chanxiaoxi.github.io/2014/11/23/restful-api-practise/"/>
     <id>http://chanxiaoxi.github.io/2014/11/23/restful-api-practise/</id>
     <published>2014-11-23T15:09:23.000Z</published>
-    <updated>2015-11-14T06:23:42.000Z</updated>
+    <updated>2015-11-14T07:43:21.000Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api" target="_blank" rel="external">Best Practices for Designing a Pragmatic RESTful API</a>，读完之后顿觉彻悟，故此将自己的一些理解记录下来。</p>
 </blockquote>
@@ -744,7 +752,7 @@ DELETE /tickets/<span class="number">12</span>/messages/<span class="number">5</
     
     </summary>
     
-      <category term="php" scheme="http://chanxiaoxi.github.io/categories/php/"/>
+      <category term="Restful" scheme="http://chanxiaoxi.github.io/categories/Restful/"/>
     
   </entry>
   
@@ -753,7 +761,7 @@ DELETE /tickets/<span class="number">12</span>/messages/<span class="number">5</
     <link href="http://chanxiaoxi.github.io/2014/05/11/rest-web-service/"/>
     <id>http://chanxiaoxi.github.io/2014/05/11/rest-web-service/</id>
     <published>2014-05-11T04:46:36.000Z</published>
-    <updated>2015-04-20T16:24:39.000Z</updated>
+    <updated>2015-11-14T07:43:45.000Z</updated>
     <content type="html"><![CDATA[<h4 id="REST是什么">REST是什么</h4><p>REST(Representational State Transfer)，即表现层状态转化，它是一种互联网软件的架构原则，一个架构符合REST原则，就称它是RESTful架构</p>
 <h5 id="如何理解Representational_State_Transfer">如何理解Representational State Transfer</h5><p><strong>资源：</strong>表现层状态转化其实是“资源表现层状态转化”，因为和我们交互的是一个网络上具体存在的实体，或者说是一个具体的信息体，我们通过URI指向这个资源，并且与之互动，URI就是资源的唯一标识符。<a id="more"></a></p>
 <p><strong>表现层：</strong>URI只代表资源的实体，不代表它的形式。资源的具体表现形式应该是在HTTP请求的头信息中用Accept和Content-Type字段指定，这两个字段才是对表现层的表述。</p>
@@ -785,7 +793,7 @@ DELETE /tickets/<span class="number">12</span>/messages/<span class="number">5</
     
     </summary>
     
-      <category term="架构" scheme="http://chanxiaoxi.github.io/categories/%E6%9E%B6%E6%9E%84/"/>
+      <category term="Restful" scheme="http://chanxiaoxi.github.io/categories/Restful/"/>
     
   </entry>
   
@@ -794,7 +802,7 @@ DELETE /tickets/<span class="number">12</span>/messages/<span class="number">5</
     <link href="http://chanxiaoxi.github.io/2014/05/10/singleton-pattern-for-php/"/>
     <id>http://chanxiaoxi.github.io/2014/05/10/singleton-pattern-for-php/</id>
     <published>2014-05-10T03:43:36.000Z</published>
-    <updated>2015-04-20T16:24:31.000Z</updated>
+    <updated>2015-11-14T07:41:28.000Z</updated>
     <content type="html"><![CDATA[<h4 id="什么是单例模式">什么是单例模式</h4><p>单例模式又称单件模式，作为对象的创建模式，它保证一个对象在程序中自始至终只有一个实例（PHP本身不支持多线程，所以不存在多线程的安全问题，支持多线程的语言在实现单例模式的时候要注意这一点，比如Java），自行实例化并且为该唯一单例提供一个全局访问点（一般是静态的方法）。<a id="more"></a></p>
 <p>单例模式只有三个要点：</p>
 <ul>
@@ -892,7 +900,9 @@ DELETE /tickets/<span class="number">12</span>/messages/<span class="number">5</
     
     </summary>
     
-      <category term="设计模式" scheme="http://chanxiaoxi.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="Singleton" scheme="http://chanxiaoxi.github.io/tags/Singleton/"/>
+    
+      <category term="Design Pattern" scheme="http://chanxiaoxi.github.io/categories/Design-Pattern/"/>
     
   </entry>
   
@@ -901,7 +911,7 @@ DELETE /tickets/<span class="number">12</span>/messages/<span class="number">5</
     <link href="http://chanxiaoxi.github.io/2014/05/07/php-output-cache-control/"/>
     <id>http://chanxiaoxi.github.io/2014/05/07/php-output-cache-control/</id>
     <published>2014-05-07T15:54:44.000Z</published>
-    <updated>2015-04-20T16:24:02.000Z</updated>
+    <updated>2015-11-14T07:42:22.000Z</updated>
     <content type="html"><![CDATA[<h4 id="PHP输出缓冲控制">PHP输出缓冲控制</h4><p>PHP的输出缓冲控制用来控制PHP脚本的输出，这也是PHP的一种缓冲机制的一种，PHP Manual对其有如下介绍</p>
 <blockquote>
 <p>The Output Control functions allow you to control when output is sent from the script. This can be useful in several different situations, especially if you need to send headers to the browser after your script has began outputting data. The Output Control functions do not affect headers sent using header() or setcookie(), only functions such as echo and data between blocks of PHP code.</p>
@@ -1063,7 +1073,7 @@ ob_end_clean(); <span class="comment">//清除A并关闭 F:null</span></span>
     <link href="http://chanxiaoxi.github.io/2014/05/05/new/"/>
     <id>http://chanxiaoxi.github.io/2014/05/05/new/</id>
     <published>2014-05-05T00:40:27.000Z</published>
-    <updated>2015-04-20T16:23:36.000Z</updated>
+    <updated>2015-11-14T07:44:10.000Z</updated>
     <content type="html"><![CDATA[<h4 id="准备工作">准备工作</h4><h5 id="1-_安装Microsoft_SQL_Server_2012_Native_Client">1. 安装Microsoft SQL Server 2012 Native Client</h5><p>这个是必须要安装的，微软给出了如下说明</p>
 <blockquote>
 <p>The x86 version of SQL Server Native Client is required on the computer where PHP is running. If you are using a 64-bit operating system, the x86 version of SQL Server Native Client will be installed with the x64 version of SQL Server Native Client (do not install the x86 version of SQL Server Native Client on an x64 operating system).</p>
@@ -1117,6 +1127,10 @@ extension=php_sqlsrv_55_ts<span class="class">.dll</span> <span class="comment">
     
     </summary>
     
+      <category term="PHP" scheme="http://chanxiaoxi.github.io/tags/PHP/"/>
+    
+      <category term="SQL Server" scheme="http://chanxiaoxi.github.io/tags/SQL-Server/"/>
+    
       <category term="PHP" scheme="http://chanxiaoxi.github.io/categories/PHP/"/>
     
   </entry>
@@ -1126,7 +1140,7 @@ extension=php_sqlsrv_55_ts<span class="class">.dll</span> <span class="comment">
     <link href="http://chanxiaoxi.github.io/2014/04/28/create-octopress/"/>
     <id>http://chanxiaoxi.github.io/2014/04/28/create-octopress/</id>
     <published>2014-04-28T12:02:35.000Z</published>
-    <updated>2015-04-30T06:45:20.000Z</updated>
+    <updated>2015-11-14T07:41:49.000Z</updated>
     <content type="html"><![CDATA[<h3 id="为什么选择octopress">为什么选择octopress</h3><p>之所以想用octopress是因为感觉到使用markdown来写博客是一件很令人兴奋的事。而且基于github的octopress使得我们免费且放心的将我们的博文托管到github上，换用官方的说法是，使用octopress像hacker一样写博客，其实就实际情况来说也是这样的，不是搞技术的，在现在博客平台那么多的情况下，谁也不愿意去那么繁琐的搭建一个博客<a id="more"></a></p>
 <h3 id="搭建octopress">搭建octopress</h3><ul>
 <li>Mac OS下搭建：<a href="http://segmentfault.com/a/1190000000364677" target="_blank" rel="external">在Mac上从零开始搭建基于Github的Octopress博客</a></li>
@@ -1168,6 +1182,8 @@ http:<span class="comment">//ruby.taobao.org/ added to sources</span>
     <![CDATA[<h3 id="为什么选择octopress">为什么选择octopress</h3><p>之所以想用octopress是因为感觉到使用markdown来写博客是一件很令人兴奋的事。而且基于github的octopress使得我们免费且放心的将我们的博文托管到github上，换用官方的说法是，使用octopress像hacker一样写博客，其实就实际情况来说也是这样的，不是搞技术的，在现在博客平台那么多的情况下，谁也不愿意去那么繁琐的搭建一个博客]]>
     
     </summary>
+    
+      <category term="octopress" scheme="http://chanxiaoxi.github.io/tags/octopress/"/>
     
       <category term="octopress" scheme="http://chanxiaoxi.github.io/categories/octopress/"/>
     
