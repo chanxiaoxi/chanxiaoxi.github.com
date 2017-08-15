@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>RESTful API设计实战 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客Best Practices for Designing a Pragmatic RESTful API，读完之后顿觉彻悟，故此将自己的一些理解记录下来。">
+<meta name="keywords" content="Restful">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="RESTful API设计实战">
+<meta property="og:url" content="http://chanxiaoxi.me/2014/11/23/restful-api-practise/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客Best Practices for Designing a Pragmatic RESTful API，读完之后顿觉彻悟，故此将自己的一些理解记录下来。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RESTful API设计实战">
+<meta name="twitter:description" content="之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客Best Practices for Designing a Pragmatic RESTful API，读完之后顿觉彻悟，故此将自己的一些理解记录下来。">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            RESTful API设计实战
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Nov 23 2014 23:09:23 GMT+0800">
+	
+		    11月 23, 2014
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Web-API/">Web API</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api" target="_blank" rel="external">Best Practices for Designing a Pragmatic RESTful API</a>，读完之后顿觉彻悟，故此将自己的一些理解记录下来。<a id="more"></a></p>
+<h2 id="API的基本要求"><a href="#API的基本要求" class="headerlink" title="API的基本要求"></a>API的基本要求</h2><p>要正真设计好一个接口，那么从一开始就要理解好接口的重要性，为什么非要费这么大的劲去做这件事，意义何在？在设计一个接口的时候我们常常会考虑到一些问题，比如安全认证怎么做，URI的规则怎么设定，是否要加入版本号，错误返回如何统一格式，HTTP状态码如何设定等等问题。如果从一开始不想好这些，而是在后面去修补，那么就会带来巨大的工作量，而且很容易产生混乱，不仅无法共同开发，而且也会给使用接口的开发者带来一定的困扰。一下就是博客中给我们的几点建议，这也是设计一个接口之前应该想到的基本要求：</p>
+<ul>
+<li>尽可能的遵循web标准</li>
+<li>尽可能的对开发者友好，这个友好指的是URI要尽量设计的要开发者一眼就能够看明白是干嘛的，而且所有的接口都是可以通过浏览器直接访问的</li>
+<li>尽可能的简单、直观，看上去显得优雅</li>
+<li>必须有足够的灵活性去支持项目的UI</li>
+<li>尽量去权衡上述几点要求</li>
+</ul>
+<p>API其实就是开发者的UI，这和普通的UI对于开发者同样重要，也要注意开发者的体验！</p>
+<h2 id="RESTful-URI和action的使用"><a href="#RESTful-URI和action的使用" class="headerlink" title="RESTful URI和action的使用"></a>RESTful URI和action的使用</h2><p>博客中引用了<a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank" rel="external">Network based Software Architectures</a>中的一句话，如果还有一样东西能够获得广泛的采用，那就是RESTful原则了。RESTful API的核心原则就是服务器资源，并通过HTTP的PUT/GET/DELETE/POST方法来操作这些资源。那么问题来了，如何去拆分这些资源呢？如何去使用HTTP的方法呢？</p>
+<h3 id="如何拆分资源"><a href="#如何拆分资源" class="headerlink" title="如何拆分资源"></a>如何拆分资源</h3><p>在开发者开来，资源应该是名词（最好不要用动词来描述资源），尽管你内部的数据模型能够灵活的对应到相应的资源，但是一对一的对应不是必要的，这里面的关键就是隐藏内部资源，只暴露必要的外部资源供开发者使用。这里还要注意，有时候接口需要的数据模型和内部系统的模型是一样的，但是接口需要的数据量可能要比内部系统少的多。所以在设计接口的时候一定要注意所有从接口出来的数据都要“洗”一下，把没有必要数据都给去掉，只提供必须的数据。（不管怎么说，接口都是一个对外的口子，是很多人都可以使用的，所以任何多余的信息都不要泄露到外面）</p>
+<pre><code>GET /tickets ---------- Get Tickets List
+GET /tickets/12 ------- Get Tickets which id = 12
+POST /tickets --------- Create Tickets
+PUT /tickets/12 ------- Update tickets which id = 12
+DELETE /tickets/12 ---- Delete tickets which id = 12
+</code></pre><p>没有额外的支持，仅仅是利用了HTTP的方法就实现了对资源的CURD操作。而且你所做的仅仅也只是定义了一个tickets资源映射到你内部的相关资源。</p>
+<h4 id="端点-end-point-应该是单数还是复数"><a href="#端点-end-point-应该是单数还是复数" class="headerlink" title="端点(end point)应该是单数还是复数"></a>端点(end point)应该是单数还是复数</h4><p>这个在实际开发中也是经常遇到的一个问题，因为你有时候操作的是一个单独的资源，有时候操作的是一个资源列表，在URI中一会儿用单数一会儿用复数，这会给开发者造成很到的困扰，特别是像一些单词的单复数差别很大，这会让开发者认为他们是不同的资源，其实他们只是单复数的区别而已。所以为了让URI更加规整，更加统一，一般统一都用复数，就如同上面例子中的tickets，不管是操作一个还是多个，都是tickets</p>
+<h4 id="关联（Relations）"><a href="#关联（Relations）" class="headerlink" title="关联（Relations）"></a>关联（Relations）</h4><p>关联，是的，资源之间的关联。这个是要单独拎出来说的，这也URI的结构组织的重要内容。怎么理解呢，比如我现在有一个标签资源ticket，我还有一个消息资源message，这些消息都是在ticket下面的，也就是说ticket包含了message。那么问题来了，我如何设计对message操作的URI,是单独定义一个message的URI吗？很显然单独的message资源是没有意义的，你也可以通过其他的操作来让ticket和message关联，但是这样就太复杂了，违背了REST的初衷。所以不要废话了，对于这种包含关系或者说属于关系就按照层级来设计URI,粗暴一点就理解成路径把，也就是说你找的不是单独的message，而是ticket文件夹下的message，那么URI就应该是这个样子：</p>
+<pre><code>GET /tickets/12/messages
+GET /tickets/12/messages/3
+POST /tickets/12/messages
+PUT /tickets/12/messages/5
+DELETE /tickets/12/messages/5
+</code></pre><p>除了包含其他的关系呢，这个就不能这样解决了，因为除了包含之外的其他关系都是相互依赖，实际中我们需要的也只是这种关系的资源，那么就直接把这种关系表示为资源好了，至于内部的联系如何处理，那些对于接口的调用和开发者来说都是透明的，他们要的只是这种关系而已，规定好他们想要的数据模型，返回给他们就行了。</p>
+<h4 id="不符合CURD的操作"><a href="#不符合CURD的操作" class="headerlink" title="不符合CURD的操作"></a>不符合CURD的操作</h4><p>很多时候，CURD之外我们还需要一些其他的操作，比如点赞，加星之类，他是一种操作，这没为题，但是它不是CURD中的操作。好了，HTTP的四种方法都有明确的操作，剩下的这类问题怎么办，重复使用这四种方法？这个肯定不行，已经违背了REST初中，势必带来混乱。</p>
+<ol>
+<li>重构action，当你的行为不需要参数时，你可以把active对应到actived这个资源，并使用patch方法来更新。不建议</li>
+<li>以子资源对待。例如github上的加星操作：<code>PUT /gists/:id/star</code>,取消星操作：<code>DELETE /gists/:id/unstar</code></li>
+<li>有一些action压根就对应不到某个资源，怎么办，类似2的做法，就当成是子资源把，然后和开发者约定好，在文档中说清楚就行了。</li>
+</ol>
+<h2 id="始终使用SSL"><a href="#始终使用SSL" class="headerlink" title="始终使用SSL"></a>始终使用SSL</h2><p>为什么？因为你无法保证你的接口会被谁调用，你对外面开了个口子，但是你不注意安全保护，那就什么人都可以来拿数据，特别是一些重要的数据。使用SSL可以减少认证的成本，你只需要一个简单的token就可以认证了，而不是每次都让用户对请求签名。</p>
+<p>值得注意的是：不要让非SSL的url访问重定向到SSL的URL</p>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>文档的重要性就不要多说了，一个好的文档的重要性想必大家都知道，这里只是推荐一个文档生成利器<a href="http://apidocjs.com/" target="_blank" rel="external">apiDoc</a>,当然估计还有其他好用的工具。</p>
+<h2 id="版本化"><a href="#版本化" class="headerlink" title="版本化"></a>版本化</h2><p>版本的好处就是便于区别，同时也能在不同版本之间平稳过渡。关于把版本信息放在header还是URL中，可以参照一下stack overflow中的相关提问<a href="http://stackoverflow.com/questions/389169/best-practices-for-api-versioning" target="_blank" rel="external">API version should be included in the URL or in a header</a>，争论的焦点也就在于如果把版本号放在URL中就容易跨版本访问资源，这样显然是不好的。还有人把主版本信息放在URL中，子版本信息放在header头中，个人感觉这几个方法都可以。但是还是建议版本化。</p>
+<h2 id="结果处理"><a href="#结果处理" class="headerlink" title="结果处理"></a>结果处理</h2><p>所谓结果处理，就是对返回给用户的结果的过滤、排序、搜索等。这些相关的功能最后用查询参数(query parameter)来实现。</p>
+<h3 id="结果过滤"><a href="#结果过滤" class="headerlink" title="结果过滤"></a>结果过滤</h3><p>如果要提供结果过滤，那么就要对所有的接口使用统一的过滤规则。比如设定了一个state的变量来表示资源的状态，结合博客中的例子，如果想要获取所有已打开的标签，那么就会是这样：</p>
+<pre><code>GET /tickets?state=open
+</code></pre><p>state在这里就是过滤的query parameter，很多的API都有不同的过滤规则，所以我们在定义这些parameter的时候一定要注意统一。</p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>类似于列表这样的接口，肯定会涉及到排序和分页，与上面的情况类似，我们需要定义一些相关的query parameter来完成排序和分页的功能。比如，我们规定from为其实位置，size为每页大小，sort为排序规则，那么就可以这样设计接口URI</p>
+<pre><code>GET /tickets？from=2&amp;size=20&amp;sort=-id,+createTime
+</code></pre><p>这里要注意，sort的值为-id,+createTime，是因为我们定义了两个查询规则，按照id DESC，按照createTime ASC,因为用到的+、-，所以URL一定要<code>urlencode()</code>,否则会被浏览器忽略掉。</p>
+<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>搜索的时候可能上面说的简单的条件是不够的，条件多了总不至于把他们都拼接在URI之后，这是可以考虑七个别名来统一一类搜索，所需要的值就在文档中规定好，URI也不会因此变得更复杂。如：</p>
+<pre><code>GET /tickets?q=recently_closed
+</code></pre><h3 id="限制API返回值的域"><a href="#限制API返回值的域" class="headerlink" title="限制API返回值的域"></a>限制API返回值的域</h3><p>对于返回值的域的规定我们在上面就已经提到过相关的内容。除了安全之外，灵活的提供一个<code>field</code>参数让用户自己去规定要返回什么数据也是一个非常不错的方法。这样用户就能以最少的代价获取只是自己想要的，没有任何多余的东西。比如：</p>
+<pre><code>GET /tickets?fields=id,subname,customer_name
+</code></pre><h3 id="更新和创建操作应该返回资源"><a href="#更新和创建操作应该返回资源" class="headerlink" title="更新和创建操作应该返回资源"></a>更新和创建操作应该返回资源</h3><p>POST/PUT/PATCH这些操作常常有一些副作用，比如说时间戳，这个会在你执行操作之后发送变化，为了防止用户多次提交API，在每次执行操作是都返回新资源的URI，和201(created)状态码，这样用户就能够判断是否执行成功和返回的值是否和预期一致。</p>
+<h2 id="值提供JSON作为返回资源"><a href="#值提供JSON作为返回资源" class="headerlink" title="值提供JSON作为返回资源"></a>值提供JSON作为返回资源</h2><p>对于接口来说JSON已经足够用了，这里之所以强调这个，是和XML进行比较的时候建议用JSON，因为XML既冗长，也不利于编程语言解析，而JSON格式简单清晰，所以在接口数据格式化的时候，建议使用XML。</p>
+<h2 id="变量命名方式"><a href="#变量命名方式" class="headerlink" title="变量命名方式"></a>变量命名方式</h2><p>有两种主流的命名方式snake_case和camelCase,博客中说的是snake_case比camelCase更容易阅读，但是这没有任何强制性限制，喜欢那种完全取决于你，不需要强制性要求。</p>
+<h2 id="压缩输出确保gzip的支持"><a href="#压缩输出确保gzip的支持" class="headerlink" title="压缩输出确保gzip的支持"></a>压缩输出确保gzip的支持</h2><p>我们可以在接口之后添加pretty字段来设置是否开启gzip压缩，如：</p>
+<pre><code>/tickets?pretty=true
+</code></pre><p>通过gzip压缩可以节省60%的带宽，<strong>never return a response that’s not compressed</strong></p>
+<h2 id="接口请求的时候数据格式最好也是JSON"><a href="#接口请求的时候数据格式最好也是JSON" class="headerlink" title="接口请求的时候数据格式最好也是JSON"></a>接口请求的时候数据格式最好也是JSON</h2><p>通过json格式化之后就能够支持复杂的结构，这样比传统的post或get传值更加方便</p>
+<h2 id="自动load相关的资源表现层"><a href="#自动load相关的资源表现层" class="headerlink" title="自动load相关的资源表现层"></a>自动load相关的资源表现层</h2><p>添加expand或embed query parameter，构造的时候，.表示该资源的某一个字段，连接类似这样：</p>
+<pre><code>GET /tickets/12?expand=customer.name,assigned_user
+</code></pre><h2 id="overriding-HTTP-方法"><a href="#overriding-HTTP-方法" class="headerlink" title="overriding HTTP 方法"></a>overriding HTTP 方法</h2><p>有些http client只支持GET和POST请求，为了突破这种限制，API需要一种override HTTP method的方法，一般的做法是在请求头里设置<code>X-HTTP-Method-Override</code>的值是PUT,PATCH,DELETE<br>。</p>
+<p><strong>注意：</strong>这样的override只支持POST请求，不支持GET请求</p>
+<h2 id="速度限制-Rate-Limit"><a href="#速度限制-Rate-Limit" class="headerlink" title="速度限制 Rate Limit"></a>速度限制 Rate Limit</h2><p>为了防止接口滥用，给接口加一些速度限制是很有必要的，HTTP状态码409(too many requests)就是为这种情况准备的。下面这几个是一般常用的返回头:</p>
+<ul>
+<li><code>X-Rate-Limit-Limit</code> 当前时段允许的最大请求数</li>
+<li><code>X-Rate-Limit-Remaining</code> 当前时段允许保留的请求数</li>
+<li><code>X-Rate-Rest</code>  当前时段剩余秒数</li>
+</ul>
+<h5 id="为什么剩余秒数用X-Rate-Limit-Reset而不是用time-stamp时间戳"><a href="#为什么剩余秒数用X-Rate-Limit-Reset而不是用time-stamp时间戳" class="headerlink" title="为什么剩余秒数用X-Rate-Limit-Reset而不是用time stamp时间戳"></a>为什么剩余秒数用X-Rate-Limit-Reset而不是用time stamp时间戳</h5><p>时间戳包含了很多信息，有些信息使用不到的，用户只想知道下次什么时候请求以及响应这个请求需要的最少的附加处理，这也也可以避免有关clock skew的问题</p>
+<p>一些API使用UNIX时间戳而不是X-Rate-Limit-Reset，不要这样做，HTTP已经规定了使用RFC 1123的时间格式</p>
+<h2 id="认证-Authtication"><a href="#认证-Authtication" class="headerlink" title="认证 Authtication"></a>认证 Authtication</h2><p>RESTful API是没有状态的，这意味着请求的认证不能依靠session和cookie，所以每一个请求都要携带一个凭证，以便进行请求认证。</p>
+<p>通过使用SSL，每个请求可以不需要提供用户名和密码，我们可以给用户返回一个随机的token，这样极大地方便使用浏览器访问API的用户，这种方法适用于用户可以第一次通过用户名-密码验证并且得到token。</p>
+<p>如果不方便，可以使用<a href="http://oauth.net/2/" target="_blank" rel="external">OAuth2</a>来进行token的安全传输。</p>
+<p>支持<a href="http://en.wikipedia.org/wiki/JSONP" target="_blank" rel="external">JSONP</a>的API需要额外的认证方法，因为JSONP请求无法发送HTTP Basic Auth credentials or <a href="http://tools.ietf.org/html/rfc6750" target="_blank" rel="external">Bearer tokens</a>，这种情况下可以设置一个查询参数如<code>access_token</code>来传递凭证，这儿有个固有的问题就是大多数web服务器会把请求参数保存在服务器日志里。</p>
+<p>这三种传输方法底层传输的token是一样的。</p>
+<h2 id="cache-缓存"><a href="#cache-缓存" class="headerlink" title="cache 缓存"></a>cache 缓存</h2><p>HTTP提供一个自带的缓存框架，你所要做的就是添加一些附加的响应头信息，在接收请求的时候对请求头进行一些验证</p>
+<p>这里有两种方法：<a href="http://en.wikipedia.org/wiki/HTTP_ETag" target="_blank" rel="external">E-Tga</a>和<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.29" target="_blank" rel="external">Last-Modefied</a></p>
+<p>E-Tag:在生成一个请求的时候，在HTTP请求头里会加入一个ETag，其中包含一些HASH或者表现的校验值，这个值随着输出的表现的变化而变化。如果一个进入的HTTP请求包含<code>If-None-Match</code>的请求头信息，并且和ETag的值是一样的，那么API就应该返回一个304 Not Modified的状态码，而不是输出资源的表现。</p>
+<p>Last-Modified:基本的功能类似于ETag，只是多了一个时间戳，相应的返回头的Last-Modified会包含一个时间戳，它会和If-Modified-Since进行校验。HTTP的规范里有三种时间格式，不过web服务器都能够处理。</p>
+<h2 id="Error-出错处理"><a href="#Error-出错处理" class="headerlink" title="Error 出错处理"></a>Error 出错处理</h2><p>就像HTML会显示出错信息一样，API也应该返回错误信息，并且它的格式应该和表现层一致。API应该返回相应的状态码，API的典型错误被分为400系列错误和500系列错误，400系列表示客户端错误，如错误的请求格式等。500系列错误表示服务器错误。API应该将所有的400错误以JSON的格式返回，如果可能，500系列的错误也应该如此，json格式的错误应该包含两部分内容，一个有用的错误信息和一个唯一的错误代码，以及任何可能的详细描述。比如：</p>
+<pre><code>{
+    &quot;code&quot; : 1234,
+    &quot;message&quot; : &quot;something had happend:(&quot;,
+    &quot;description&quot; : &quot;More details about the error here )&quot;
+}
+</code></pre><p>对于PUT,PATCH,POST输入的校验错误也应该有返回格式：</p>
+<pre><code>{
+    &quot;code&quot; : 2014,
+    &quot;message&quot; : &quot;validate failed&quot;,
+    &quot;errors&quot; : [
+        {
+            &quot;code&quot; : 2014,
+            &quot;field&quot; : &quot;first_name&quot;,
+            &quot;message&quot; : &quot;first name can not have number&quot;
+        },
+        {
+            &quot;code&quot; : 2014,
+            &quot;field&quot; : &quot;first_name&quot;,
+            &quot;message&quot; : &quot;first name can not have number&quot;
+        }
+    ]
+}
+</code></pre><h2 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h2><p>每个接口处理完成返回时都要对应相应的HTTP状态码，常用的状态码如下：</p>
+<pre><code>200 |ok     | 成功状态，对应GET,PUT,DELETE,PATCH,不能用于POST,这并不是创建的结果状态
+201 |created| 创建成功，应该绑定一个Location Header指向创建的新资源
+204 |No Content| 响应一个成功的请求并返回一个没有body的结果
+304 |Not Modified| HTTP缓存有效
+400 |Bad Request| 请求格式错误
+401 |Unauthorized| 未授权
+403 |Forbidden| 授权成功，但该用户没有权限
+404 |Not Found| 请求的资源不存在
+405 |Method Not Allowed|授权成功的用户不允许使用该HTTP方法
+410 |Gone | 当前URL对应的资源不存在或不可用
+415 |Unsupport Media Type|请求时的内容的类型不正确
+422 |Unprocessable Entity|用户校验错误
+429 |Too Many Request|请求过多
+</code></pre>
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Restful/">Restful</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/29/difference-between-interface-and-abstract-class-in-php/"  data-tooltip="对于PHP中Interface和Abstract Class的认识">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/11/rest-web-service/" data-tooltip="初识REST">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/29/difference-between-interface-and-abstract-class-in-php/"  data-tooltip="对于PHP中Interface和Abstract Class的认识">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/11/rest-web-service/" data-tooltip="初识REST">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/11/23/restful-api-practise/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

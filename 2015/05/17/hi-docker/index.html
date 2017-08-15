@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>Docker学习笔记(一)——认识Docker - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="Docker很火，但是一直没有深入的了解，所以也就只有个概念，不知道对于开发者来说，docker到底有什么用处，直到某天看到了——《开发者可以使用Docker做什么？》,于是想深入的了解一下这个玩意儿。对于了解和学习新的技术，总要弄清楚这么几个问题：它是做什么的？它的优势是什么？为什么要用它？怎么用它？">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Docker学习笔记(一)——认识Docker">
+<meta property="og:url" content="http://chanxiaoxi.me/2015/05/17/hi-docker/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="Docker很火，但是一直没有深入的了解，所以也就只有个概念，不知道对于开发者来说，docker到底有什么用处，直到某天看到了——《开发者可以使用Docker做什么？》,于是想深入的了解一下这个玩意儿。对于了解和学习新的技术，总要弄清楚这么几个问题：它是做什么的？它的优势是什么？为什么要用它？怎么用它？">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker学习笔记(一)——认识Docker">
+<meta name="twitter:description" content="Docker很火，但是一直没有深入的了解，所以也就只有个概念，不知道对于开发者来说，docker到底有什么用处，直到某天看到了——《开发者可以使用Docker做什么？》,于是想深入的了解一下这个玩意儿。对于了解和学习新的技术，总要弄清楚这么几个问题：它是做什么的？它的优势是什么？为什么要用它？怎么用它？">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Docker学习笔记(一)——认识Docker
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun May 17 2015 18:38:44 GMT+0800">
+	
+		    5月 17, 2015
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Docker/">Docker</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>Docker很火，但是一直没有深入的了解，所以也就只有个概念，不知道对于开发者来说，docker到底有什么用处，直到某天看到了——<a href="http://dockone.io/article/378" target="_blank" rel="external">《开发者可以使用Docker做什么？》</a>,于是想深入的了解一下这个玩意儿。对于了解和学习新的技术，总要弄清楚这么几个问题：它是做什么的？它的优势是什么？为什么要用它？怎么用它？</p>
+<a id="more"></a>  
+<h2 id="Docker是什么"><a href="#Docker是什么" class="headerlink" title="Docker是什么"></a>Docker是什么</h2><blockquote>
+<p>Docker–Build, Ship, and Run Any App, Anywhere</p>
+</blockquote>
+<p>这是Docker官网的标题，也就说Docker是一个可以在任何地方创建，装载和运行任何App的一个东西（有人把这个东西叫容器），虽然看懂了这句话，但是还是不知道Docker具体是干嘛的，于是有人更习惯这样去解释它</p>
+<h5 id="1-Docker是一个开源的软件部署解决方案"><a href="#1-Docker是一个开源的软件部署解决方案" class="headerlink" title="1. Docker是一个开源的软件部署解决方案"></a>1. Docker是一个开源的软件部署解决方案</h5><blockquote>
+<p>它出现的意义可以与集装箱的发明相比。集装箱将货运目标标准化，Docker 将应用程序标准化。在 Docker 诞生之前，程序员在服务器端部署应用程序的步骤如下：安装→配置→运行。与传统部署模式不同，运用 Docker，程序员在服务器端部署应用程序的步骤如下：复制→运行。——<a href="http://tech2ipo.com/66992" target="_blank" rel="external">《开源软件部署解决方案 Docker 1.0 正式发布》</a></p>
+</blockquote>
+<p>文章中还举了一个Google在服务器部署软件的例子，恰不恰当的不知道，但是最起码能让人直观的理解Docker的优势</p>
+<blockquote>
+<p>作为应用开发者，与我相关的用例是使用Docker以简化持续交付过程。在我职业生涯中工作过的每个地方，在那些从大型机到客户端再到云端的岁月里，让不同的环境保持同步并成功测试应用简直是个噩梦。无论我们的流程有多好或者有多糟，在“Dev-QA-Stage-Prod（开发-质量保证-过渡-生产）”的迁移过程中的各个阶段里，代码从来就没有处于相同的环境。最后的结果就是，发布的产品总是出现质量问题。“它在测试阶段是好的”是仅次于“支票已经寄出了”（译者注：the check is in the mail为美国俚语，意指某件应该发生某事但实际情况却与之不符，最早是债务人用于缓和债权人的愤怒情绪的一种借口）的推脱借口。</p>
+<p>在持续交付（CD）过程中，整个环境随着代码一起在“Dev-QA-Stage-Prod”的不同阶段间迁移。配置问题，系统环境不同的问题，借口都将不复存在。在CD过程中，如果代码在产品阶段出问题，那么在测试阶段也一样有问题。使用Docker的过程中，我知道能够通过编写脚本实现CD流程的自动化。我还知道，因为无需处理所有的安装和配置问题，随着创建新环境的速度加快，产品进入市场的速度也得到了提升。——<a href="http://www.infoq.com/cn/news/2013/04/Docker" target="_blank" rel="external">《Docker：具备一致性的自动化软件部署》</a></p>
+</blockquote>
+<p>这特么就是我想要的啊！</p>
+<h5 id="2-Docker是轻量级的应用容器框架"><a href="#2-Docker是轻量级的应用容器框架" class="headerlink" title="2. Docker是轻量级的应用容器框架"></a>2. Docker是轻量级的应用容器框架</h5><ul>
+<li>容器？虚拟机？Docker到底是个啥？</li>
+<li>轻量级？</li>
+</ul>
+<blockquote>
+<p>Docker 第一次发布的时候，很多人都拿 Docker 和虚拟机 VMware、KVM 和 VirtualBox 比较。尽管从功能上看，Docker 和虚拟化技术致力于解决的问题都差不多，但是 Docker 却是采取了另一种非常不同的方式。虚拟机是虚拟出一套硬件，虚拟机的系统进行的磁盘操作，其实都是在对虚拟出来的磁盘进行操作。当运行 CPU 密集型的任务时，是虚拟机把虚拟系统里的 CPU 指令“翻译”成宿主机的CPU指令并进行执行。两个磁盘层，两个处理器调度器，两个操作系统消耗的内存，所有虚拟出的这些都会带来相当多的性能损失，一台虚拟机所消耗的硬件资源和对应的硬件相当，一台主机上跑太多的虚拟机之后就会过载。而 Docker 就没有这种顾虑。Docker 运行应用采取的是“容器”的解决方案：使用 namespace 和 CGroup 进行资源限制，和宿主机共享内核，不虚拟磁盘，所有的容器磁盘操作其实都是对 /var/lib/docker/ 的操作。简言之，Docker 其实只是在宿主机中运行了一个受到限制的应用程序。</p>
+<p>从上面不难看出，容器和虚拟机的概念并不相同，容器也并不能取代虚拟机。在容器力所不能及的地方，虚拟机可以大显身手。例如：宿主机是 Linux，只能通过虚拟机运行 Windows，Docker 便无法做到。再例如，宿主机是 Windows，Windows 并不能直接运行 Docker，Windows上的 Docker 其实是运行在 VirtualBox 虚拟机里的。——<a href="http://segmentfault.com/a/1190000002734062" target="_blank" rel="external">《8个你可能不知道的 Docker知识》</a></p>
+</blockquote>
+<p>所以说，这里的轻量级应该是比较传统的虚拟机而言，当然，正如文章中所说，Docker和传统的虚拟机都有各自的优势，不能相互取代。<a href="http://blog.sae.sina.com.cn/archives/2051" target="_blank" rel="external">《Docker 和一个正常的虚拟机有何区别？》</a></p>
+<p>另外，Docker是基于<a href="http://www.oschina.net/p/lxc" target="_blank" rel="external">LXC</a>(Linux Containers)容器的，所以有必要了解一下：</p>
+<blockquote>
+<p>LXC容器有效地将由单个操作系统管理的资源划分到孤立的组中，以便更好地在孤立的组之间平衡有冲突的资源使用需求。与虚拟化相比，这样既不需要指令级模拟，也不需要即时编译。容器可以在核心CPU本地运行指令，而不需要任何专门的解释机制。此外，也避免了准虚拟化（paravirtualization）和系统调用替换中的复杂性。</p>
+</blockquote>
+<h5 id="3-Docker可以打包、发布和运行任何的App"><a href="#3-Docker可以打包、发布和运行任何的App" class="headerlink" title="3. Docker可以打包、发布和运行任何的App"></a>3. Docker可以打包、发布和运行任何的App</h5><p>在LXC的基础上，通过对应用组件的封装（Packaging）、分发（Distribution）、部署（Deployment）、运行（Runtime）等生命周期的管理，达到应用组件级别的“一次封装，到处运行”。这里的应用组件，既可以是一个Web应用，也可以是一套数据库服务，甚至是一个操作系统或编译器。哦，原来是这样！</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/15/redis-security-config/"  data-tooltip="Redis安全配置">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/04/20/linux-crontab/" data-tooltip="Linux Crontab">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/15/redis-security-config/"  data-tooltip="Redis安全配置">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/04/20/linux-crontab/" data-tooltip="Linux Crontab">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/05/17/hi-docker/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>Windows下Sourcetree LF/CRLF自动转换的问题 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="最近在用Sourcetree的时候发现一个奇怪的问题，就是repo中的文件的EOL为LF的文件在windows下会自动变成CRLF，但是由于每次commit之后compare的时候并没有发现LF改成CRLF,所以就一直没有在意。无意之中发现了有关这个的问题，就在此记录一下。 repo中的LF在本地变成了CRLF这是Sourcetree自动转换的，目的是为了windows平台和Linux平台下的EO">
+<meta name="keywords" content="SourceTree">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Windows下Sourcetree LF&#x2F;CRLF自动转换的问题">
+<meta property="og:url" content="http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="最近在用Sourcetree的时候发现一个奇怪的问题，就是repo中的文件的EOL为LF的文件在windows下会自动变成CRLF，但是由于每次commit之后compare的时候并没有发现LF改成CRLF,所以就一直没有在意。无意之中发现了有关这个的问题，就在此记录一下。 repo中的LF在本地变成了CRLF这是Sourcetree自动转换的，目的是为了windows平台和Linux平台下的EO">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Windows下Sourcetree LF&#x2F;CRLF自动转换的问题">
+<meta name="twitter:description" content="最近在用Sourcetree的时候发现一个奇怪的问题，就是repo中的文件的EOL为LF的文件在windows下会自动变成CRLF，但是由于每次commit之后compare的时候并没有发现LF改成CRLF,所以就一直没有在意。无意之中发现了有关这个的问题，就在此记录一下。 repo中的LF在本地变成了CRLF这是Sourcetree自动转换的，目的是为了windows平台和Linux平台下的EO">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Windows下Sourcetree LF/CRLF自动转换的问题
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon Dec 01 2014 17:48:40 GMT+0800">
+	
+		    12月 01, 2014
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Git/">Git</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>最近在用Sourcetree的时候发现一个奇怪的问题，就是repo中的文件的EOL为LF的文件在windows下会自动变成CRLF，但是由于每次commit之后compare的时候并没有发现LF改成CRLF,所以就一直没有在意。无意之中发现了有关这个的问题，就在此记录一下。</p>
+<p>repo中的LF在本地变成了CRLF这是Sourcetree自动转换的，目的是为了windows平台和Linux平台下的EOL的一致，所以当你发现repo中的LF在本地变成了CRLF，如果你用Sourcetree提交的话可以不用管，他会在提交的时候自动转换回LF。<a id="more"></a></p>
+<blockquote>
+<p>We were trying to be helpful here and make sure that by default if you worked on cross-platform projects you would see CRLFs locally but LFs would be stored in the repo for compatibility with Linux and OS X machines, but the trouble is that if you have existing projects with a mixture of line endings embedded in the repo, enabling the conversion will suddenly give you modified files that you have to commit to resolve.</p>
+</blockquote>
+<p>这里也说明了经常遇到的怪事，就是我在编辑的过程中发现文件变成了CRLF,当我用IDE成LF之后，sourcetree会提示说修改了文件，但是却看不到修改的内容，当你暂存文件之后，sourcetree有自动把它统一成了LF，所以每次add之后都没法commit</p>
+<p>sourcetree保存在repo中的始终是LF，但是有时候我们的repo中默认就是CRLF,这中情况下现在还没找到解决的办法,<a href="https://answers.atlassian.com/questions/186470/how-do-i-stop-sourcetree-from-changing-line-endings-when-discarding-changes" target="_blank" rel="external">How Do I Stop SourceTree From Changing Line Endings When Discarding Changes</a>这里提供了解决的办法，但是老版本的解决方案。</p>
+<p>这里记这个主要是想说在项目中最好还是统一使用LF,这样的话在windows和Linux下都方便开发，如果一开始就使用CRLF，这样在Linux下就很蛋疼了。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/SourceTree/">SourceTree</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/12/06/php-code-style-guide-psr0/"  data-tooltip="PHP编码规范PSR0">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/29/learning-mysqli-part1/" data-tooltip="Learning Mysqli Part1">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/12/06/php-code-style-guide-psr0/"  data-tooltip="PHP编码规范PSR0">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/29/learning-mysqli-part1/" data-tooltip="Learning Mysqli Part1">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

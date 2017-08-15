@@ -1,0 +1,498 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>HTML中meta标签的使用总结 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="元数据(metadata)是数据的数据（或信息）。HTML Meta Tag就是网页的元数据，用来描述这个网页的基本信息，这就类似于HTTP的响应头(response header)。&amp;lt;meta&amp;gt;标签的数据不会显示在网页上。本文主要介绍&amp;lt;meta&amp;gt;在SEO优化、浏览器渲染、Viewport和移动端设备上常见场景下的使用。">
+<meta name="keywords" content="meta,HTML">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="HTML中meta标签的使用总结">
+<meta property="og:url" content="http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="元数据(metadata)是数据的数据（或信息）。HTML Meta Tag就是网页的元数据，用来描述这个网页的基本信息，这就类似于HTTP的响应头(response header)。&amp;lt;meta&amp;gt;标签的数据不会显示在网页上。本文主要介绍&amp;lt;meta&amp;gt;在SEO优化、浏览器渲染、Viewport和移动端设备上常见场景下的使用。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="http://chanxiaoxi.me/images/2016/03/baidu_search_result.png">
+<meta property="og:image" content="http://chanxiaoxi.me/images/2016/03/google_search_result.png">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML中meta标签的使用总结">
+<meta name="twitter:description" content="元数据(metadata)是数据的数据（或信息）。HTML Meta Tag就是网页的元数据，用来描述这个网页的基本信息，这就类似于HTTP的响应头(response header)。&amp;lt;meta&amp;gt;标签的数据不会显示在网页上。本文主要介绍&amp;lt;meta&amp;gt;在SEO优化、浏览器渲染、Viewport和移动端设备上常见场景下的使用。">
+<meta name="twitter:image" content="http://chanxiaoxi.me/images/2016/03/baidu_search_result.png">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            HTML中meta标签的使用总结
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Tue Mar 29 2016 17:58:23 GMT+0800">
+	
+		    3月 29, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Development/">Development</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>元数据(metadata)是数据的数据（或信息）。<a href="http://www.w3schools.com/tags/tag_meta.asp" target="_blank" rel="external">HTML Meta Tag</a>就是网页的元数据，用来描述这个网页的基本信息，这就类似于HTTP的响应头(response header)。<code>&lt;meta&gt;</code>标签的数据不会显示在网页上。本文主要介绍<code>&lt;meta&gt;</code>在SEO优化、浏览器渲染、Viewport和移动端设备上常见场景下的使用。 </p>
+<a id="more"></a>
+<h2 id="一、SEO优化"><a href="#一、SEO优化" class="headerlink" title="一、SEO优化"></a>一、SEO优化</h2><p>以前的搜索引擎都是基于网页标题(title),网页描述(description)和关键字(keywords)来检索网页。对于搜索引擎来说，这本来是一个很好的检索网站的手段。但是很多网站为了提高搜索排名开始滥用<code>&lt;meta&gt;</code>，他们通过在<code>&lt;meta&gt;</code>中注入大量的热门关键词来提高网站检索排名。后来，Google在从09年开始在自己的搜索排名算法中去除了对于<code>&lt;meta&gt;</code>关键字的权重。但并不是所有的搜索引擎的排名算法都去除了<code>&lt;meta&gt;</code>。目前所知，百度搜索中<code>&lt;meta&gt;</code>标签仍旧会影响网站的排名。</p>
+<figure class="highlight html"><figcaption><span>SEO优化</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>your title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"keywords"</span> <span class="attr">content</span>=<span class="string">"your keywords"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">content</span>=<span class="string">"your description"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"author"</span> <span class="attr">content</span>=<span class="string">"author,email address"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="1-description属性"><a href="#1-description属性" class="headerlink" title="1. description属性"></a>1. description属性</h4><p>下面是百度的官方文档《搜索引擎优化指南》中对于<code>&lt;meta name=&quot;description&quot;&gt;</code>的说明和建议：</p>
+<blockquote><p>Meta description是对网页内容的精练概括。如果description描述与网页内容相符，百度会把description当做摘要的选择目标之一，一个好的description会帮助用户更方便的从搜索结果中判断你的网页内容是否和需求相符。Meta description不是权值计算的参考因素，这个标签存在与否不影响网页权值，只会用做搜索结果摘要的一个选择目标。</p>
+<p>推荐做法：</p>
+<ul>
+<li>网站首页、频道页、产品参数页等没有大段文字可以用做摘要的网页最适合使用description</li>
+<li>准确的描述网页，不要堆砌关键词</li>
+<li>为每个网页创建不同的description，避免所有网页都使用同样的描述</li>
+<li>长度合理，不过长不过短</li>
+</ul>
+<footer><strong>官方文档</strong><cite><a href="https://zhanzhang.baidu.com/college/documentinfo?id=193&page=3" target="_blank" rel="external">百度搜索引擎优化指南2.0</a></cite></footer></blockquote>
+<p>以爱范儿网站为例，它的<code>&lt;meta name=&quot;description&quot;&gt;</code>是这样的：</p>
+<figure class="highlight html"><figcaption><span>meta标签</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"description"</span> <span class="attr">content</span>=<span class="string">"聚焦新创和消费主题的科技媒体，成立于 2008 年 10 月，关注产品及体验，致力于“独立，前瞻，深入”的原创报道和分析评论，是国内唯一一家在产业和产品领域同时具有强势影响力的科技媒体。旗下现有 ifanr.com、SocialBase.cn、AppSolution、玩物志、创业及产品社区 MindStore 等多个细分领域的知名产品。"</span> /&gt;</span></div></pre></td></tr></table></figure>
+<p>百度搜索结果中的显示：</p>
+<img src="/images/2016/03/baidu_search_result.png" title="爱范儿在百度搜索结果中的显示">
+<p>Google搜索结果中的显示：</p>
+<img src="/images/2016/03/google_search_result.png" title="爱范儿在百度搜索结果中的显示">
+<h4 id="2-keywords属性"><a href="#2-keywords属性" class="headerlink" title="2. keywords属性"></a>2. keywords属性</h4><p><code>&lt;meta name=&quot;keywords&quot; &gt;</code>用来定义页面关键字，多个关键字用<code>,</code>隔开。</p>
+<h4 id="3-author属性"><a href="#3-author属性" class="headerlink" title="3. author属性"></a>3. author属性</h4><p>该标签的使用形式一般是这样：<code>&lt;meta name=&quot;author&quot; content=&quot;author,email&quot;&gt;</code>，该标签常用于个人站点，如个人博客。</p>
+<h4 id="4-使用最新的charset"><a href="#4-使用最新的charset" class="headerlink" title="4. 使用最新的charset"></a>4. 使用最新的charset</h4><figure class="highlight html"><figcaption><span>使用最新的charset</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- don't use this! html 4 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span> /&gt;</span></div><div class="line"><span class="comment">&lt;!-- html 5 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="二、浏览器渲染"><a href="#二、浏览器渲染" class="headerlink" title="二、浏览器渲染"></a>二、浏览器渲染</h2><h4 id="1-优先使用IE最新版本和chrome"><a href="#1-优先使用IE最新版本和chrome" class="headerlink" title="1. 优先使用IE最新版本和chrome"></a>1. 优先使用IE最新版本和chrome</h4><figure class="highlight html"><figcaption><span>优先使用IE最新版本和chrome</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge,chrome=1"</span> /&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="2-禁止百度转码"><a href="#2-禁止百度转码" class="headerlink" title="2. 禁止百度转码"></a>2. 禁止百度转码</h4><p>特别是移动端的网页，为了防止其被百度转码，可以加上如下标签：</p>
+<figure class="highlight html"><figcaption><span>优先使用IE最新版本和chrome</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Cache-Control"</span> <span class="attr">content</span>=<span class="string">"no-siteapp"</span> /&gt;</span></div></pre></td></tr></table></figure>
+<p>详细内容可参看：<a href="http://m.baidu.com/pub/help.php?pn=22&amp;ssid=0&amp;from=844b&amp;bd_page_type=1" target="_blank" rel="external">《SiteApp转码声明》</a></p>
+<h2 id="三、Viewport"><a href="#三、Viewport" class="headerlink" title="三、Viewport"></a>三、Viewport</h2><p><code>&lt;meta name=&quot;viewport&quot;&gt;</code>是safari引入用来解决网页在移动端显示的一个非web标准标签。目前有很多移动设备浏览器都支持该标签。详细介绍可参看<a href="https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag" target="_blank" rel="external">《Using the viewport meta tag to control layout on mobile browsers》</a></p>
+<h4 id="1-非响应式网页不要使用initial-scale或者禁用缩放"><a href="#1-非响应式网页不要使用initial-scale或者禁用缩放" class="headerlink" title="1. 非响应式网页不要使用initial-scale或者禁用缩放"></a>1. 非响应式网页不要使用initial-scale或者禁用缩放</h4><figure class="highlight html"><figcaption><span>非响应式网页</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,user-scalable=yes"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="2-移动端的使用"><a href="#2-移动端的使用" class="headerlink" title="2. 移动端的使用"></a>2. 移动端的使用</h4><figure class="highlight html"><figcaption><span>通用方式</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><figcaption><span>适配iPhone6和iPhone6s</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=375"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=414"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="四、特有meta标签"><a href="#四、特有meta标签" class="headerlink" title="四、特有meta标签"></a>四、特有meta标签</h2><h4 id="1-Apple设备"><a href="#1-Apple设备" class="headerlink" title="1. Apple设备"></a>1. Apple设备</h4><figure class="highlight html"><figcaption><span>添加到主屏后的标题（iOS 6 新增）</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-title"</span> <span class="attr">content</span>=<span class="string">"标题"</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><figcaption><span>是否启用 WebApp 全屏模式</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"yes"</span> /&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><figcaption><span>设置状态栏的背景颜色</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span> <span class="attr">content</span>=<span class="string">"black-translucent"</span> /&gt;</span></div><div class="line"> <span class="comment">&lt;!-- 设置状态栏的背景颜色，只有在 `"apple-mobile-web-app-capable" content="yes"` 时生效 --&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="2-Windows-8"><a href="#2-Windows-8" class="headerlink" title="2. Windows 8"></a>2. Windows 8</h4><figure class="highlight html"><figcaption><span>Windows 8 磁贴颜色</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"msapplication-TileColor"</span> <span class="attr">content</span>=<span class="string">"#000"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight html"><figcaption><span>Windows 8 磁贴图标</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"msapplication-TileImage"</span> <span class="attr">content</span>=<span class="string">"icon.png"</span>/&gt;</span> </div></pre></td></tr></table></figure>
+<h4 id="3-移动端meta汇总"><a href="#3-移动端meta汇总" class="headerlink" title="3.移动端meta汇总"></a>3.移动端meta汇总</h4><figure class="highlight html"><figcaption><span>移动端meta汇总</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1, user-scalable=no"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"yes"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span> <span class="attr">content</span>=<span class="string">"black"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"format-detection"</span><span class="attr">content</span>=<span class="string">"telephone=no, email=no"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1, user-scalable=no"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-capable"</span> <span class="attr">content</span>=<span class="string">"yes"</span> /&gt;</span><span class="comment">&lt;!-- 删除苹果默认的工具栏和菜单栏 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"apple-mobile-web-app-status-bar-style"</span> <span class="attr">content</span>=<span class="string">"black"</span> /&gt;</span><span class="comment">&lt;!-- 设置苹果工具栏颜色 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"format-detection"</span> <span class="attr">content</span>=<span class="string">"telphone=no, email=no"</span> /&gt;</span><span class="comment">&lt;!-- 忽略页面中的数字识别为电话，忽略email识别 --&gt;</span></div><div class="line"><span class="comment">&lt;!-- 启用360浏览器的极速模式(webkit) --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"renderer"</span> <span class="attr">content</span>=<span class="string">"webkit"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 避免IE使用兼容模式 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"IE=edge"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"HandheldFriendly"</span> <span class="attr">content</span>=<span class="string">"true"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 微软的老式浏览器 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"MobileOptimized"</span> <span class="attr">content</span>=<span class="string">"320"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- uc强制竖屏 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"screen-orientation"</span> <span class="attr">content</span>=<span class="string">"portrait"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- QQ强制竖屏 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-orientation"</span> <span class="attr">content</span>=<span class="string">"portrait"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- UC强制全屏 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"full-screen"</span> <span class="attr">content</span>=<span class="string">"yes"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- QQ强制全屏 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-fullscreen"</span> <span class="attr">content</span>=<span class="string">"true"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- UC应用模式 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"browsermode"</span> <span class="attr">content</span>=<span class="string">"application"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- QQ应用模式 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"x5-page-mode"</span> <span class="attr">content</span>=<span class="string">"app"</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- windows phone 点击无高光 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"msapplication-tap-highlight"</span> <span class="attr">content</span>=<span class="string">"no"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="五、相关参考"><a href="#五、相关参考" class="headerlink" title="五、相关参考"></a>五、相关参考</h2><ul>
+<li><a href="http://www.sitepoint.com/meta-tags-html-basics-best-practices/" target="_blank" rel="external">Using Meta Tags in HTML: Some Basics and Best Practices</a></li>
+<li><a href="https://github.com/yisibl/blog/issues/1" target="_blank" rel="external">常用的 HTML 头部标签</a></li>
+<li><a href="http://fex.baidu.com/blog/2014/10/html-head-tags/" target="_blank" rel="external">HTML head 头标签</a></li>
+<li><a href="http://se.360.cn/v6/help/meta.html" target="_blank" rel="external">浏览器内核控制Meta标签说明文档</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/HTML/">HTML</a> <a class="tag tag--primary tag--small t-link" href="/tags/meta/">meta</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/04/13/MySQL-joins-tutorial/"  data-tooltip="MySQL中JOIN的用法">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/19/Index-in-MySQL/" data-tooltip="MySQL中的索引">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/04/13/MySQL-joins-tutorial/"  data-tooltip="MySQL中JOIN的用法">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/19/Index-in-MySQL/" data-tooltip="MySQL中的索引">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2016/03/29/using-meta-tags-in-html/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

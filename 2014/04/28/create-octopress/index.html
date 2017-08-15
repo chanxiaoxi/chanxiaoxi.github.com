@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>搭建属于自己的octopress技术博客 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="之所以想用octopress是因为感觉到使用markdown来写博客是一件很令人兴奋的事。而且基于github的octopress使得我们免费且放心的将我们的博文托管到github上，换用官方的说法是，使用octopress像hacker一样写博客，其实就实际情况来说也是这样的，不是搞技术的，在现在博客平台那么多的情况下，谁也不愿意去那么繁琐的搭建一个博客。hexo比起octopress更加方便，">
+<meta name="keywords" content="octopress">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="搭建属于自己的octopress技术博客">
+<meta property="og:url" content="http://chanxiaoxi.me/2014/04/28/create-octopress/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="之所以想用octopress是因为感觉到使用markdown来写博客是一件很令人兴奋的事。而且基于github的octopress使得我们免费且放心的将我们的博文托管到github上，换用官方的说法是，使用octopress像hacker一样写博客，其实就实际情况来说也是这样的，不是搞技术的，在现在博客平台那么多的情况下，谁也不愿意去那么繁琐的搭建一个博客。hexo比起octopress更加方便，">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搭建属于自己的octopress技术博客">
+<meta name="twitter:description" content="之所以想用octopress是因为感觉到使用markdown来写博客是一件很令人兴奋的事。而且基于github的octopress使得我们免费且放心的将我们的博文托管到github上，换用官方的说法是，使用octopress像hacker一样写博客，其实就实际情况来说也是这样的，不是搞技术的，在现在博客平台那么多的情况下，谁也不愿意去那么繁琐的搭建一个博客。hexo比起octopress更加方便，">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            搭建属于自己的octopress技术博客
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon Apr 28 2014 20:02:35 GMT+0800">
+	
+		    4月 28, 2014
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Other/">Other</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>之所以想用octopress是因为感觉到使用markdown来写博客是一件很令人兴奋的事。而且基于github的octopress使得我们免费且放心的将我们的博文托管到github上，换用官方的说法是，使用octopress像hacker一样写博客，其实就实际情况来说也是这样的，不是搞技术的，在现在博客平台那么多的情况下，谁也不愿意去那么繁琐的搭建一个博客。<a href="http://hexo.io" target="_blank" rel="external">hexo</a>比起octopress更加方便，或许是更好饿选择。<a id="more"></a></p>
+<h3 id="搭建octopress"><a href="#搭建octopress" class="headerlink" title="搭建octopress"></a>搭建octopress</h3><ul>
+<li>Mac OS下搭建：<a href="http://segmentfault.com/a/1190000000364677" target="_blank" rel="external">在Mac上从零开始搭建基于Github的Octopress博客</a></li>
+<li>Win7下搭建：<a href="http://www.techelex.org/setup-octopress-windows7/" target="_blank" rel="external">Setup Octopress On Windows7</a></li>
+</ul>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>搭建octopress的方法网上的教程很多，这里之记录我在搭建过程中遇到的一些问题，以备后用</p>
+<h5 id="替换gem源"><a href="#替换gem源" class="headerlink" title="替换gem源"></a>替换gem源</h5><p>在安装的时候使用官方的源实在太慢，建议替换成淘宝的镜像源：</p>
+<pre><code>GavinWu:chanxiaoxi.github.com GavinWu$ gem sources -a http://ruby.taobao.org/
+http://ruby.taobao.org/ added to sources
+</code></pre><h5 id="gem相关工具介绍"><a href="#gem相关工具介绍" class="headerlink" title="gem相关工具介绍"></a>gem相关工具介绍</h5><p>如果不懂Ruby，那么在安装过程中，对安装的工具可以大致了解一下：</p>
+<ul>
+<li>RVM：帮你安装Ruby环境，管理多个Ruby环境，管理你开发的每个Ruby应用使用机器上的那个Ruby环境，Ruby环境不仅仅是Ruby本身，还包括依赖的第三方Ruby插件，都有RVM管理</li>
+<li>Rails：著名的Ruby开发框架</li>
+<li>RubyGems：RubyGems是一个方便儿强大的Ruby程序包管理器，类似RedHat的RPM，它将一个Ruby应用程序打包到一个gem里，作为一个安装单元</li>
+<li>Gem：封装起来的Ruby应用程序或代码库，终端使用的gem命令，是指通过RubyGems管理Gem包</li>
+<li>Gemfile：定义你的应用依赖哪些第三方包，bundle根据配置去寻找这些包</li>
+<li>Rake：所有需要安装的gem中最重要的一个，并且它应该始终是你在系统上安装的第一个gem，Rake是一个构件工具和Make很相似</li>
+<li>Bundle：相当于多个RubyGems批处理执行，在配置文件gemfile里说明你的应用依赖包，他会自动帮你下载</li>
+</ul>
+<h5 id="octopress的配置文件config-yml"><a href="#octopress的配置文件config-yml" class="headerlink" title="octopress的配置文件config.yml"></a>octopress的配置文件config.yml</h5><p>1.config.yml是博客重要的配置文件，在发布之前我们必须修改它的一些默认配置</p>
+<ul>
+<li><code>Main Configs</code> 这里我们要配置它的<code>url</code>,<code>subtitle</code>和<code>author</code></li>
+<li><code>Jekyll &amp; Plugins</code> 一定要检查<code>root</code>的路径是否正确，这个影响到博客的样式文件和JS文件</li>
+<li><code>3rd Party Settings</code> 建议关掉twitter，google等国内无法访问的帐号</li>
+</ul>
+<p>2.修改定制文件/source/_includes/custom/head.html 把google的自定义字体去掉</p>
+<h5 id="输入中文标题的问题"><a href="#输入中文标题的问题" class="headerlink" title="输入中文标题的问题"></a>输入中文标题的问题</h5><p>如果使用终端，是无法输入中文标题的，可以在octopress生成的markdown文件中改变标题</p>
+<h3 id="发布博客"><a href="#发布博客" class="headerlink" title="发布博客"></a>发布博客</h3><p>每次写博文的时候都需要<code>$ rake new_post[“new_title”]</code> 命令来生成固定格式命名的markdown文件，然后再编辑博客<br>编辑好博客之后运行<code>$ rake generate</code>命令来编译文件<br>编译好文件之后我们将现有的项目提交到github之上，建议提交的分支不要为master，这样每次都让master来merge该分支<code>之所以要提交，是因为博客的source需要单独提交</code><br>最后运行<code>$ rake deploy</code> 命令来发布博文</p>
+<h5 id="关于分支"><a href="#关于分支" class="headerlink" title="关于分支"></a>关于分支</h5><p>octopress主要有两个分支<code>master</code>和<code>source</code>, octopress主目录下的分支是<code>source</code>没有<code>master</code>分支，<code>master</code>分支在<code>_deploy</code>目录下。</p>
+<h5 id="rake-generate——生成静态站点文件"><a href="#rake-generate——生成静态站点文件" class="headerlink" title="rake generate——生成静态站点文件"></a><code>rake generate</code>——生成静态站点文件</h5><p><code>rake generate</code>的过程是这样的：octopress根据配置文件把<code>/source</code>中的文件生成之后放在<code>/public</code>下面，<code>/public</code>下面就是生成的站点的所有文件。实际访问的网站也是在这个目录下</p>
+<h5 id="rake-deploy——push到github"><a href="#rake-deploy——push到github" class="headerlink" title="rake deploy——push到github"></a><code>rake deploy</code>——push到github</h5><p>deploy的过程是这样的：octopress会先去github上pull一下看有没有更新，完了之后会删掉<code>/_deploy</code>中的所有文件，把<code>/public</code>下最新的文件复制到<code>/_deploy</code>下面，然后在<code>/_deploy</code>下面使用<code>master</code>分支提交到github，deploy只是把生成好的文件push到github，并没有把source上得源文件push到github，所以deploy之后我们需要切换到source分支去提交源文件</p>
+<h3 id="个性化配置"><a href="#个性化配置" class="headerlink" title="个性化配置"></a>个性化配置</h3><p>提高访问速度，设置链接在新窗口打开，首页摘要显示，代码着色，添加分类、评论、统计以及SEO等可以参照如下文章：</p>
+<ul>
+<li><a href="http://tianweili.github.io/blog/2015/01/11/setup-octopress-blog/" target="_blank" rel="external">Octopress博客的个性化配置</a></li>
+<li><a href="http://shanewfx.github.io/blog/2012/08/13/improve-blog-theme/" target="_blank" rel="external">Octopress主题改造</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/octopress/">octopress</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/05/new/"  data-tooltip="PHP5.5.X连接MS SQL SEVER">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/05/new/"  data-tooltip="PHP5.5.X连接MS SQL SEVER">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/04/28/create-octopress/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

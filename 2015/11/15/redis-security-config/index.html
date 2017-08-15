@@ -1,0 +1,484 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>Redis安全配置 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="这几天网上爆出关于Redis的一个漏洞《Redis 未授权访问缺陷可轻易导致系统被黑》,这个漏洞简单的说就是利用Redis的相关方法将自己的公钥直接写入目标服务器，进而控制目标服务器。Redis现在在开发中已经被广泛使用，从缓存到数据库，但是在使用的过程中至少我很少注意Redis的安全性，从漏洞报告中可以看出，很多人都没有绑定IP，都在用默认端口，都没有设置访问密码。结合Redis官方文档关于安全">
+<meta name="keywords" content="Redis">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Redis安全配置">
+<meta property="og:url" content="http://chanxiaoxi.me/2015/11/15/redis-security-config/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="这几天网上爆出关于Redis的一个漏洞《Redis 未授权访问缺陷可轻易导致系统被黑》,这个漏洞简单的说就是利用Redis的相关方法将自己的公钥直接写入目标服务器，进而控制目标服务器。Redis现在在开发中已经被广泛使用，从缓存到数据库，但是在使用的过程中至少我很少注意Redis的安全性，从漏洞报告中可以看出，很多人都没有绑定IP，都在用默认端口，都没有设置访问密码。结合Redis官方文档关于安全">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Redis安全配置">
+<meta name="twitter:description" content="这几天网上爆出关于Redis的一个漏洞《Redis 未授权访问缺陷可轻易导致系统被黑》,这个漏洞简单的说就是利用Redis的相关方法将自己的公钥直接写入目标服务器，进而控制目标服务器。Redis现在在开发中已经被广泛使用，从缓存到数据库，但是在使用的过程中至少我很少注意Redis的安全性，从漏洞报告中可以看出，很多人都没有绑定IP，都在用默认端口，都没有设置访问密码。结合Redis官方文档关于安全">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Redis安全配置
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Nov 15 2015 23:14:23 GMT+0800">
+	
+		    11月 15, 2015
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Security/">Security</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>这几天网上爆出关于Redis的一个漏洞<a href="https://www.sebug.net/vuldb/ssvid-89715?from=singlemessage&amp;hmsr=toutiao.io&amp;isappinstalled=0&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">《Redis 未授权访问缺陷可轻易导致系统被黑》</a>,这个漏洞简单的说就是利用Redis的相关方法将自己的公钥直接写入目标服务器，进而控制目标服务器。Redis现在在开发中已经被广泛使用，从缓存到数据库，但是在使用的过程中至少我很少注意Redis的安全性，从漏洞报告中可以看出，很多人都没有绑定IP，都在用默认端口，都没有设置访问密码。结合Redis官方文档关于安全配置的说明和上文中提到的攻击方式，我们来看看使用Redis时的安全配置。<a id="more"></a></p>
+<h2 id="设置bind选项，绑定访问IP"><a href="#设置bind选项，绑定访问IP" class="headerlink" title="设置bind选项，绑定访问IP"></a>设置bind选项，绑定访问IP</h2><p>bind是来绑定Redis访问IP的，文中提到，这一切的源头是Redis默认情况下会绑定在<code>0.0.0.0:6379</code>，这种情况就是我们在Redis的配置文件中没有设置bind或者关掉了bind下发生的：</p>
+<blockquote>
+<p>if the bind option is not<br>specified all the interfaces will listen for incoming connections.</p>
+</blockquote>
+<p>所以很多人忽略设置该选项的后果就是将Redis暴露在了整个网络中。</p>
+<h2 id="设置port选项，修改默认端口6379"><a href="#设置port选项，修改默认端口6379" class="headerlink" title="设置port选项，修改默认端口6379"></a>设置port选项，修改默认端口6379</h2><p>Redis的默认端口很容易被扫描，如果你的Redis暴露的公网之上而恰巧使用的是默认端口的话，那么就非常容易被扫描到。在Redis配置文件中，可以很方便的修改掉默认端口。这里的一个小插曲就是Redis的作者为什么要将端口设置成6379，因为它在手机键盘上是<code>MERZ</code>。</p>
+<h2 id="设置auth选项，设置访问密码"><a href="#设置auth选项，设置访问密码" class="headerlink" title="设置auth选项，设置访问密码"></a>设置auth选项，设置访问密码</h2><p>Redis默认是没有访问密码的，只要连接上就能访问。Redis的官方文档中也说了，Redis没有访问控制层，只提供了一个简单的验证层：</p>
+<blockquote>
+<p>While Redis does not try to implement Access Control, it provides a tiny layer of authentication that is optionally turned on editing the redis.conf file.</p>
+</blockquote>
+<p>在配置Redis访问密码的时候要注意几点：</p>
+<ul>
+<li>Redis的访问密码是在config文件中明文存储的</li>
+<li>AUTH命令进行访问认证的时候密码也是明文传输的</li>
+</ul>
+<p>所以密码要设置的比较长，防止暴力破解，同时也要注意网络传输的安全，防止明文密码被窃取。不要担心密码设置的太长不容易记忆或者影响效率，Redis文档中给出了设置一个足够长的密码的理由：</p>
+<blockquote>
+<ul>
+<li>Redis is very fast at serving queries. Many passwords per second can be tested by an external client.</li>
+<li>The Redis password is stored inside the redis.conf file and inside the client configuration, so it does not need to be remembered by the system administrator, and thus it can be very long.</li>
+</ul>
+</blockquote>
+<h2 id="关掉或者重命名CONFIG命令"><a href="#关掉或者重命名CONFIG命令" class="headerlink" title="关掉或者重命名CONFIG命令"></a>关掉或者重命名CONFIG命令</h2><p>在<a href="https://www.sebug.net/vuldb/ssvid-89715?from=singlemessage&amp;hmsr=toutiao.io&amp;isappinstalled=0&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">《Redis 未授权访问缺陷可轻易导致系统被黑》</a>一文中可以看出，攻击者正是利用了Redis的<code>CONFIG</code>命令来将自己的公钥写入目标主机的：</p>
+<figure class="highlight shell"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cat foo.txt | redis-cli -h 192.168.1.11 -x set crackit</div><div class="line"><span class="meta">$</span> redis-cli -h 192.168.1.11</div><div class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; config set dir /root/.ssh/</div><div class="line">OK</div><div class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; config get dir</div><div class="line">1) "dir"</div><div class="line">2) "/root/.ssh"</div><div class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; config set dbfilename "authorized_keys"</div><div class="line">OK</div><div class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; save</div><div class="line">OK</div></pre></td></tr></table></figure>
+<p>Redis文档中也说道要Disabling of specific commands，并且给出了两种方式：</p>
+<ul>
+<li>重命名：<code>rename-command CONFIG b840fc02d524045429941cc15f59e41cb7be6c52</code>，你就是再怎么猜也猜不到我的命名叫这个名字吧</li>
+<li>关闭：<code>rename-command CONFIG “”</code></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上的四点就是那篇文章中给出的临时解决方案，其实这些在Redis的文档中都已经说的很清楚了，但是还是有那么多的中招，由此可见很多人都是在没有读完配置文件或者官方文档就直接开搞了。在Redis文档中还提到了其他方面的安全，比如表单数据过滤，NoSQL注入，代码安全等，这些其实对于Redis来说不是特有的，也是日常中大家都会注意的，所以一般不会疏忽。</p>
+<h2 id="相关文章："><a href="#相关文章：" class="headerlink" title="相关文章："></a>相关文章：</h2><p><a href="http://oldblog.antirez.com/post/redis-as-LRU-cache.html" target="_blank" rel="external">Redis as an LRU cache</a><br><a href="https://www.sebug.net/vuldb/ssvid-89715?from=singlemessage&amp;hmsr=toutiao.io&amp;isappinstalled=0&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">《Redis 未授权访问缺陷可轻易导致系统被黑》</a><br><a href="http://redis.io/topics/security" target="_blank" rel="external">Redis Security</a></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Redis/">Redis</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/16/jQuery-events-bind-best-practice/"  data-tooltip="jQuery事件绑定实践">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/05/17/hi-docker/" data-tooltip="Docker学习笔记(一)——认识Docker">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/16/jQuery-events-bind-best-practice/"  data-tooltip="jQuery事件绑定实践">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/05/17/hi-docker/" data-tooltip="Docker学习笔记(一)——认识Docker">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/11/15/redis-security-config/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

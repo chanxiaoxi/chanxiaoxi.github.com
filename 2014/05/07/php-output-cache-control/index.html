@@ -1,0 +1,473 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>PHP输出缓冲控制ob_start()及其多级缓冲 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="PHP输出缓冲控制PHP的输出缓冲控制用来控制PHP脚本的输出，这也是PHP的一种缓冲机制的一种，PHP Manual对其有如下介绍  The Output Control functions allow you to control when output is sent from the script. This can be useful in several different situa">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="PHP输出缓冲控制ob_start()及其多级缓冲">
+<meta property="og:url" content="http://chanxiaoxi.me/2014/05/07/php-output-cache-control/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="PHP输出缓冲控制PHP的输出缓冲控制用来控制PHP脚本的输出，这也是PHP的一种缓冲机制的一种，PHP Manual对其有如下介绍  The Output Control functions allow you to control when output is sent from the script. This can be useful in several different situa">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP输出缓冲控制ob_start()及其多级缓冲">
+<meta name="twitter:description" content="PHP输出缓冲控制PHP的输出缓冲控制用来控制PHP脚本的输出，这也是PHP的一种缓冲机制的一种，PHP Manual对其有如下介绍  The Output Control functions allow you to control when output is sent from the script. This can be useful in several different situa">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            PHP输出缓冲控制ob_start()及其多级缓冲
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Wed May 07 2014 23:54:44 GMT+0800">
+	
+		    5月 07, 2014
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Development/">Development</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h4 id="PHP输出缓冲控制"><a href="#PHP输出缓冲控制" class="headerlink" title="PHP输出缓冲控制"></a>PHP输出缓冲控制</h4><p>PHP的输出缓冲控制用来控制PHP脚本的输出，这也是PHP的一种缓冲机制的一种，PHP Manual对其有如下介绍</p>
+<blockquote>
+<p>The Output Control functions allow you to control when output is sent from the script. This can be useful in several different situations, especially if you need to send headers to the browser after your script has began outputting data. The Output Control functions do not affect headers sent using header() or setcookie(), only functions such as echo and data between blocks of PHP code.</p>
+</blockquote>
+<ul>
+<li>我们都知道PHP是通过header()来设置HTTP报文的，它要求header()必须在任何实际输出之前调用，不管是普通的html标签还是文件里面的空行，空格或者是PHP文件里的空行，空格。</li>
+<li>setcookie()函数也是用来设置HTTP报文头，为其添加cookie的，所以他也满足header()函数的要求</li>
+</ul>
+<p>作为一种输出缓冲控制，在实际中他也有很多用途，这里大概介绍一下，详细的内容可参照<a href="http://rickykwan.iworkshop.com.hk/2010/03/656.html" target="_blank" rel="external">Ricky Kwan</a>的博客<a id="more"></a></p>
+<h5 id="1-静态模板技术"><a href="#1-静态模板技术" class="headerlink" title="1.静态模板技术"></a>1.静态模板技术</h5><p>这其实是用一种动态的方式生成静态模板的技术，在一些类似于CMS的系统中是非常有用的。大致的实现思路是：在动态调用脚本生成相应的HTML之后，我们可以通过该技术来生成静态的模板，供用户下次访问使用，前提是这些模板的内容大多是一成不变的，或者在一定时间内不变的</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ob_start();<span class="comment">// 打開緩沖區</span></div><div class="line">$content = ob_get_contents();<span class="comment">//取得php頁面輸出的全部內容</span></div><div class="line">$fp = fopen(<span class="string">"output00001.html"</span>, <span class="string">"w"</span>); <span class="comment">//創建一個文件，并打開，準備寫入</span></div><div class="line">fwrite($fp, $content); <span class="comment">//把php頁面的內容全部寫入output00001.html，然后……</span></div><div class="line">fclose($fp);</div></pre></td></tr></table></figure>
+<h5 id="2-捕捉输出"><a href="#2-捕捉输出" class="headerlink" title="2.捕捉输出"></a>2.捕捉输出</h5><p>利用输出缓存机制我们将一些输出内容捕捉，再进行处理，比如PHP语法高亮显示</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">run_code</span><span class="params">($code)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span>($code) &#123;</div><div class="line">        ob_start();</div><div class="line">        <span class="keyword">eval</span>($code);</div><div class="line">        $contents = ob_get_contents();</div><div class="line">        ob_end_clean();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"錯誤！沒有輸出"</span>;</div><div class="line">        <span class="keyword">exit</span>();</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> $contents;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="3-加快传输"><a href="#3-加快传输" class="headerlink" title="3.加快传输"></a>3.加快传输</h5><p>利用该机制，对输出类容进行压缩处理，来加快其传输效率</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * Title.........: PHP4 HTTP Compression Speeds up the Web</span></div><div class="line"><span class="comment"> * Version.......: 1.20</span></div><div class="line"><span class="comment"> * Author........: catoc &lt;[email]catoc@163.net[/email]&gt;</span></div><div class="line"><span class="comment"> * Filename......: gzdoc.php</span></div><div class="line"><span class="comment"> * Last changed..: 18/10/2000</span></div><div class="line"><span class="comment"> * Requirments...: PHP4 &gt;= 4.0.1</span></div><div class="line"><span class="comment"> * PHP was configured with --with-zlib[=DIR]</span></div><div class="line"><span class="comment"> * Notes.........: Dynamic Content Acceleration compresses</span></div><div class="line"><span class="comment"> * the data transmission data on the fly</span></div><div class="line"><span class="comment"> * code by sun jin hu (catoc) &lt;[email]catoc@163.net[/email]&gt;</span></div><div class="line"><span class="comment"> * Most newer browsers since 1998/1999 have</span></div><div class="line"><span class="comment"> * been equipped to support the HTTP 1.1</span></div><div class="line"><span class="comment"> * standard known as \"content-encoding.\"</span></div><div class="line"><span class="comment"> * Essentially the browser indicates to the</span></div><div class="line"><span class="comment"> * server that it can accept \"content encoding\"</span></div><div class="line"><span class="comment"> * and if the server is capable it will then</span></div><div class="line"><span class="comment"> * compress the data and transmit it. The</span></div><div class="line"><span class="comment"> * browser decompresses it and then renders</span></div><div class="line"><span class="comment"> * the page.</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * Modified by John Lim ([email]jlim<span class="doctag">@natsoft</span>.com.my[/email])</span></div><div class="line"><span class="comment"> * based on ideas by Sandy McArthur, Jr</span></div><div class="line"><span class="comment"> * Usage........:</span></div><div class="line"><span class="comment"> * No space before the beginning of the first \'&lt;?\' tag.</span></div><div class="line"><span class="comment"> * ------------Start of file----------</span></div><div class="line"><span class="comment"> * |&lt;?</span></div><div class="line"><span class="comment"> * | include(\'gzdoc.php\');</span></div><div class="line"><span class="comment"> * |? &gt;</span></div><div class="line"><span class="comment"> * |&lt;HTML&gt;</span></div><div class="line"><span class="comment"> * |... the page ...</span></div><div class="line"><span class="comment"> * |&lt;/HTML&gt;</span></div><div class="line"><span class="comment"> * |&lt;?</span></div><div class="line"><span class="comment"> * | gzdocout();</span></div><div class="line"><span class="comment"> * |? &gt;</span></div><div class="line"><span class="comment"> * -------------End of file-----------</span></div><div class="line"><span class="comment"> **/</span></div><div class="line"> </div><div class="line"> ob_start();</div><div class="line"> ob_implicit_flush(<span class="number">0</span>);</div><div class="line"> <span class="function"><span class="keyword">function</span> <span class="title">CheckCanGzip</span><span class="params">()</span></span>&#123;</div><div class="line"> <span class="keyword">global</span> $HTTP_ACCEPT_ENCODING;</div><div class="line"> <span class="keyword">if</span> (headers_sent() || connection_timeout() || connection_aborted())&#123;</div><div class="line">     <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">if</span> (strpos($HTTP_ACCEPT_ENCODING, <span class="string">'x-gzip'</span>) !== <span class="keyword">false</span>) <span class="keyword">return</span> <span class="string">"x-gzip"</span>;</div><div class="line"> <span class="keyword">if</span> (strpos($HTTP_ACCEPT_ENCODING, <span class="string">'gzip'</span>) !== <span class="keyword">false</span>) <span class="keyword">return</span> <span class="string">"gzip"</span>;</div><div class="line">     <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line"> &#125;</div><div class="line"> </div><div class="line"> <span class="comment">/* $level = compression level 0-9, 0=none, 9=max */</span></div><div class="line"> <span class="function"><span class="keyword">function</span> <span class="title">GzDocOut</span><span class="params">($level=<span class="number">1</span>,$debug=<span class="number">0</span>)</span></span>&#123;</div><div class="line"> $ENCODING = CheckCanGzip();</div><div class="line"> <span class="keyword">if</span> ($ENCODING)&#123;</div><div class="line">     <span class="keyword">print</span> \<span class="string">"n&lt;!-- Use compress $ENCODING --&gt;n\";</span></div><div class="line"><span class="string">     $Contents = ob_get_contents();</span></div><div class="line"><span class="string">     ob_end_clean();</span></div><div class="line"><span class="string">     if ($debug)&#123;</span></div><div class="line"><span class="string">         $s = \"&lt;p&gt;Not compress length: \".strlen($Contents);</span></div><div class="line"><span class="string">         $s .= \"Compressed length: \".strlen(gzcompress($Contents,$level));</span></div><div class="line"><span class="string">         $Contents .= $s;</span></div><div class="line"><span class="string">     &#125;</span></div><div class="line"><span class="string">     header(\"Content-Encoding: $ENCODING\");</span></div><div class="line"><span class="string">     print \"x1fx8bx08x00x00x00x00x00\";</span></div><div class="line"><span class="string">     $Size = strlen($Contents);</span></div><div class="line"><span class="string">     $Crc = crc32($Contents);</span></div><div class="line"><span class="string">     $Contents = gzcompress($Contents,$level);</span></div><div class="line"><span class="string">     $Contents = substr($Contents, 0, strlen($Contents) - 4);</span></div><div class="line"><span class="string">     print $Contents;</span></div><div class="line"><span class="string">     print pack(\'V\',$Crc);</span></div><div class="line"><span class="string">     print pack(\'V\',$Size);</span></div><div class="line"><span class="string">     exit;</span></div><div class="line"><span class="string"> &#125; else &#123;</span></div><div class="line"><span class="string">     ob_end_flush();</span></div><div class="line"><span class="string">     exit;</span></div><div class="line"><span class="string"> &#125;</span></div></pre></td></tr></table></figure>
+<h4 id="ob-start-多级缓冲"><a href="#ob-start-多级缓冲" class="headerlink" title="ob_start()多级缓冲"></a>ob_start()多级缓冲</h4><p><a href="http://my.oschina.net/CuZn/blog/68650" target="_blank" rel="external">CuZn</a>的一篇博文大概介绍了一下ob_start()的多级缓冲，详细的说明可以参看他的博文，这里只做简单的总结</p>
+<p>PHP的输出控制是多级缓冲机制，程序为每个ob_start()开辟一个缓冲区，并且PHP程序本身也有一个最终的输出缓冲区（这里用F代表），举个栗子</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ob_start(); <span class="comment">//开启缓冲区A</span></div><div class="line"><span class="keyword">echo</span>   <span class="string">'level 1&lt;br/&gt; '</span>; <span class="comment">//将level 1&lt;br/&gt;保存在A区</span></div><div class="line">ob_start();             <span class="comment">//开启缓冲区B</span></div><div class="line"><span class="keyword">echo</span>   <span class="string">'level 2&lt;br/&gt; '</span>; <span class="comment">//将level 2&lt;br/&gt;保存在B区</span></div><div class="line">ob_start();             <span class="comment">//开启缓冲区C</span></div><div class="line"><span class="keyword">echo</span>   <span class="string">'level 3&lt;br/&gt; '</span>; <span class="comment">//将level 3&lt;br/&gt;保存在C区</span></div><div class="line">ob_end_flush(); <span class="comment">//将缓冲区C输入B区，并关闭 B:level 2&lt;br/&gt;level 3&lt;br/&gt;</span></div><div class="line">ob_end_flush(); <span class="comment">//B-&gt;A，并关闭B A:level 1&lt;br/&gt;level 2&lt;br/&gt;level 3&lt;br/&gt;</span></div><div class="line">ob_end_flush(); <span class="comment">//A-&gt;F，并关闭A F:level 1&lt;br/&gt;level 2&lt;br/&gt;level 3&lt;br/&gt;</span></div></pre></td></tr></table></figure>
+<p>他的输出顺序是 level 1 level 2 level 3，再看一个例子</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">ob_start(); <span class="comment">//A:null</span></div><div class="line"><span class="keyword">echo</span>   <span class="string">'level 1&lt;br/&gt; '</span>; <span class="comment">//A:level 1&lt;br/&gt;</span></div><div class="line">ob_start(); <span class="comment">//B:null</span></div><div class="line"><span class="keyword">echo</span>   <span class="string">'level 2&lt;br/&gt; '</span>; <span class="comment">//B:level 2&lt;br/&gt;</span></div><div class="line">ob_start(); <span class="comment">//C:null</span></div><div class="line"><span class="keyword">echo</span>   <span class="string">'level 3&lt;br/&gt; '</span>; <span class="comment">//C:level 3&lt;br/&gt;</span></div><div class="line">ob_end_clean(); <span class="comment">//清除C并关闭 </span></div><div class="line">ob_end_flush(); <span class="comment">//B-&gt;A并关闭B A:level 2&lt;br/&gt;level 1&lt;br/&gt;</span></div><div class="line">ob_end_clean(); <span class="comment">//清除A并关闭 F:null</span></div></pre></td></tr></table></figure>
+<p>这里什么都不会输出，由此可以看出，ob_start()的储存是栈的形式，所以每次ob_start()总是取最近的一个，但是ob_end_flush()是队列的形式存取的，所以每次先进的先出</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/PHP/">PHP</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/10/singleton-pattern-for-php/"  data-tooltip="PHP设计模式之单例模式">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/05/new/" data-tooltip="PHP5.5.X连接MS SQL SEVER">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/10/singleton-pattern-for-php/"  data-tooltip="PHP设计模式之单例模式">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/05/new/" data-tooltip="PHP5.5.X连接MS SQL SEVER">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/07/php-output-cache-control/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

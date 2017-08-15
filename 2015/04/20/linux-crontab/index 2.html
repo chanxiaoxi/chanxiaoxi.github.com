@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>Linux Crontab - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Linux Crontab">
+<meta property="og:url" content="http://chanxiaoxi.me/2015/04/20/linux-crontab/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:image" content="https://goo.gl/photos/KiNfeNqHVg6otQ3H7">
+<meta property="og:image" content="http://chanxiaoxi.me/images/blogImage/20150420/cronjob2.png">
+<meta property="og:image" content="http://chanxiaoxi.me/images/blogImage/20150420/cronjob3.png">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux Crontab">
+<meta name="twitter:description" content="在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab">
+<meta name="twitter:image" content="https://goo.gl/photos/KiNfeNqHVg6otQ3H7">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Linux Crontab
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon Apr 20 2015 16:01:45 GMT+0800">
+	
+		    4月 20, 2015
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Operator-System/">Operator System</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>在鸟哥的私房菜中，cronjob被称为循环执行的例行性工作排程，它是由cron(crond)这个系统服务来配置。Linux也提供使用者控制例行性工作排程的命令crontab<br><a id="more"></a></p>
+<h3 id="使用者设定"><a href="#使用者设定" class="headerlink" title="使用者设定"></a>使用者设定</h3><p>可以通过配置来限定使用者使用crontab命令，配置文件主要有两个：<code>/etc/cron.allow</code>和<code>/etc/cron.deny</code></p>
+<ul>
+<li><strong>/etc/cron/allow</strong>：将可以使用crontab的账号写入其中，不在其中的就不能使用</li>
+<li><strong>/etc/cron/deny</strong>：将不可以使用crontab的账号写入其中，在其中的就不能使用</li>
+</ul>
+<p><code>/etc/cron.allow</code>比<code>/etc/cron.deny</code>要优先，一般只建议保留一个，一般会保留/etc/cron.deny，一行一个账号就行了，没有其他语法</p>
+<p>当建立一个crontab之后，该项工作会被记录在/var/spool/cron/里面，而且是以账号作为判别的，这里一定要注意，不要直接用vi编辑该档案，可能会因为语法错误而导致crontab无法运行，在/var/spool/cron目录里面会有对应的账号的文件，该文件它长这个样子：</p>
+<pre><code>[root@iZ23lihcd7xZ cron]# cat root 0 6 * * * /server/php/bin/php -q /mcis_php/cronjob/PaymentNotification.php 
+</code></pre><p>此外，crontab的每一项工作还会被记录在/var/log/cron这个文件中，如果要检查你的Linux是不是被植入木马，可以查看一下这个文件中的crontab是不是有例外的,它的内容大概是这个样子：</p>
+<pre><code>Apr 19 03:30:01 iZ23lihcd7xZ CROND[17613]: (root) CMD (/usr/lib64/sa/sa1 1 1)
+Apr 19 03:30:01 iZ23lihcd7xZ CROND[17612]: (root) MAIL (mailed 56 bytes of output but got status 0x004b#012)
+</code></pre><h3 id="crontab命令格式"><a href="#crontab命令格式" class="headerlink" title="crontab命令格式"></a>crontab命令格式</h3><p><img src="https://goo.gl/photos/KiNfeNqHVg6otQ3H7" alt="Image of crontab"></p>
+<p>一般情况下，我们可以使用crontab -e命令来编辑设置crontab，关于时间的设定说明如下：</p>
+<p><img src="/images/blogImage/20150420/cronjob2.png" alt="Image of crontab"></p>
+<p>这里要特殊说明一下，0和7都代表星期日，关于辅助字符的说明：</p>
+<p><img src="/images/blogImage/20150420/cronjob3.png" alt="Image of crontab"></p>
+<p>举个栗子：</p>
+<pre><code>59 23 1 5 * mail gavin &lt; /home/gavin/lover.txt //设置命令的时候，最好使用绝对地址，防止执行任务的时候找不到相应的文件
+</code></pre><p>使用crontab -l命令来查看当前执行的crontab，如果我们要删除crontab中的某一个，那么最好用crontab -e编辑删掉相应的crontab，如果使用crontab -r 命令，会删除整个crontab文件</p>
+<h3 id="设置系统crontab"><a href="#设置系统crontab" class="headerlink" title="设置系统crontab"></a>设置系统crontab</h3><p>如果是系统的crontab，那么就不需要使用crontab -e来配置，直接配置<code>/etc/crontab</code>文件即可设置系统性例行任务，这里要区别一下，crontab -e命令编辑的是<code>/usr/bin/crontab</code>这个文件，要配置系统例行事务，我们要使用root权限来配置<code>/etc/crontab</code>这个文件</p>
+<p>ron这个服务的最低侦测限制时分钟，所以cron服务会每分钟读取一次<code>/etc/crontab</code>和<code>/var/spool/cron</code>里面的资料内容，因此，只要编辑<code>/etc/crontab</code>这个文件，cron的设定就执行了。如果建立了新的crontab之后不能马上运行，就需要重新启动cron服务<code>/etc/init.d/crond start</code></p>
+<h3 id="一些需要注意的事项"><a href="#一些需要注意的事项" class="headerlink" title="一些需要注意的事项"></a>一些需要注意的事项</h3><ul>
+<li>如果大量的crontab在同一时刻运行，那么我们需要把这些错开，可以避免系统太过繁忙</li>
+<li>取消不要输出的项目</li>
+<li>安全问题，就是上面说的通过检查log来查看是不是有非法的例行任务启动</li>
+<li>周与日月不可同时并存</li>
+</ul>
+<h3 id="使用过程中遇到的问题"><a href="#使用过程中遇到的问题" class="headerlink" title="使用过程中遇到的问题"></a>使用过程中遇到的问题</h3><p>在编辑完crontab之后发现它并没有执行，刚开始以为cron服务没有启动，所以重启了一下cron服务，但是重启之后，还是没有执行，于是就认为一定是cmd出错了，一开始的cmd是这样写的：</p>
+<pre><code>0 6 * * * php PaymentNotification.php 
+</code></pre><p>但是在本地测的时候cmd是没有问题的，后来发现，这里不能直接用PHP命令，要调用PHP的绝对路径去使用它，所以应该写成这样：</p>
+<pre><code>0 6 * * * /alidata/server/php/bin/php -q PaymentNotification.php 
+</code></pre>
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Linux/">Linux</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/05/17/hi-docker/"  data-tooltip="Docker学习笔记(一)——认识Docker">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/12/07/lambda-anonymous-function-and-closure/" data-tooltip="PHP中的匿名函数和闭包函数">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/05/17/hi-docker/"  data-tooltip="Docker学习笔记(一)——认识Docker">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/12/07/lambda-anonymous-function-and-closure/" data-tooltip="PHP中的匿名函数和闭包函数">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/04/20/linux-crontab/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

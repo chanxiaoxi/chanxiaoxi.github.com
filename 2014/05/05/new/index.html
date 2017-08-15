@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>PHP5.5.X连接MS SQL SEVER - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="准备工作1. 安装Microsoft SQL Server 2012 Native Client这个是必须要安装的，微软给出了如下说明  The x86 version of SQL Server Native Client is required on the computer where PHP is running. If you are using a 64-bit operating s">
+<meta name="keywords" content="PHP,SQL Server">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="PHP5.5.X连接MS SQL SEVER">
+<meta property="og:url" content="http://chanxiaoxi.me/2014/05/05/new/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="准备工作1. 安装Microsoft SQL Server 2012 Native Client这个是必须要安装的，微软给出了如下说明  The x86 version of SQL Server Native Client is required on the computer where PHP is running. If you are using a 64-bit operating s">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP5.5.X连接MS SQL SEVER">
+<meta name="twitter:description" content="准备工作1. 安装Microsoft SQL Server 2012 Native Client这个是必须要安装的，微软给出了如下说明  The x86 version of SQL Server Native Client is required on the computer where PHP is running. If you are using a 64-bit operating s">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            PHP5.5.X连接MS SQL SEVER
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon May 05 2014 08:40:27 GMT+0800">
+	
+		    5月 05, 2014
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Development/">Development</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><h5 id="1-安装Microsoft-SQL-Server-2012-Native-Client"><a href="#1-安装Microsoft-SQL-Server-2012-Native-Client" class="headerlink" title="1. 安装Microsoft SQL Server 2012 Native Client"></a>1. 安装Microsoft SQL Server 2012 Native Client</h5><p>这个是必须要安装的，微软给出了如下说明</p>
+<blockquote>
+<p>The x86 version of SQL Server Native Client is required on the computer where PHP is running. If you are using a 64-bit operating system, the x86 version of SQL Server Native Client will be installed with the x64 version of SQL Server Native Client (do not install the x86 version of SQL Server Native Client on an x64 operating system).</p>
+</blockquote>
+<p>可能你会对MS提供的下载包产生迷惑，选择相应版本的sqlncli.msi下载就可以了，这是Microsoft SQL Server 2008的客户端下载连接<a href="http://www.microsoft.com/en-us/download/details.aspx?id=27596" target="_blank" rel="external">Microsoft SQL Server 2008 Service Pack 3 Feature Pack</a><a id="more"></a></p>
+<h5 id="2-安装Microsoft-Drivers-for-PHP-for-SQL-Server"><a href="#2-安装Microsoft-Drivers-for-PHP-for-SQL-Server" class="headerlink" title="2. 安装Microsoft Drivers for PHP for SQL Server"></a>2. 安装Microsoft Drivers for PHP for SQL Server</h5><p>这里有version 2.0和version3.0两个版本可供下载，<a href="http://technet.microsoft.com/en-us/library/cc296170(v=sql.105).aspx" target="_blank" rel="external">这里</a>有详细的说明，不在赘述，官方并没有提供5.5以后版本的driver，如果你的PHP版本是5.5以后的，请参照遇到的问题的解决办法。下载之后将驱动安装在PHP的相应扩展目录下，并配置php.ini文件</p>
+<h5 id="3-配置PHP"><a href="#3-配置PHP" class="headerlink" title="3.配置PHP"></a>3.配置PHP</h5><p>我们需要再php.ini文件中添加如下内容：</p>
+<pre><code>[PHP_PDO_SQLSRV]
+extension=php_pdo_sqlsrv_55_ts.dll //PHP DAO 扩展
+[PHP_SQLSRV]
+extension=php_sqlsrv_55_ts.dll //sqlsrv扩展
+</code></pre><h4 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h4><h5 id="1-PHP-5-5-X没有官方的驱动dll"><a href="#1-PHP-5-5-X没有官方的驱动dll" class="headerlink" title="1. PHP 5.5.X没有官方的驱动dll"></a>1. PHP 5.5.X没有官方的驱动dll</h5><p>官方并没有提供PHP 5.5.X的驱动dll，但是有第三方的可以选择，如果你不想改变你的PHP环境，那么就下载第三方的dll来使用 <a href="http://www.hmelihkara.com/files/php_sqlsrv_55.rar" target="_blank" rel="external">下载地址</a></p>
+<h5 id="2-MSVCP110-dll-Missing"><a href="#2-MSVCP110-dll-Missing" class="headerlink" title="2. MSVCP110.dll Missing"></a>2. MSVCP110.dll Missing<br></h5><p>在准备过程中我还遇到了MSVCP110.dll缺失的问题，stackoverflow给出了相关的解决方法<a href="http://stackoverflow.com/questions/21622116/could-not-find-driver-using-sqlsrv-for-pdo" target="_blank" rel="external">“could not find driver” using sqlsrv for PDO</a></p>
+<blockquote>
+<p>The issue was that I didn’t have the Visual C++ Redistributable package. I realized this after rebooting the computer and getting a MSVCP110.dll missing error in a system dialog box rather than a dialog box from XAMPP.</p>
+<p>If anyone else is having this very same issue, download Visual C++ Redistributable for Visual Studio 2012 Update 4 here, in the Microsoft website. Although the computer works with a x64 architecture, I downloaded the x86 version and it worked. Make your choice but I’d recommend doing the same, because PHP is x86 only (x64 is merely experimental and the drivers are x86 aswell).</p>
+</blockquote>
+<p>安装了Redistributable发现还是不行，原来是没有仔细看人家的方法，虽然是计算机的版本是64位的，XAMPP，所以应该安装32位的Redistributable,安装了32位的之后，it works</p>
+<h4 id="PHP-MS-SQL-Server操作"><a href="#PHP-MS-SQL-Server操作" class="headerlink" title="PHP MS SQL Server操作"></a>PHP MS SQL Server操作</h4><p>PHP有针对MS SQL Server的扩展函数供我们使用，具体的使用方式参照<a href="http://www.php.net/manual/zh/book.mssql.php" target="_blank" rel="external">PHP文档</a>，当然你也可以使用PHP的<a href="http://cn2.php.net/manual/zh/ref.pdo-sqlsrv.php" target="_blank" rel="external">PDO</a>扩展来操作MS SQL Server</p>
+<h4 id="测试连接"><a href="#测试连接" class="headerlink" title="测试连接"></a>测试连接</h4><p>完成配置后就可以测试连接啦，这里使用PHP提供的sqlsrv扩展函数来测试</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$serverName = <span class="string">"serverName\sqlexpress"</span>; <span class="comment">//serverName\instanceName</span></div><div class="line">$connectionOptions = <span class="keyword">array</span>(<span class="string">"Database"</span> =&gt; <span class="string">"Database"</span>, <span class="string">"UID"</span> =&gt; <span class="string">"UID"</span> , <span class="string">"PWD"</span> =&gt; <span class="string">"PWD"</span>);</div><div class="line">$conn = sqlsrv_connect($serverName, $connectionOptions);</div><div class="line"><span class="keyword">if</span> ($conn) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"connection established.&lt;br&gt;"</span>;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"connection could not be established.&lt;br&gt;"</span>;</div><div class="line">    <span class="keyword">die</span>(print_r(sqlsrv_errors(), <span class="keyword">true</span>));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用PHP PDO扩展测试连接</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">try</span> &#123;</div><div class="line">    $pdo = <span class="keyword">new</span> PDO(<span class="string">'sqlsrv:Server=210.28.32.161;Database=teacher'</span>,<span class="string">"xscpjk1"</span>,<span class="string">"xscpjk1"</span>);</div><div class="line">    $sql = <span class="string">"SELECT * FROM XSCPJK_XSXK WHERE XH='111003131'"</span>;</div><div class="line">    <span class="keyword">foreach</span>($pdo-&gt;query($sql) <span class="keyword">as</span> $row)&#123;</div><div class="line">        print_r($row);</div><div class="line">    &#125;</div><div class="line">    $pdo = <span class="keyword">null</span>; <span class="comment">//close connect</span></div><div class="line">&#125; <span class="keyword">catch</span> (PDOException $e) &#123;</div><div class="line">    <span class="keyword">print</span> <span class="string">"Error!:"</span>.$e-&gt;getMessage().<span class="string">"&lt;br&gt;"</span>;</div><div class="line">    <span class="keyword">die</span>();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/PHP/">PHP</a> <a class="tag tag--primary tag--small t-link" href="/tags/SQL-Server/">SQL Server</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/07/php-output-cache-control/"  data-tooltip="PHP输出缓冲控制ob_start()及其多级缓冲">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/04/28/create-octopress/" data-tooltip="搭建属于自己的octopress技术博客">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/07/php-output-cache-control/"  data-tooltip="PHP输出缓冲控制ob_start()及其多级缓冲">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/04/28/create-octopress/" data-tooltip="搭建属于自己的octopress技术博客">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/05/new/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

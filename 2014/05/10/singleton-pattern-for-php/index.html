@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>PHP设计模式之单例模式 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="什么是单例模式单例模式又称单件模式，作为对象的创建模式，它保证一个对象在程序中自始至终只有一个实例（PHP本身不支持多线程，所以不存在多线程的安全问题，支持多线程的语言在实现单例模式的时候要注意这一点，比如Java），自行实例化并且为该唯一单例提供一个全局访问点（一般是静态的方法）。">
+<meta name="keywords" content="Design Pattern">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="PHP设计模式之单例模式">
+<meta property="og:url" content="http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="什么是单例模式单例模式又称单件模式，作为对象的创建模式，它保证一个对象在程序中自始至终只有一个实例（PHP本身不支持多线程，所以不存在多线程的安全问题，支持多线程的语言在实现单例模式的时候要注意这一点，比如Java），自行实例化并且为该唯一单例提供一个全局访问点（一般是静态的方法）。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP设计模式之单例模式">
+<meta name="twitter:description" content="什么是单例模式单例模式又称单件模式，作为对象的创建模式，它保证一个对象在程序中自始至终只有一个实例（PHP本身不支持多线程，所以不存在多线程的安全问题，支持多线程的语言在实现单例模式的时候要注意这一点，比如Java），自行实例化并且为该唯一单例提供一个全局访问点（一般是静态的方法）。">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            PHP设计模式之单例模式
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sat May 10 2014 11:43:36 GMT+0800">
+	
+		    5月 10, 2014
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Architecture/">Architecture</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h4 id="什么是单例模式"><a href="#什么是单例模式" class="headerlink" title="什么是单例模式"></a>什么是单例模式</h4><p>单例模式又称单件模式，作为对象的创建模式，它保证一个对象在程序中自始至终只有一个实例（PHP本身不支持多线程，所以不存在多线程的安全问题，支持多线程的语言在实现单例模式的时候要注意这一点，比如Java），自行实例化并且为该唯一单例提供一个全局访问点（一般是静态的方法）。</p>
+<a id="more"></a>
+<p>单例模式只有三个要点：</p>
+<ul>
+<li>一个类只有一个实例</li>
+<li>它必须自行创建这个实例</li>
+<li>必须自行向整个系统提供这个实例</li>
+</ul>
+<h4 id="单例模式的适用场景"><a href="#单例模式的适用场景" class="headerlink" title="单例模式的适用场景"></a>单例模式的适用场景</h4><p>当一个对象使用频繁，而频繁的去new这个对象的操作会增加不必要的资源消耗的情况下，我们就可以考虑使用单例模式，最典型的就是数据库操作中对象的实例化了</p>
+<p>便利的全局调用是单例模式的另一个适用场景，可以通过单例模式来创建一个可以全局控制配置信息的类或者调试类</p>
+<h4 id="单例模式的具体实现"><a href="#单例模式的具体实现" class="headerlink" title="单例模式的具体实现"></a>单例模式的具体实现</h4><p>在实现一个单例模式的时候我们要满足以下几个要求：</p>
+<ul>
+<li>必须有一个存储实例化对象的私有静态变量$_instance</li>
+<li>构造函数必须是私有的，防止外部实例化</li>
+<li>有一个公有的getInstance方法来返回唯一实例的对象引用</li>
+<li>必须override clone()方法，禁止对象被克隆</li>
+</ul>
+<p>PHP代码示例：</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</div><div class="line">    <span class="comment">//定义一个私有静态变量，用于存储实例化对象</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> $_instance;</div><div class="line">    </div><div class="line">    <span class="comment">//构造函数必须声明为私有的，防止外部实例化对象</span></div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    </div><div class="line">    <span class="comment">//类唯一实例的全局访问点，判断对象是否实例化并返回实例，共外部调用</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(is_null(<span class="keyword">self</span>::$_instance))&#123;</div><div class="line">            <span class="keyword">self</span>::$_instance = <span class="keyword">new</span> Singleton();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>::$_instance;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//重载clone方法，不允许克隆对象实例</span></div><div class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="keyword">Exception</span>(<span class="string">'object_can_not_be_clone'</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="comment">// 其他业务方法</span></div><div class="line">        &#125;	</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="单例模式-工厂模式实现数据库对象实例化"><a href="#单例模式-工厂模式实现数据库对象实例化" class="headerlink" title="单例模式+工厂模式实现数据库对象实例化"></a>单例模式+工厂模式实现数据库对象实例化</h4><figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DBFactory</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> $_instance;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">($dbName, $params)</span></span>&#123;</div><div class="line">        <span class="keyword">switch</span> ($dbName)&#123;</div><div class="line">            <span class="keyword">case</span> <span class="string">'PDO_MYSQL'</span> : </div><div class="line">                $dsn = <span class="string">"mysql:host="</span>.$params[<span class="string">'host'</span>].<span class="string">";dbname="</span>.$params[<span class="string">'dbName'</span>];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">'PDO_SQLSRV'</span> :</div><div class="line">                $dsn = <span class="string">"sqlsrv:Server="</span>.$params[<span class="string">'host'</span>].<span class="string">";Database="</span>.$params[<span class="string">'dbName'</span>];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">'PDO_OCI'</span> :</div><div class="line">                $dsn = <span class="string">"oci:dbname="</span>.$params[<span class="string">'host'</span>];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span> :</div><div class="line">                $dsn = <span class="string">"mysql:host="</span>.$params[<span class="string">'host'</span>].<span class="string">";dbname="</span>.$params[<span class="string">'dbName'</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (is_null(<span class="keyword">self</span>::$_instance))&#123;</div><div class="line">            $options = <span class="keyword">array</span>(PDO::MYSQL_ATTR_INIT_COMMAND =&gt; <span class="string">'SET NAMES utf8'</span>);</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">self</span>::$_instance = <span class="keyword">new</span> PDO($dsn, $params[<span class="string">'dbUserName'</span>], $params[<span class="string">'dbUserPwd'</span>]);</div><div class="line">            &#125; <span class="keyword">catch</span> (PDOException $e)&#123;</div><div class="line">                <span class="keyword">exit</span>($e-&gt;getMessage());</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>::$_instance;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">self</span>::$_instance = <span class="keyword">NULL</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>工厂模式分割了数据库对象的具体创建方式和实例化过程，单例模式实现了对象的全局共享，这样一个基本的数据库对象工厂类就产生了</p>
+<h4 id="关于单例模式的几点说明"><a href="#关于单例模式的几点说明" class="headerlink" title="关于单例模式的几点说明"></a>关于单例模式的几点说明</h4><ul>
+<li>每次PHP页面执行完之后会释放所有资源，这样说单例模式并不能够发挥它的能力，即使这样，单例模式还是有使用价值的</li>
+<li>单例模式一般要求构造方法是private，这样它就无法被继承，如果要通过继承来扩展一个单例，那么其构造方法就必须是public或者protected，对于单例的继承到底有没有必要，目前来说个人觉得没有必要，因为单例主要是实现全局控制和共享，如果对其继承和扩展，极有可能导致其失控</li>
+</ul>
+<h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ul>
+<li><a href="http://www.thinkphp.cn/topic/4496.html" target="_blank" rel="external">为什么要使用PHP单例模式及应用实例</a></li>
+<li><a href="http://blog.samoay.me/post/view/13" target="_blank" rel="external">PHP设计模式之单例模式(Singleton)</a></li>
+<li><a href="http://www.phppan.com/2010/06/php-design-pattern-6-singleton/" target="_blank" rel="external">PHP设计模式笔记：使用PHP实现单例模式</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Design-Pattern/">Design Pattern</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/11/rest-web-service/"  data-tooltip="初识REST">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/07/php-output-cache-control/" data-tooltip="PHP输出缓冲控制ob_start()及其多级缓冲">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/11/rest-web-service/"  data-tooltip="初识REST">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/07/php-output-cache-control/" data-tooltip="PHP输出缓冲控制ob_start()及其多级缓冲">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/10/singleton-pattern-for-php/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

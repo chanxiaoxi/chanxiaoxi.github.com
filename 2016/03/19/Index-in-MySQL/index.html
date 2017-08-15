@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>MySQL中的索引 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="数据库中的索引是优化查询的常用手段，在实际开发中也经常用到。但是在使用索引的时候，我们是否清楚的知道为什么需要索引？索引的实质是什么？我们应该在什么场景下使用索引？它有哪些优缺点？这些正是本文要总结和说明的内容。只有全面了解索引，才能恰当的使用索引。">
+<meta name="keywords" content="Index,MySQL">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="MySQL中的索引">
+<meta property="og:url" content="http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="数据库中的索引是优化查询的常用手段，在实际开发中也经常用到。但是在使用索引的时候，我们是否清楚的知道为什么需要索引？索引的实质是什么？我们应该在什么场景下使用索引？它有哪些优缺点？这些正是本文要总结和说明的内容。只有全面了解索引，才能恰当的使用索引。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL中的索引">
+<meta name="twitter:description" content="数据库中的索引是优化查询的常用手段，在实际开发中也经常用到。但是在使用索引的时候，我们是否清楚的知道为什么需要索引？索引的实质是什么？我们应该在什么场景下使用索引？它有哪些优缺点？这些正是本文要总结和说明的内容。只有全面了解索引，才能恰当的使用索引。">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            MySQL中的索引
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sat Mar 19 2016 15:40:57 GMT+0800">
+	
+		    3月 19, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Database/">Database</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>数据库中的索引是优化查询的常用手段，在实际开发中也经常用到。但是在使用索引的时候，我们是否清楚的知道为什么需要索引？索引的实质是什么？我们应该在什么场景下使用索引？它有哪些优缺点？这些正是本文要总结和说明的内容。只有全面了解索引，才能恰当的使用索引。</p>
+<a id="more"></a>
+<h2 id="一、索引是什么"><a href="#一、索引是什么" class="headerlink" title="一、索引是什么"></a>一、索引是什么</h2><h4 id="1-索引是数据结构"><a href="#1-索引是数据结构" class="headerlink" title="1. 索引是数据结构"></a>1. 索引是数据结构</h4><p>MySQL官方对于索引的定义是索引是：帮助MySQL高效获取数据的一种<strong>数据结构</strong>。更加具体的说，索引是数据库维护的用以满足特定查找算法的数据结构。数据库能够在这种数据结构上使用高级的查找算法，以此来优化数据库查询。在MySQL中这种数据结构其实是<a href="https://zh.wikipedia.org/wiki/B%2B树" target="_blank" rel="external">B+树</a>。因为在算法中我们知道，搜索树的平均时间复杂度是lgN，具有不错的查询性能。</p>
+<h2 id="二、为什么需要索引"><a href="#二、为什么需要索引" class="headerlink" title="二、为什么需要索引"></a>二、为什么需要索引</h2><h4 id="1-存储在磁盘上的数据的数据结构"><a href="#1-存储在磁盘上的数据的数据结构" class="headerlink" title="1. 存储在磁盘上的数据的数据结构"></a>1. 存储在磁盘上的数据的数据结构</h4><p>数据库中的数据是存在磁盘上的。磁盘上的数据是以数据块(<a href="https://en.wikipedia.org/wiki/Block_(data_storage" target="_blank" rel="external">Block</a>)形式存储的。这些数据块都是整块整块被访问的，这样可以保证磁盘访问操作的原子性。磁盘数据块一般都是链表结构。一个数据块一般包括两部分：用于存储数据的部分data和用来存储指向下一个节点(数据块)的部分pointer。而且这些数据快都不是连续存储的。</p>
+<p>基于上述事实，我们在磁盘上检索数据的时候其实是顺序查找(Liner Search)，这种算法的时间复杂度为O(n)，也就是说随着数据量越来越大，检索的耗时也越来越高。所以数据库不得不维护一个更好的数据结构来支持更加高级的查询算法，以此来提高查询效率。</p>
+<p>相关参考：<br><a href="http://stackoverflow.com/questions/1108/how-does-database-indexing-work?rq=1" target="_blank" rel="external">How Does Database Index Work</a></p>
+<h4 id="2-磁盘I-O和预读"><a href="#2-磁盘I-O和预读" class="headerlink" title="2. 磁盘I/O和预读"></a>2. 磁盘I/O和预读</h4><blockquote><p>前面提到了访问磁盘，那么这里先简单介绍一下磁盘IO和预读，磁盘读取数据靠的是机械运动，每次读取数据花费的时间可以分为寻道时间、旋转延迟、传输时间三个部分，寻道时间指的是磁臂移动到指定磁道所需要的时间，主流磁盘一般在5ms以下；旋转延迟就是我们经常听说的磁盘转速，比如一个磁盘7200转，表示每分钟能转7200次，也就是说1秒钟能转120次，旋转延迟就是1/120/2 = 4.17ms；传输时间指的是从磁盘读出或将数据写入磁盘的时间，一般在零点几毫秒，相对于前两个时间可以忽略不计。那么访问一次磁盘的时间，即一次磁盘IO的时间约等于5+4.17 = 9ms左右，听起来还挺不错的，但要知道一台500 -MIPS的机器每秒可以执行5亿条指令，因为指令依靠的是电的性质，换句话说执行一次IO的时间可以执行40万条指令，数据库动辄十万百万乃至千万级数据，每次9毫秒的时间，显然是个灾难。</p>
+<footer><strong>NeverMore</strong><cite><a href="http://tech.meituan.com/mysql-index.html" target="_blank" rel="external">MySQL索引原理及慢查询优化</a></cite></footer></blockquote>
+<p>所以说降低磁盘I/O次数是数据优化数据查询必须考虑的，利用索引就可以降低磁盘I/O的次数从而提高查询效率。而在数据库中，这些都是通过索引或者说B Tree来实现的。</p>
+<h2 id="三、索引类型"><a href="#三、索引类型" class="headerlink" title="三、索引类型"></a>三、索引类型</h2><h4 id="1-根据索引存储类型分类"><a href="#1-根据索引存储类型分类" class="headerlink" title="1. 根据索引存储类型分类"></a>1. 根据索引存储类型分类</h4><p>MySQL目前提供4种索引。索引是在MySQL的存储层而不是服务层实现的。存储引擎不同索引也不完全相同，MySQL提供的4中所以类型每个存储引擎不都支持。这四类索引分别是：</p>
+<ul>
+<li>B-Tree索引：最常见的索引类型，大部分存储引擎都支持。</li>
+<li>HASH引擎：只有Memory存储引擎支持，使用场景简单。</li>
+<li>R-Tree索引(空间索引)：MyISAM的一种特殊索引类型，主要用于地理空间数据类型(Spatial Data)</li>
+<li>Full-Text(全文索引)：MyISAM的一种特殊索引类型，主要用于全文检索，MySQL5.6之后的版本中InnoDB也支持该类型索引。</li>
+</ul>
+<p>对于索引存储类型的更详细内容可以参看<a href="https://segmentfault.com/a/1190000003072424" target="_blank" rel="external">《MySQL-索引》</a></p>
+<h4 id="2-常见的索引"><a href="#2-常见的索引" class="headerlink" title="2. 常见的索引"></a>2. 常见的索引</h4><h6 id="2-1-聚集索引-Clustered-Index"><a href="#2-1-聚集索引-Clustered-Index" class="headerlink" title="2.1 聚集索引(Clustered Index)"></a>2.1 聚集索引(Clustered Index)</h6><blockquote><p>聚集索引是指数据库表行中数据的物理顺序与键值的逻辑（索引）顺序相同。一个表只能有一个聚集索引，因为一个表的物理顺序只有一种情况，所以，对应的聚集索引只能有一个。如果某索引不是聚集索引，则表中的行物理顺序与索引顺序不匹配，与非聚集索引相同，聚集索引有着更快的检索速度。</p>
+<footer><strong>百度百科</strong><cite><a href="http://baike.baidu.com/view/692530.htm" target="_blank" rel="external">聚集索引</a></cite></footer></blockquote>
+<h6 id="2-2-主键-Primary-Key"><a href="#2-2-主键-Primary-Key" class="headerlink" title="2.2 主键(Primary Key)"></a>2.2 主键(Primary Key)</h6><p>主键是一个唯一索引且必须定义为<code>NOT NULL</code>，如果主键没有显示的定义为<code>NOT NULL</code>，MySQL在创建主键索引的时候也会默认将其定义为<code>NOT NULL</code>。一个表只能有一个主键，且该主键的名字不能被用作其他类型索引。</p>
+<h6 id="2-3-唯一键索引-Unique-Key"><a href="#2-3-唯一键索引-Unique-Key" class="headerlink" title="2.3 唯一键索引(Unique Key)"></a>2.3 唯一键索引(Unique Key)</h6><p>唯一键约束该列的所有数据行都不能相同。对于所有的引擎，唯一键约束允许该列有多个<code>NULL</code>数据行</p>
+<h6 id="2-4-一般索引-Normal-Index"><a href="#2-4-一般索引-Normal-Index" class="headerlink" title="2.4 一般索引(Normal Index)"></a>2.4 一般索引(Normal Index)</h6><p>一般索引不是主要的，也不是唯一的，对于数据没有任何约束，一般索引只是为了提高查询效率。</p>
+<h2 id="四、索引的基本用法"><a href="#四、索引的基本用法" class="headerlink" title="四、索引的基本用法"></a>四、索引的基本用法</h2><h4 id="1-设置索引"><a href="#1-设置索引" class="headerlink" title="1. 设置索引"></a>1. 设置索引</h4><h6 id="1-1-通过ALERT-TABLE-创建普通索引、unique索引和主键索引"><a href="#1-1-通过ALERT-TABLE-创建普通索引、unique索引和主键索引" class="headerlink" title="1.1 通过ALERT TABLE 创建普通索引、unique索引和主键索引"></a>1.1 通过ALERT TABLE 创建普通索引、unique索引和主键索引</h6><figure class="highlight sql"><figcaption><span>创建索引</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name(column_name,....)</div><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> (column_name,...)</div><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> PRIMARY <span class="keyword">KEY</span> (column_name,...)</div></pre></td></tr></table></figure>
+<h6 id="1-2-通过CREATE-INDEX-增加普通索引或UNIQUE索引"><a href="#1-2-通过CREATE-INDEX-增加普通索引或UNIQUE索引" class="headerlink" title="1.2 通过CREATE INDEX 增加普通索引或UNIQUE索引"></a>1.2 通过CREATE INDEX 增加普通索引或UNIQUE索引</h6><figure class="highlight sql"><figcaption><span>增加索引</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> table_name (column_list)</div><div class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> table_name (column_list)</div></pre></td></tr></table></figure>
+<h4 id="2-删除索引"><a href="#2-删除索引" class="headerlink" title="2. 删除索引"></a>2. 删除索引</h4><p>可以通过<code>ALTER TABLE</code>或者<code>DROP INDEX</code>来删除索引，要注意的是<code>DROP INDEX</code>可以在<code>ALTER TABLE</code>内作为一条语句处理：</p>
+<figure class="highlight sql"><figcaption><span>删除索引</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">DROP</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> table_name</div><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">DROP</span> <span class="keyword">INDEX</span> index_name</div><div class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">DROP</span> PRIMARY <span class="keyword">KEY</span></div></pre></td></tr></table></figure>
+<h4 id="3-查看索引"><a href="#3-查看索引" class="headerlink" title="3. 查看索引"></a>3. 查看索引</h4><figure class="highlight sql"><figcaption><span>查看索引</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SHOW</span> <span class="keyword">INDEX</span> <span class="keyword">FROM</span> table_name</div><div class="line"><span class="keyword">SHOW</span> <span class="keyword">KEYS</span> <span class="keyword">FROM</span> table_name</div></pre></td></tr></table></figure>
+<p>关于索引的更详细的用法可参看下面两篇文章：</p>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000003072424" target="_blank" rel="external">《MySQL索引》</a></li>
+<li><a href="http://www.treselle.com/blog/mysql-indexes-basicstypes-and-features/" target="_blank" rel="external">《MySQL Index-Basic,Types,and Feature》</a></li>
+</ul>
+<h2 id="五、索引选取的一般原则"><a href="#五、索引选取的一般原则" class="headerlink" title="五、索引选取的一般原则"></a>五、索引选取的一般原则</h2><h4 id="1-数据量在两千条以上的才应该考虑建索引"><a href="#1-数据量在两千条以上的才应该考虑建索引" class="headerlink" title="1. 数据量在两千条以上的才应该考虑建索引"></a>1. 数据量在两千条以上的才应该考虑建索引</h4><p>如果数据量很小的话没必要创建索引，直接扫描全表就可以了。</p>
+<h4 id="2-较频繁作为查询条件的字段应该考虑建索引"><a href="#2-较频繁作为查询条件的字段应该考虑建索引" class="headerlink" title="2. 较频繁作为查询条件的字段应该考虑建索引"></a>2. 较频繁作为查询条件的字段应该考虑建索引</h4><p>索引会消耗额外的存储空间，所以在创建索引的时候要注意，并不是越多索引越好，而是应该根据实际情况，将那些经常查询在业务中使用非常频繁的字段作为索引。比如出现在<code>WHERE</code>和<code>JOIN</code>之后的字段可以考虑建索引。</p>
+<h4 id="3-写操作频繁的字段不该创建索引"><a href="#3-写操作频繁的字段不该创建索引" class="headerlink" title="3. 写操作频繁的字段不该创建索引"></a>3. 写操作频繁的字段不该创建索引</h4><p>写操作包括<code>INSET</code>，<code>UPDATE</code>和<code>DELETE</code>，因为每次写操作都会导致数据库额外重新维护索引字段，这会降低数据库的写操作性能。</p>
+<h4 id="4-不会出现在WHERE条件之后的字段不该创建索引"><a href="#4-不会出现在WHERE条件之后的字段不该创建索引" class="headerlink" title="4. 不会出现在WHERE条件之后的字段不该创建索引"></a>4. 不会出现在WHERE条件之后的字段不该创建索引</h4><h4 id="5-索引字段的数据越小越好。如果对字符串索引，应该指定一个前缀长度。"><a href="#5-索引字段的数据越小越好。如果对字符串索引，应该指定一个前缀长度。" class="headerlink" title="5. 索引字段的数据越小越好。如果对字符串索引，应该指定一个前缀长度。"></a>5. 索引字段的数据越小越好。如果对字符串索引，应该指定一个前缀长度。</h4><blockquote><p>我们知道I/O次数取决于b+树的高度h，假设当前数据表的数据为N，每个磁盘块的数据项的数量是m，则有h=㏒(m+1)N，当数据量N一定的情况下，m越大，h越小；而m = 磁盘块的大小 / 数据项的大小，磁盘块的大小也就是一个数据页的大小，是固定的，如果数据项占的空间越小，数据项的数量越多，树的高度越低。这就是为什么每个数据项，即索引字段要尽量的小，比如int占4字节，要比bigint8字节少一半。这也是为什么b+树要求把真实的数据放到叶子节点而不是内层节点，一旦放到内层节点，磁盘块的数据项会大幅度下降，导致树增高。当数据项等于1时将会退化成线性表。</p>
+<footer><strong>NeverMore</strong><cite><a href="http://tech.meituan.com/mysql-index.html" target="_blank" rel="external">MySQL索引原理及慢查询优化</a></cite></footer></blockquote>
+<h4 id="6-尽量选择区分度高的列做索引"><a href="#6-尽量选择区分度高的列做索引" class="headerlink" title="6. 尽量选择区分度高的列做索引"></a>6. 尽量选择区分度高的列做索引</h4><p>通过公式<code>count(distinct col)/count(*)</code>来计算字段不重复比例，比例越大数据库扫描的数据也就越少，查询效率就越高。</p>
+<h4 id="7-索引列不应该参与计算，要保持列“干净”"><a href="#7-索引列不应该参与计算，要保持列“干净”" class="headerlink" title="7. 索引列不应该参与计算，要保持列“干净”"></a>7. 索引列不应该参与计算，要保持列“干净”</h4><h4 id="8-尽可能的扩展索引，不要新建索引"><a href="#8-尽可能的扩展索引，不要新建索引" class="headerlink" title="8. 尽可能的扩展索引，不要新建索引"></a>8. 尽可能的扩展索引，不要新建索引</h4><p>比如数据库中已经有a的索引，现在要增加(a,b)索引，那么只要扩展a索引，这是根据索引最左前缀匹配原则，我们通过(a,b)就能做到a索引一样的效果。</p>
+<h4 id="9-最左前缀匹配原则"><a href="#9-最左前缀匹配原则" class="headerlink" title="9. 最左前缀匹配原则"></a>9. 最左前缀匹配原则</h4><p>这是MySQL最重要的一个原则，MySQL会一直向右匹配知道遇到范围查询(<code>></code>，<code>\&lt;</code>，<code>between</code>，<code>like</code>)就停止匹配。这样我们可以通过调整字段顺序做到最大程度的利用索引。</p>
+<h4 id="10-和in可与乱序"><a href="#10-和in可与乱序" class="headerlink" title="10. =和in可与乱序"></a>10. <code>=</code>和<code>in</code>可与乱序</h4><p>对于<code>=</code>和<code>in</code>操作索引顺序可以任意，因为MySQL查询优化器会自动帮我们优化索引</p>
+<h2 id="六、索引的弊端"><a href="#六、索引的弊端" class="headerlink" title="六、索引的弊端"></a>六、索引的弊端</h2><h4 id="1-消耗额外的空间"><a href="#1-消耗额外的空间" class="headerlink" title="1. 消耗额外的空间"></a>1. 消耗额外的空间</h4><p>索引是完全独立于基础数据之外的一部分数据。所以它会使MySQL消耗额外的磁盘空间来维护该数据。如果数据库的数据量基数很大的话，这一部分的空间也会比较大。</p>
+<h4 id="2-影响写操作的性能"><a href="#2-影响写操作的性能" class="headerlink" title="2. 影响写操作的性能"></a>2. 影响写操作的性能</h4><p>如果数据库的写操作正好涉及索引的数据，那么MySQL就必须额外来维护更新索引数据。这样会降低写操作的性能。</p>
+<h2 id="七、参考文章"><a href="#七、参考文章" class="headerlink" title="七、参考文章"></a>七、参考文章</h2><ul>
+<li><a href="http://blog.csdn.net/hguisu/article/details/7408047" target="_blank" rel="external">磁盘的读写原理</a></li>
+<li><a href="http://tech.meituan.com/mysql-index.html" target="_blank" rel="external">MySQL查询原理及慢查询优化</a></li>
+<li><a href="http://www.treselle.com/blog/mysql-indexes-basicstypes-and-features/" target="_blank" rel="external">MySQL Indexs - Basic，Types，and Features</a></li>
+<li><a href="https://segmentfault.com/a/1190000003072424" target="_blank" rel="external">MySQL索引</a></li>
+<li><a href="http://ronaldbradford.com/blog/understanding-different-mysql-index-implementations-2009-07-22/" target="_blank" rel="external">Understanding Different MySQL Index Implmentations</a></li>
+<li><a href="http://www.sitepoint.com/optimizing-mysql-indexes/" target="_blank" rel="external">Optimizing MySQL Indexes</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Index/">Index</a> <a class="tag tag--primary tag--small t-link" href="/tags/MySQL/">MySQL</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/29/using-meta-tags-in-html/"  data-tooltip="HTML中meta标签的使用总结">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/24/Resolve-The-Chinese-Disorderly-Code-In-iTerm-SSH/" data-tooltip="解决iTerm使用SSH连接远程服务器的中文乱码问题">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/29/using-meta-tags-in-html/"  data-tooltip="HTML中meta标签的使用总结">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/24/Resolve-The-Chinese-Disorderly-Code-In-iTerm-SSH/" data-tooltip="解决iTerm使用SSH连接远程服务器的中文乱码问题">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2016/03/19/Index-in-MySQL/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

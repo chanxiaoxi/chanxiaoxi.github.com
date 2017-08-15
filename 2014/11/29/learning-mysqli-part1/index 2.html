@@ -1,0 +1,496 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>Learning Mysqli Part1 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Learning Mysqli Part1">
+<meta property="og:url" content="http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Learning Mysqli Part1">
+<meta name="twitter:description" content="刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            Learning Mysqli Part1
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sat Nov 29 2014 18:22:05 GMT+0800">
+	
+		    11月 29, 2014
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Development/">Development</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>刚工作的时候，人家问你PHP连接数据库的方式有哪几种，你要是回答说用Mysql扩展或PDO，人家一听你还在用Mysql，那么果断认为你已经low爆了，Mysql的扩展自PHP 5.5.0起已废弃，但是它能够很好的过渡到Mysqli，因为Mysqli的很多方式和Mysql扩展非常相似。<a id="more"></a></p>
+<h2 id="Mysqli简介"><a href="#Mysqli简介" class="headerlink" title="Mysqli简介"></a>Mysqli简介</h2><p>MySQL增强版扩展，mysqli允许我们访问MySQL4.1及以上版本提供的功能。</p>
+<h2 id="Mysqli和Mysql扩展以及PDO的区别"><a href="#Mysqli和Mysql扩展以及PDO的区别" class="headerlink" title="Mysqli和Mysql扩展以及PDO的区别"></a>Mysqli和Mysql扩展以及PDO的区别</h2><ol>
+<li>mysql扩展提供了一个面向过程的接口，并且是针对mysql4.1.3或更早版本设计的</li>
+<li>mysqli面向对象，prepared语句支持，多语句执行支持，增强的调试能力，嵌入式服务支持</li>
+<li>PDO是PHP应用中的一个数据层抽象规范，PDO提供了一个统一的接口，让你不必去关心数据库服务器类型。他可以让你在需要的时候随时无缝切换数据库服务器，仅仅需要少量的代码。</li>
+</ol>
+<h2 id="Mysqli-Dual-procedural-and-object-oriented-interface"><a href="#Mysqli-Dual-procedural-and-object-oriented-interface" class="headerlink" title="Mysqli Dual procedural and object-oriented interface"></a>Mysqli Dual procedural and object-oriented interface</h2><p>mysqli提供面向对象的和面向过程的两种接口，用户从旧的mysql扩展迁移更喜欢面向过程的接口，mysqli面向过程的接口和mysql非常相似，大多数情况下函数名的不同仅仅在于前缀(prefix)，一些mysqli的函数需要一个连接句柄（connection handle）作为它的第一个参数，这是为了配合旧的mysql接口的一些函数将数据库连接句柄作为最后一个参数。</p>
+<p>面向过程的数据库操作范例（从mysql迁移时更喜欢的一种连接）：</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$mysqli = mysqli_connect(<span class="string">"localhost"</span>, <span class="string">"user"</span>, <span class="string">"password"</span>, <span class="string">"database"</span>);</div><div class="line">$res = mysqli_query($mysqli, <span class="string">"SELECT 'Please, do not use' AS_msg FROM DUAL"</span>);</div><div class="line">$row = mysqli_fetch_assoc($res);</div><div class="line"><span class="keyword">echo</span> $row[<span class="string">'_msg'</span>];</div></pre></td></tr></table></figure>
+<p>面向对象的数据库操作范例：</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">$localhost = <span class="string">"localhost"</span>;</div><div class="line">$user = <span class="string">"user"</span>;</div><div class="line">$password = <span class="string">"password"</span>;</div><div class="line">$database = <span class="string">"database"</span>;</div><div class="line">$mysqli = <span class="keyword">new</span> mysqli($localhost, $user, $password, $database);</div><div class="line"><span class="keyword">if</span> ($mysqli-&gt;connect_error) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Failed to connect to MySQL:"</span>.$mysqli-&gt;connect_error;</div><div class="line">&#125;</div><div class="line">$res = $mysqli-&gt;query(<span class="string">"SELECT 'Please, do not use' AS_msg FROM DUAL"</span>);</div><div class="line">$row = $res-&gt;fetch_assoc();</div><div class="line"><span class="keyword">echo</span> $row[<span class="string">'_msg'</span>];</div></pre></td></tr></table></figure>
+<p>mysqli有一个构造方法，所以我们可以通过实例化mysqli类来建立连接：</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span> <span class="params">(</span></span></div><div class="line"><span class="function"><span class="params">    $host,</span></span></div><div class="line"><span class="function"><span class="params">    $username,</span></span></div><div class="line"><span class="function"><span class="params">    $passwd,</span></span></div><div class="line"><span class="function"><span class="params">    $dbname,</span></span></div><div class="line"><span class="function"><span class="params">    $port,</span></span></div><div class="line"><span class="function"><span class="params">    $socket</span></span></div><div class="line"><span class="function"><span class="params">)</span> </span>&#123;&#125;</div></pre></td></tr></table></figure>
+<h2 id="Executing-statements"><a href="#Executing-statements" class="headerlink" title="Executing statements"></a>Executing statements</h2><h3 id="1-Buffered-result-sets"><a href="#1-Buffered-result-sets" class="headerlink" title="1.Buffered result sets"></a>1.Buffered result sets</h3><p>在语句执行完之后，结果会马上被缓存在客户端或者一行一行读出。客户端将结果集缓存会允许服务器端尽快释放查询结果资源，换句话说，客户端在缓慢的消耗结果集。因此，建议缓存结果集。<code> mysqli_query() </code> 可以将语句执行和结果集缓存结合起来。PHP应用可以自由的操作缓存结果集，这个操作是非常快速的，因为数据被保存(are held)在客户端内存，记住，客户端scale要比服务器端scale更加容易。一般情况下我们的操作其实都是Buffered result sets的，比如：</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">$mysqli = <span class="keyword">new</span> mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);</div><div class="line"><span class="keyword">if</span> ($mysqli-&gt;connect_error) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Failed to connect MySQL:"</span>.$mysqli-&gt;connect_error;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!$mysqli-&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) || !$mysqli-&gt;query(<span class="string">"CREATE TABLE test2(id INT)"</span>) || !$mysqli-&gt;query(<span class="string">"INSERT INTO test2(id) VALUES(1),(2),(3)"</span>)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Table creation Failed:(error_no"</span>.$mysqli-&gt;errno.<span class="string">") "</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$res = $mysqli-&gt;query(<span class="string">"SELECT id FROM test2 ORDER BY id ASC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">echo</span> <span class="string">"reverse order:&lt;br /&gt;"</span>;</div><div class="line"><span class="keyword">for</span> ($row_no = $res-&gt;num_rows<span class="number">-1</span>; $row_no&gt;=<span class="number">0</span>; $row_no--) &#123;</div><div class="line">    $res-&gt;data_seek($row_no);</div><div class="line">    $row = $res-&gt;fetch_assoc();</div><div class="line">    <span class="keyword">echo</span> <span class="string">" id= "</span>.$row[<span class="string">'id'</span>]. <span class="string">"&lt;br /&gt;"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-Unbuffered-result-sets"><a href="#2-Unbuffered-result-sets" class="headerlink" title="2.Unbuffered result sets"></a>2.Unbuffered result sets</h3><p>如果客户端内存较小并且尽可能的释放服务器资源降低服务器负载(keep server load low)不是必须的，那么unbuffered results就可以使用了，在所有的结果集未完全读出的时候是不能够滚动unbuffered result rets的。</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">$mysqli = <span class="keyword">new</span> mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);</div><div class="line"><span class="keyword">if</span> ($mysqli-&gt;connect_error) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Failed to connect MySQL:"</span>.$mysqli-&gt;connect_error;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!$mysqli-&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) || !$mysqli-&gt;query(<span class="string">"CREATE TABLE test2(id INT)"</span>) || !$mysqli-&gt;query(<span class="string">"INSERT INTO test2(id) VALUES(1),(2),(3)"</span>)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Table creation Failed:(error_no"</span>.$mysqli-&gt;errno.<span class="string">") "</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$mysqli-&gt;real_query(<span class="string">"SELECT id FROM test2 ORDER BY id ASC"</span>);</div><div class="line">$res = $mysqli-&gt;use_result();</div><div class="line"></div><div class="line"><span class="keyword">echo</span> <span class="string">"Result set order...&lt;br /&gt;"</span>;</div><div class="line"><span class="keyword">while</span> ($row = $res-&gt;fetch_assoc()) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">" id="</span>.$row[<span class="string">'id'</span>].<span class="string">"&lt;br /&gt;"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-Result-set-values-data-type"><a href="#3-Result-set-values-data-type" class="headerlink" title="3.Result set values data type"></a>3.Result set values data type</h3><p><code>mysqli_query(),mysqli_real_query()和mysqli_mutil_query()</code> 他们被用来执行没有预处理的语句(non-prepared statements)，在MySQL客户端服务器协议的水平上，<code>COM_QUERY</code> 命令就如同文本协议的执行语句。文本协议层，MySQL服务器会在发送结果前将所有结果集数据转换成string，这个转换是不管SQL结果集在数据库中的是什么类型的。客户端库以string的类型接收所有结果集数据，MySQL客户端会进一步将这些数据转换成相应的原生数据类型(native type)，然而所有的数据类型会以PHP string类型提供。</p>
+<p>如果使用了<code>mysqlnd</code>库，可以通过设置<code>MYSQLI_OPT_INT_AND_FLOAT_NATIVE</code>的连接选项将INTEGER和FLOAT列转换成PHP numbers类型。如果PHP数据类型值的范围允许的话，mysqlnd库会检查结果集元数据(meta data)类型，并且将SQL数值类型的列的数据转换成PHP numbers。比如MySQL INT类型的列会以integer类型返回。</p>
+<h3 id="4-mysqli-query-——对数据库执行一次查询"><a href="#4-mysqli-query-——对数据库执行一次查询" class="headerlink" title="4.mysqli_query()——对数据库执行一次查询"></a>4.mysqli_query()——对数据库执行一次查询</h3><figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 类型：</span></div><div class="line">mixed mysqli::query( string　$query[, int $resultmode = MSYQLI_STORE_RESULT]) </div><div class="line">mixed mysqli_query( string $query[, int $resultmode = MYSQLI_STORE_RESULT])</div><div class="line"><span class="comment">// 参数：</span></div><div class="line">link： 仅以过程化样式：是mysqli_connect()或mysqli_init()返回的链接标识</div><div class="line">query: query string</div><div class="line">resultmode: 有MYSQLI_USE_RESULT和MYSQLI_STORE_RESULT可以选择，默认为MYSQLI_STORE_RESULT,如果选择了MYSQLI_USE_RESULT那么后续的调用都会产生命令不同步的错误，除非你调用了mysqli_free_result()(从内存中释放关联结果)</div><div class="line">返回值: 失败时返回<span class="keyword">FALSE</span>，通过mysqli_query()成功执行SELECT,SHOW,DESCRIBE或EXPLAN查询会返回一个mysqli_result对象，其他查询则会返回<span class="keyword">TRUE</span></div></pre></td></tr></table></figure>
+<h3 id="5-mysqli-real-query-——执行一个mysql查询"><a href="#5-mysqli-real-query-——执行一个mysql查询" class="headerlink" title="5.mysqli_real_query()——执行一个mysql查询"></a>5.mysqli_real_query()——执行一个mysql查询</h3><p>执行一个单条数据库查询，其结果可以使用<code>mysqli_store_result()或mysqli_use_result()</code> 检索或查询。为了确定给定的结果是否真的返回一个结果集，可以查看<code>mysqli_field_count()</code></p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bool mysqli_real_query(string $query)</div><div class="line">bool mysqli::real_query(string $query)</div><div class="line"><span class="comment">// 返回值：TRUE|FALSE</span></div></pre></td></tr></table></figure>
+<h4 id="mysqli-query-和mysqli-real-query-的区别"><a href="#mysqli-query-和mysqli-real-query-的区别" class="headerlink" title="mysqli_query()和mysqli_real_query()的区别"></a><code>mysqli_query()和mysqli_real_query()的区别</code></h4><blockquote>
+<p>mysqli_query() cannot be used for statements that contain binary data,you must use mysqli_real_query() instead.(Binary data may contain the “\0” character, which mysqli_query() interprets as the end of the statement string.) In addition,mysql_real_query() is faster than mysqli_query() because it does not call strlen() on the statement string</p>
+</blockquote>
+<h3 id="6-mysqli-multi-query-——执行一个或多个查询"><a href="#6-mysqli-multi-query-——执行一个或多个查询" class="headerlink" title="6.mysqli_multi_query()——执行一个或多个查询"></a>6.mysqli_multi_query()——执行一个或多个查询</h3><figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">bool mysqli::multi_query(string $query)</div><div class="line">bool mysqli_multi_query(string $query)</div><div class="line">返回值：失败返回<span class="keyword">FALSE</span>,要从其他的语句中检索后续的错误可以先调用mysqli_next_result()</div></pre></td></tr></table></figure>    
+<p>从第一个query中检索结果可以使用<code>mysqli_use_result()或者mysqli_store_result()</code>,可以通过<code>mysqli_more_result()和mysqli_next_result()</code>处理后续的结果集。多个语句之间用分好隔开。示例如下：</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">$mysqli = <span class="keyword">new</span> mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);</div><div class="line"><span class="keyword">if</span> ($mysqli-&gt;connect_error) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Failed to connect MySQL:"</span>.$mysqli-&gt;connect_error;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!$mysqli-&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) || !$mysqli-&gt;query(<span class="string">"CREATE TABLE test2(id INT)"</span>) || !$mysqli-&gt;query(<span class="string">"INSERT INTO test2(id) VALUES(1),(2),(3)"</span>)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Table creation Failed:(error_no"</span>.$mysqli-&gt;errno.<span class="string">") "</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line">$query = <span class="string">"SELECT * FROM test2 WHERE id=1;"</span>;</div><div class="line">$query .= <span class="string">"SELECT * FROM test2"</span>;</div><div class="line"><span class="keyword">if</span> ($mysqli-&gt;multi_query($query)) &#123;</div><div class="line">    <span class="keyword">do</span> &#123;</div><div class="line">        <span class="comment">/* store first result set */</span></div><div class="line">        <span class="keyword">if</span> ($result = $mysqli-&gt;store_result()) &#123;</div><div class="line">            <span class="keyword">while</span> ($row = $result-&gt;fetch_row()) &#123;</div><div class="line">                printf(<span class="string">"%s\n"</span>, $row[<span class="number">0</span>]);</div><div class="line">            &#125;</div><div class="line">            $result-&gt;free();</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">/* print divider */</span></div><div class="line">        <span class="keyword">if</span> ($mysqli-&gt;more_results()) &#123;</div><div class="line">            printf(<span class="string">"--------------------------------------\n"</span>);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">while</span> ($mysqli-&gt;next_result());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Prepared-Statement"><a href="#Prepared-Statement" class="headerlink" title="Prepared Statement"></a>Prepared Statement</h2><p>MySQL数据库支持预处理(prepared statement)语句，一个预处理语句的或者参数化的语句会被高效的反复执行。工作流程是这样的：一个预处理语句包含两个阶段：预处理和执行。在预处理阶段，语句的模板会发送到数据库服务器，服务器执行语法检查和初始化内部资源以供后续使用。MySQL服务器支持匿名参数(anonymous)和?占位符(positional placeholder)</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Prepared statement, stage 1:prepare */</span></div><div class="line"><span class="keyword">if</span> (!$stmt = $mysqli-&gt;prepare(<span class="string">"INSERT INTO test2(id) VALUES (?)"</span>)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Prepared failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;errno;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>预处理之后就是执行，执行的过程中，客户端会保定参数值然后把他们发送给MySQL服务器。MySQL服务器会根据预处理阶段接收的语句模板创建一条执行语句给先前初始化好的内部资源使用。</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* Prepared statement, stage2:bind and execute */</span></div><div class="line">$id = <span class="number">4</span>;</div><div class="line"><span class="keyword">if</span> (!$stmt-&gt;bind_param(<span class="string">'i'</span>, $id)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Binding parameters failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (!$stmt-&gt;execute()) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Execute failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>重复执行：预处理语句可以重复执行，每次执行之前都会评估现在的绑定的参数的值并且将其发送给MySQL服务器，这个语句不需要再解析，语句模板也无需再次从客户端发送到服务器。</p>
+<p>一个完整的示例：</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">$mysqli = <span class="keyword">new</span> mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);</div><div class="line"><span class="keyword">if</span> ($mysqli-&gt;connect_error) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"mysql connect failed:("</span>.$mysqli-&gt;connect_errno.<span class="string">")"</span>.$mysqli-&gt;connect_errno;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* non-prepared statement */</span></div><div class="line"><span class="keyword">if</span> (!$mysqli-&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) || !$mysqli-&gt;query(<span class="string">"CREATE TABLE test2(id INT)"</span>)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"table test2 create failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* Prepared statement, stage 1: prepare */</span></div><div class="line"><span class="keyword">if</span> (!$stmt = $mysqli-&gt;prepare(<span class="string">"INSERT INTO test2(id) VALUES (?)"</span>)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"prepared statement failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* Prepared statement, stage 2: bind and execute */</span></div><div class="line">$id = <span class="number">1</span>;</div><div class="line"><span class="keyword">if</span> (!$stmt-&gt;bind_param(<span class="string">"i"</span>, $id)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"Binding parameters failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (!$stmt-&gt;execute()) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"executed failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* Prepared statement: repeated execution, only data transferred from client to server */</span></div><div class="line"><span class="keyword">for</span> ($id = <span class="number">2</span>; $id &lt; <span class="number">5</span>; $id++) &#123;</div><div class="line">    <span class="keyword">if</span> (!$stmt-&gt;execute()) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">"execute failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/* explicit close recommend */</span></div><div class="line">$stmt-&gt;close();</div><div class="line"></div><div class="line"><span class="comment">/* non-prepared statement */</span></div><div class="line">$res = $mysqli-&gt;query(<span class="string">"SELECT id FROM test2"</span>);</div><div class="line">var_dump($res-&gt;fetch_all());</div></pre></td></tr></table></figure>
+<p>每一个预处理语句都会占用服务器资源，<strong>预处理语句在使用完之后必须明确的关闭</strong> ,如果不去明确的关闭，那么会在PHP释放预处理语句句柄的时候被关闭。</p>
+<p>使用预处理语句(Prepared statement)并不总是非常有效的执行语句的方法，一个预处理语句只执行一次会比执行没有与处理的语句引起更多的客户端-服务器往返(client-server round-trips)，这也是为什么上面的示例都没有执行SELECT的预处理语句的原因。</p>
+<p>此外，还要考虑MySQL多字段插入语法的使用。比如（未预处理语句）多字段插入比预处理语句多字段的插入产生更少的服务器和客户端的往返。例如：</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!$mysqli-&gt;query(<span class="string">"INSERT INTO test2(id) VALUES (1), (2), (3), (4)"</span>)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"multi-insert failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="结果集值的数据类型-result-set-values-data-type"><a href="#结果集值的数据类型-result-set-values-data-type" class="headerlink" title="结果集值的数据类型 result set values data type"></a>结果集值的数据类型 result set values data type</h4><p>MySQL客户端服务协议对预处理语句和一般语句定义了不同的数据传输协议，预处理语句会使用一种二进制协议，MySQL服务器以二进制格式发送结果集数据，在发送之前，结果集语句并没有序列化成字符串，MySQL客户端并不只会接收字符串类型数据，它也会接收二进制数据并尝试把它转换成一种适当的PHP类型，比如数据库中int类型的数据会被以PHP的integer类型来提供。这种处理和普通的语句是不一样的，普通的语句查询默认以字符串的形式返回。这种默认的返回是可以通过修改connection的选项来改变的，如果改变了那就没有区别了。</p>
+<h4 id="通过绑定变量来获取结果-fetching-results-using-bound-variables"><a href="#通过绑定变量来获取结果-fetching-results-using-bound-variables" class="headerlink" title="通过绑定变量来获取结果 fetching results using bound variables"></a>通过绑定变量来获取结果 fetching results using bound variables</h4><p>预处理语句执行的结果既可以通过绑定输出变量的形式取回，也可以通过请求一个 <code>mysqli_result</code>对象来获取。</p>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$mysqli = <span class="keyword">new</span> mysqli(<span class="string">"localhost"</span>, <span class="string">"root"</span>, <span class="string">""</span>, <span class="string">"weibo"</span>);</div><div class="line"><span class="keyword">if</span> ($mysqli-&gt;connect_errno) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"mysql connect failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (!$mysqli-&gt;query(<span class="string">"DROP TABLE IF EXISTS test2"</span>) || !$mysqli-&gt;query(<span class="string">"CREATE TABLE test2(id INT, label CHAR (1))"</span>) || !$mysqli-&gt;query(<span class="string">"INSERT INTO test2(id, label) VALUES (1, 'A')"</span>)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"table create failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (!($stmt = $mysqli-&gt;prepare(<span class="string">"SELECT id, label FROM test2"</span>))) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"prepare failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (!$stmt-&gt;execute()) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"execute failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line">$out_id = <span class="keyword">null</span>;</div><div class="line">$out_label = <span class="keyword">null</span>;</div><div class="line"><span class="keyword">if</span> (!$stmt-&gt;bind_result($out_id, $out_label)) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"binding output parameters failed:("</span>.$mysqli-&gt;errno.<span class="string">")"</span>.$mysqli-&gt;error;</div><div class="line">&#125;</div><div class="line"><span class="keyword">while</span> ($stmt-&gt;fetch()) &#123;</div><div class="line">    printf(<span class="string">"id = %s (%s), label = %s (%s) \n"</span>, $out_id, gettype($out_id), $out_label, gettype($out_label));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里并没有向前面说的执行<code>$stmt-&gt;close()</code> 这是因为在prepared的时候传过去的是一个具体的statement而不是一个template，所以server并没有执行和前面一样的操作，这里之所以要prepared是因为他要使用$stmt-&gt;bind_result()来绑定结果集，这个操作说白了是在数据返回到client之后的操作，所以没必要close了。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/PHP/">PHP</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/"  data-tooltip="Windows下Sourcetree LF/CRLF自动转换的问题">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/29/whats-composer/" data-tooltip="认识composer">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/"  data-tooltip="Windows下Sourcetree LF/CRLF自动转换的问题">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/29/whats-composer/" data-tooltip="认识composer">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/11/29/learning-mysqli-part1/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

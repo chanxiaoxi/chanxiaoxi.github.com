@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>初识REST - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="REST是什么REST(Representational State Transfer)，即表现层状态转化，它是一种互联网软件的架构原则，一个架构符合REST原则，就称它是RESTful架构 如何理解Representational State Transfer资源：表现层状态转化其实是“资源表现层状态转化”，因为和我们交互的是一个网络上具体存在的实体，或者说是一个具体的信息体，我们通过URI指向">
+<meta name="keywords" content="Restful">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="初识REST">
+<meta property="og:url" content="http://chanxiaoxi.me/2014/05/11/rest-web-service/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="REST是什么REST(Representational State Transfer)，即表现层状态转化，它是一种互联网软件的架构原则，一个架构符合REST原则，就称它是RESTful架构 如何理解Representational State Transfer资源：表现层状态转化其实是“资源表现层状态转化”，因为和我们交互的是一个网络上具体存在的实体，或者说是一个具体的信息体，我们通过URI指向">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识REST">
+<meta name="twitter:description" content="REST是什么REST(Representational State Transfer)，即表现层状态转化，它是一种互联网软件的架构原则，一个架构符合REST原则，就称它是RESTful架构 如何理解Representational State Transfer资源：表现层状态转化其实是“资源表现层状态转化”，因为和我们交互的是一个网络上具体存在的实体，或者说是一个具体的信息体，我们通过URI指向">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            初识REST
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun May 11 2014 12:46:36 GMT+0800">
+	
+		    5月 11, 2014
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Web-API/">Web API</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h4 id="REST是什么"><a href="#REST是什么" class="headerlink" title="REST是什么"></a>REST是什么</h4><p>REST(Representational State Transfer)，即表现层状态转化，它是一种互联网软件的架构原则，一个架构符合REST原则，就称它是RESTful架构</p>
+<h5 id="如何理解Representational-State-Transfer"><a href="#如何理解Representational-State-Transfer" class="headerlink" title="如何理解Representational State Transfer"></a>如何理解Representational State Transfer</h5><p><strong>资源：</strong>表现层状态转化其实是“资源表现层状态转化”，因为和我们交互的是一个网络上具体存在的实体，或者说是一个具体的信息体，我们通过URI指向这个资源，并且与之互动，URI就是资源的唯一标识符。<a id="more"></a></p>
+<p><strong>表现层：</strong>URI只代表资源的实体，不代表它的形式。资源的具体表现形式应该是在HTTP请求的头信息中用Accept和Content-Type字段指定，这两个字段才是对表现层的表述。</p>
+<p><strong>状态转化：</strong>互联网通信协议HTTP协议是一个无状态的协议（无状态协议就是事务处理没有记忆的能力，每一次请求都是与之前请求毫无关系的独立事务，这也就是为什么会有cookie和session技术存在的原因），客户端如何才能使服务器发生状态转化，我们只能通过HTTP协议提供的四个动作：GET/POST/PUT/DELETE来实现，<em>我们将这四个动作对应增删改查四个操作：GET用来获取资源、POST用来新建资源、PUT用来更新资源、DELETE删除资源</em></p>
+<p><em>对于POST/GET/PUT/DELETE请求的却别参考扩展资料——理解RESTful架构</em></p>
+<p>所以我们一般这样设计请求URI:</p>
+<pre><code>GET http:://www.domain.com/api/service/method/params_key/params_value.extension
+</code></pre><p>这里有状态转化的具体动作，有指定的service和method以及params，最后还指定了表现层的表现形式</p>
+<p><strong>所谓REST表现层状态转化，就是通过URI来唯一标识资源，在客户端和服务器之间传递该资源的某种表现层，并且通过HTTP提供的四个动词，对服务器资源进行操作，实现状态转化</strong></p>
+<p>扩展资料：<br><a href="http://www.ruanyifeng.com/blog/2011/09/restful.html" target="_blank" rel="external">理解RESTful架构</a><br><a href="http://blog.2partsmagic.com/restful-uri-design/" target="_blank" rel="external">REST-ful URI design</a></p>
+<h4 id="使用PHP实现一个简单的RESTful架构"><a href="#使用PHP实现一个简单的RESTful架构" class="headerlink" title="使用PHP实现一个简单的RESTful架构"></a>使用PHP实现一个简单的RESTful架构</h4><p>上面关于REST的介绍让我们知道了REST的基本原则，但是具体实现一个RESTful的架构远远没有那么简单，这里记录一下实现一个RESTful架构我们要做什么</p>
+<h5 id="HTTP的PUT-DELETE请求"><a href="#HTTP的PUT-DELETE请求" class="headerlink" title="HTTP的PUT/DELETE请求"></a>HTTP的PUT/DELETE请求</h5><p>目前浏览器只支持GET和POST请求，并不支持PUT、DELETE请求，据说HTML5也放弃了对他们的支持，所以我们先要实现对这两个请求的模拟，一般的方式就是在表单中设置隐藏域来标记PUT和DELETE请求，当然也可以通过其他手段来实现</p>
+<h5 id="请求URI重写"><a href="#请求URI重写" class="headerlink" title="请求URI重写"></a>请求URI重写</h5><p>REST原则告诉我们资源的URI是唯一的，它是对资源的唯一标识，具体的实现过程我们则是要对URI进行重写，从而提取具体的模型和方法来让程序执行相应的操作，最后通过制定的表现形式来返回其代表的唯一资源，比如Apache通过.htaccess文件来重写URI</p>
+<pre><code># Turn on the rewrite engine
+Options +FollowSymlinks
+RewriteEngine on
+
+# Request routing
+RewriteRule ^([a-zA-Z_-]*)\.(html|json|xml)?$   index.php?method=$1&amp;format=$2 [nc,qsa]
+</code></pre><p>stackoverflow上面对于<a href="http://stackoverflow.com/questions/8291712/using-clean-urls-in-restful-api" target="_blank" rel="external">Using Clean URLs in RESTful API</a>的问题有很好的回答和相关资料的推荐</p>
+<h5 id="资源具体表现的实现"><a href="#资源具体表现的实现" class="headerlink" title="资源具体表现的实现"></a>资源具体表现的实现</h5><p>做到以上步骤，我们就可以通过相应的程序找到指定的资源，那么剩下的就是以什么样的形式返回了，这个也就是前面提到的HTTP协议的Content-Type的要做的事情了，实现就不细说了。对于具体的实现，可以看看这几篇文章：  </p>
+<p><a href="http://www.sitepoint.com/writing-a-restful-web-service-with-slim/" target="_blank" rel="external">Writing a RESTful Web Service with Slim</a><br><a href="http://markroland.com/blog/restful-php-api/" target="_blank" rel="external">How to Build a RESTful API Web Service with PHP</a><br><a href="http://hmw.iteye.com/blog/1190827" target="_blank" rel="external">使用PHP创建一个REST API(Create a REST API with PHP)</a><br><a href="http://bullsoft.org/phalcon-docs/reference/tutorial-rest.html" target="_blank" rel="external">创建简单的REST API</a></p>
+<p>略过整个过程的中间程序的执行过程，一个简单的RESTful架构也就可以分解为这么简单的几步，至于更深层次的理解和应用目前在我的能力范围之外，不过有几篇很不错的文章可以分享</p>
+<p><a href="http://www.ibm.com/developerworks/cn/web/wa-aj-multitier/" target="_blank" rel="external">用于构建 RESTful Web 服务的多层架构</a><br><a href="http://www.infoq.com/cn/articles/rest-introduction/" target="_blank" rel="external">深入浅出REST</a></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Restful/">Restful</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/23/restful-api-practise/"  data-tooltip="RESTful API设计实战">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/10/singleton-pattern-for-php/" data-tooltip="PHP设计模式之单例模式">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/23/restful-api-practise/"  data-tooltip="RESTful API设计实战">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/10/singleton-pattern-for-php/" data-tooltip="PHP设计模式之单例模式">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2014/05/11/rest-web-service/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>

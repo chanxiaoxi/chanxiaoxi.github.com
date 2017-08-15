@@ -1,0 +1,469 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>PHP中使用静态方式调用非静态方法的问题 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="今天在研究Laravel的Facade的时候遇到一个问题：PHP竟然可以使用静态方式调用类的非静态方法。对于面向对象的语言来说，这有点奇葩。在平时的工作中也从未这样使用过。为什么PHP会出现这样的问题，Google了好多资料，终于有了一个大概的认识。">
+<meta name="keywords" content="PHP">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="PHP中使用静态方式调用非静态方法的问题">
+<meta property="og:url" content="http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="今天在研究Laravel的Facade的时候遇到一个问题：PHP竟然可以使用静态方式调用类的非静态方法。对于面向对象的语言来说，这有点奇葩。在平时的工作中也从未这样使用过。为什么PHP会出现这样的问题，Google了好多资料，终于有了一个大概的认识。">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-08-15T06:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP中使用静态方式调用非静态方法的问题">
+<meta name="twitter:description" content="今天在研究Laravel的Facade的时候遇到一个问题：PHP竟然可以使用静态方式调用类的非静态方法。对于面向对象的语言来说，这有点奇葩。在平时的工作中也从未这样使用过。为什么PHP会出现这样的问题，Google了好多资料，终于有了一个大概的认识。">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            PHP中使用静态方式调用非静态方法的问题
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Wed Nov 18 2015 18:23:02 GMT+0800">
+	
+		    11月 18, 2015
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Development/">Development</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>今天在研究Laravel的Facade的时候遇到一个问题：PHP竟然可以使用静态方式调用类的非静态方法。对于面向对象的语言来说，这有点奇葩。在平时的工作中也从未这样使用过。为什么PHP会出现这样的问题，Google了好多资料，终于有了一个大概的认识。<a id="more"></a></p>
+<h2 id="E-STRICT和历史遗留问题"><a href="#E-STRICT和历史遗留问题" class="headerlink" title="E_STRICT和历史遗留问题"></a>E_STRICT和历史遗留问题</h2><p>使用静态方式调用非静态方法，PHP会报一个<code>E_STRICT</code>级别的错误，E_STRICT是PHP5开始引入的，PHP官方文档中的说明如下：</p>
+<blockquote><p>自 PHP 5 起引进了新常量 E_STRICT，其值为 2048。它提供了对用户代码的协同性和向前兼容性的运行时 PHP 建议，有助于使用户保持最新和最好的编程风格。例如在使用已过时的函数时 STRICT 信息会提出警告。<br><code>E_ALL</code>不包括<code>E_STRICT</code>，因此其默认不激活。</p>
+<footer><strong>PHP</strong><cite><a href="http://php.net/manual/zh/migrating5.errorrep.php" target="_blank" rel="external">php.net/manual/zh/migrating5.errorrep.php</a></cite></footer></blockquote>
+<p>所以当我们没有打开<code>E_STRICT</code>级别错误的时候，PHP默认就不会报警：<br><figure class="highlight php"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">error_reporting(E_ALL);</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'bar'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo::bar();<span class="comment">//Strict Standards: Non-static method Foo::bar() should not be called statically bar</span></div></pre></td></tr></table></figure><br>由<code>E_STRICT</code>级别的错误可以看出，这个问题是PHP的历史遗留问题，准确的说在PHP4加入面向对象的机制后就有这个问题了，那么为什么PHP会允许这种情况出现？</p>
+<blockquote><p>为了与国际接轨，引入了面向对象的概念。而就是在引入这个面向对象的特征时，发生了一件令php目瞪口呆，最终无可奈何的事情。面向对象有个很重要的概念就是继承。在继承中，子类如果覆盖父类的方法，同时需要调用父类的同名方法，该怎么办呢？php4版本提供了这样一种方法：parentClassName::method()。提出此种方法之时，有识之士已经发现了问题：这个调用方式，不正是静态方法的调用方式吗？php4随即答曰：不碍事。类中使用时，可以判断此方式为子类正在调用父类方法；非类中使用时，就判断为静态调用了。所需要的只是发现此种调用时查询一下方法映射就好了。</p>
+<footer><strong>PHP中非静态方法的静态调用</strong><cite><a href="http://bbs.csdn.net/topics/350118147" target="_blank" rel="external">bbs.csdn.net/topics/350118147</a></cite></footer></blockquote>
+<p>也就是说它原本就是设计在类中使用用来调用父类方法的，只是恰巧在类之外也能使用而已。很快的，这种调用父类的方式在PHP5中就被<code>parent::method()</code>给取代了。但是他们的非静态方法的静态调用还存在。</p>
+<h2 id="静态调用和非静态调用"><a href="#静态调用和非静态调用" class="headerlink" title="静态调用和非静态调用"></a>静态调用和非静态调用</h2><h4 id="范围解析操作符"><a href="#范围解析操作符" class="headerlink" title="范围解析操作符(::)"></a>范围解析操作符(::)</h4><blockquote><p>范围解析操作符（也可称作 Paamayim Nekudotayim）或者更简单地说是一对冒号，可以用于访问静态成员，类常量，还可以用于覆盖类中的属性和方法。</p>
+<p>当在类定义之外引用到这些项目时，要使用类名。</p>
+<p>自 PHP 5.3.0 起，可以通过变量来引用类，该变量的值不能是关键字（如 self，parent 和 static）。</p>
+<footer><strong>范围解析操作符</strong><cite><a href="http://php.net/manual/zh/language.oop5.paamayim-nekudotayim.php" target="_blank" rel="external">php.net/manual/zh/language.oop5.paamayim-nekudotayim.php</a></cite></footer></blockquote>
+<h4 id="calling-scope"><a href="#calling-scope" class="headerlink" title="calling scope"></a>calling scope</h4><blockquote><p>在PHP中, 调用一个方法的时候, $this指针指向的对象就是这个方法被调用时刻的calling scope</p>
+<footer><strong>PHP的Calling Scope</strong><cite><a href="http://www.laruence.com/2012/06/14/2628.html" target="_blank" rel="external">www.laruence.com/2012/06/14/2628.html</a></cite></footer></blockquote>
+<h4 id="静态调用和非静态调用的区别"><a href="#静态调用和非静态调用的区别" class="headerlink" title="静态调用和非静态调用的区别"></a>静态调用和非静态调用的区别</h4><p>文中也指出：在PHP中，判断静态与否不是靠范围解析操作符(::),而是靠calling scope。如果处于一个没有calling scope域的上下文中，那么就是静态调用，否则就不是静态调用。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>搞清楚了静态调用和非静态调用的却别，明白了PHP的历史遗留问题，我们只要知道有这么回事就好了，在实际开发中，完全避免使用非静态方法的静态调用。</p>
+<h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><p><a href="http://www.laruence.com/2012/06/14/2628.html" target="_blank" rel="external">PHP的Calling Scope</a><br><a href="http://bbs.csdn.net/topics/350118147" target="_blank" rel="external">php中非静态方法的静态调用</a><br><a href="http://www.cnblogs.com/yjf512/archive/2012/09/12/2682556.html" target="_blank" rel="external">PHP静态调用非静态方法</a></p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/PHP/">PHP</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/14/What-is-WebSocket/"  data-tooltip="认识WebSocket">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/16/jQuery-events-bind-best-practice/" data-tooltip="jQuery事件绑定实践">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/14/What-is-WebSocket/"  data-tooltip="认识WebSocket">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/16/jQuery-events-bind-best-practice/" data-tooltip="jQuery事件绑定实践">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://chanxiaoxi.me/2015/11/18/static-call-non-static-method-in-php/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>
