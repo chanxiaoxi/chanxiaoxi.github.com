@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="还是码农的缠小溪">
 <meta property="og:description" content="这是一份简易的MySQL主从复制配置教程，主要是简单介绍一下MySQL主从复制配置过程，以及在配置过程中需要注意的一些问题。">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2017-08-15T09:24:44.000Z">
+<meta property="og:updated_time" content="2017-08-16T05:26:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简易MySQL主从复制教程">
 <meta name="twitter:description" content="这是一份简易的MySQL主从复制配置教程，主要是简单介绍一下MySQL主从复制配置过程，以及在配置过程中需要注意的一些问题。">
@@ -226,6 +226,7 @@
 <li>MySQL的主从复制不是同步的，是异步的，所以master和slaves之间有延迟。</li>
 <li>主从复制核心解决的问题是数据备份，通过多台数据库服务器的异步备份，让MySQL高可用，甚至实现负载均衡，业务模块化等作用。</li>
 <li>如果之前对于MySQL主从复制没有了解，推荐先阅读<a href="http://www.raye.wang" target="_blank" rel="external">Raye Wang</a>的<a href="http://raye.wang/2017/04/14/mysqlzhu-cong-fu-zhi-da-jian-ji-yu-ri-zhi-binlog/" target="_blank" rel="external">MySQL主从复制搭建，基于日志（binlog）</a>这篇文章。</li>
+<li>一旦主从复制配置好，slave数据库不能再写入其他数据。如果slave有额外数据写入，主从复制进程则会因<code>Duplicate Key</code>终止。详细可参看<a href="https://dba.stackexchange.com/questions/9248/in-a-mysql-master-slave-replication-what-would-happen-if-i-write-to-the-slave" target="_blank" rel="external">In a MySQL Master/Slave replication,what would happen if I write to the Slave?</a></li>
 <li>珍惜时间：如果以上都已了解，再往下看那就是浪费时间。</li>
 </ul>
 <h2 id="master数据库配置过程"><a href="#master数据库配置过程" class="headerlink" title="master数据库配置过程"></a>master数据库配置过程</h2><h4 id="1-开启二进制日志"><a href="#1-开启二进制日志" class="headerlink" title="1.开启二进制日志"></a>1.开启二进制日志</h4><p>关闭MySQL数据库并编辑MySQL配置文件<code>my.cnf</code>或<code>my.ini</code>文件，在<code>[mysqld]</code>区域添如下配置：</p>
