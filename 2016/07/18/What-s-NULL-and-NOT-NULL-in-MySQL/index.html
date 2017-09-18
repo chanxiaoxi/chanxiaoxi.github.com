@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>MySQL中的NULL - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="创建数据表的时候，总会纠结每个数据项到底应该是NULL还是NOT NULL;数据库的操作也经常会遇到关于NULL的操作;本文主要对NULL的知识作以下整理：  什么是NULL 使用NULL时要注意什么 MySQL中NULL相关的函数">
+<meta name="keywords" content="MySQL">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="MySQL中的NULL">
+<meta property="og:url" content="http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="创建数据表的时候，总会纠结每个数据项到底应该是NULL还是NOT NULL;数据库的操作也经常会遇到关于NULL的操作;本文主要对NULL的知识作以下整理：  什么是NULL 使用NULL时要注意什么 MySQL中NULL相关的函数">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-09-18T09:50:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL中的NULL">
+<meta name="twitter:description" content="创建数据表的时候，总会纠结每个数据项到底应该是NULL还是NOT NULL;数据库的操作也经常会遇到关于NULL的操作;本文主要对NULL的知识作以下整理：  什么是NULL 使用NULL时要注意什么 MySQL中NULL相关的函数">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            MySQL中的NULL
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Mon Jul 18 2016 16:55:05 GMT+0800">
+	
+		    7月 18, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Database/">Database</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>创建数据表的时候，总会纠结每个数据项到底应该是<code>NULL</code>还是<code>NOT NULL</code>;数据库的操作也经常会遇到关于<code>NULL</code>的操作;本文主要对<code>NULL</code>的知识作以下整理：</p>
+<ul>
+<li>什么是<code>NULL</code></li>
+<li>使用<code>NULL</code>时要注意什么</li>
+<li>MySQL中<code>NULL</code>相关的函数</li>
+</ul>
+<a id="more"></a>
+<h2 id="什么是NULL"><a href="#什么是NULL" class="headerlink" title="什么是NULL"></a>什么是NULL</h2><p><code>NULL</code>就是未知的意思，在数据库中，表示一个数据项的值可能缺失或者未知：</p>
+<ul>
+<li>插入一条数据时，如果没有某个数据项的值时，数据库会把该数据项的值默认设为<code>NULL</code>。</li>
+<li>如果无法确定某个数据项的值，在设计数据库时，可以将改数据项的设置为Nullable。</li>
+</ul>
+<h2 id="使用NULL时应该注意什么"><a href="#使用NULL时应该注意什么" class="headerlink" title="使用NULL时应该注意什么"></a>使用NULL时应该注意什么</h2><ul>
+<li>MySQL中<code>NULL</code>和<code>0</code>以及<code>&#39;&#39;</code>是不一样的。</li>
+<li>不能用算数运算符（如：<code>=</code>）来判断某个数据项的值是否为<code>NULL</code>，要用<code>IS NULL</code>或者<code>IS NOT NULL</code>。</li>
+<li>update数据项的值为<code>NULL</code>时：<code>UPDATE tablename SET columns = NULL</code>。</li>
+<li>使用<code>ORDER BY</code>排序时，如果按照升序<code>ASC</code>，那么MySQL会将数据项值为NULL的数据作为最小的数据排在最前面。</li>
+<li>使用<code>GROUP BY</code>时，值为NULL的数据会GROUP在一起。</li>
+<li>数据项使用<code>UNIQUE</code>或者<code>UNIQUE INDEX</code>的时候，你可以插入多个NULL值，MySQL会认为NULL值是不同的。</li>
+</ul>
+<h2 id="MySQL中NULL相关的函数"><a href="#MySQL中NULL相关的函数" class="headerlink" title="MySQL中NULL相关的函数"></a>MySQL中NULL相关的函数</h2><ul>
+<li><p><code>IFNULL(expr1, expr2)</code>是一个流程控制函数(Control Flow Functions)，表达的判断是：<code>If expr1 IS NOT NULL, return expr1, Else return expr2</code></p>
+</li>
+<li><p><code>NULLIF(expr1, expr2)</code>也是流程控制函数，表达的判断是：<code>If expr1 = expr2 return NULL, else return expr1</code></p>
+</li>
+<li><p><code>COALESCE(values...)</code>是一个比较函数，返回第一个值为<code>NULL</code>的参数，如果所有参数都不为<code>NULL</code>,则返回<code>NULL</code></p>
+</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://www.mysqltutorial.org/mysql-null/" target="_blank" rel="external">MySQL NULL:The Beginner’s Guide</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/working-with-null.html" target="_blank" rel="external">Working with NULL Values</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/control-flow-functions.html#function_ifnull" target="_blank" rel="external">Control Flow Functions</a></li>
+<li><a href="https://dev.mysql.com/doc/refman/5.7/en/comparison-operators.html#function_coalesce" target="_blank" rel="external">Comparison Operators</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/MySQL/">MySQL</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/06/14/MySQL-Replication-Configuration/" data-tooltip="简易MySQL主从复制教程">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/06/14/MySQL-Replication-Configuration/" data-tooltip="简易MySQL主从复制教程">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>
