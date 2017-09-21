@@ -1,0 +1,505 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="还是码农的缠小溪">
+    <title>HTML打印样式实践总结 - 还是码农的缠小溪</title>
+    <meta name="author" content="chanxiaoxi">
+    
+    
+        <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="在编写Web页面的时候，有时候需要专门写一些便于打印的Web页面，如发货单，表格等。CSS有一系列专门针对打印的样式，通过这些样式，可以设计出一个格式优雅的方便打印的Web页面。通过HTML打印样式最佳实践，本文主要整理总结了一下几个方面的内容：  1.编写打印页面时需要注意的HTML标签及样式 2.常用CSS属性介绍 3.实用工具">
+<meta name="keywords" content="HTML,Print CSS,CSS">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="HTML打印样式实践总结">
+<meta property="og:url" content="http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/index.html">
+<meta property="og:site_name" content="还是码农的缠小溪">
+<meta property="og:description" content="在编写Web页面的时候，有时候需要专门写一些便于打印的Web页面，如发货单，表格等。CSS有一系列专门针对打印的样式，通过这些样式，可以设计出一个格式优雅的方便打印的Web页面。通过HTML打印样式最佳实践，本文主要整理总结了一下几个方面的内容：  1.编写打印页面时需要注意的HTML标签及样式 2.常用CSS属性介绍 3.实用工具">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2017-09-21T10:16:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML打印样式实践总结">
+<meta name="twitter:description" content="在编写Web页面的时候，有时候需要专门写一些便于打印的Web页面，如发货单，表格等。CSS有一系列专门针对打印的样式，通过这些样式，可以设计出一个格式优雅的方便打印的Web页面。通过HTML打印样式最佳实践，本文主要整理总结了一下几个方面的内容：  1.编写打印页面时需要注意的HTML标签及样式 2.常用CSS属性介绍 3.实用工具">
+<meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
+    
+    
+    
+        <meta property="og:image" content="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=640"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-70131686-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">还是码农的缠小溪</a>
+    </h1>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+    
+
+<nav id="sidebar" data-behavior="4">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            </a>
+            <span class="sidebar-profile-name">chanxiaoxi</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
+                    <span class="sidebar-button-desc">月西邪</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            HTML打印样式实践总结
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Sun Aug 21 2016 15:58:00 GMT+0800">
+	
+		    8月 21, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/HTML/">HTML</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>在编写Web页面的时候，有时候需要专门写一些便于打印的Web页面，如发货单，表格等。CSS有一系列专门针对打印的样式，通过这些样式，可以设计出一个格式优雅的方便打印的Web页面。通过HTML打印样式最佳实践，本文主要整理总结了一下几个方面的内容：</p>
+<ul>
+<li>1.编写打印页面时需要注意的HTML标签及样式</li>
+<li>2.常用CSS属性介绍</li>
+<li>3.实用工具</li>
+</ul>
+<a id="more"></a>
+<h2 id="1-编写打印页面是需要注意的HTML标签及样式"><a href="#1-编写打印页面是需要注意的HTML标签及样式" class="headerlink" title="1.编写打印页面是需要注意的HTML标签及样式"></a>1.编写打印页面是需要注意的HTML标签及样式</h2><p>这里主要列举一些常见的HTML标签的注意事项，并不全面，但是已经可以覆盖绝大部分情况。</p>
+<h4 id="1-1-通过通配符-重置基础样式"><a href="#1-1-通过通配符-重置基础样式" class="headerlink" title="1.1 通过通配符*重置基础样式"></a>1.1 通过通配符<code>*</code>重置基础样式</h4><p>与一般的Web页面不同，在设计打印页面时，我们要重置一些基础样式设置，主要有：</p>
+<ul>
+<li>关闭背景色和背景图片</li>
+<li>文本字体颜色重置为黑色</li>
+<li>关闭文本字体阴影</li>
+</ul>
+<figure class="highlight css"><figcaption><span>css代码</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">* &#123;</div><div class="line">  <span class="attribute">background</span>: transparent <span class="meta">!important</span>;</div><div class="line">  <span class="attribute">color</span>: black <span class="meta">!important</span>;</div><div class="line">  <span class="attribute">text-shadow</span>: none <span class="meta">!important</span>;</div><div class="line">  <span class="attribute">filter</span>:none <span class="meta">!important</span>; <span class="attribute">-ms-filter</span>: none <span class="meta">!important</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="1-2-重置-lt-a-gt-样式"><a href="#1-2-重置-lt-a-gt-样式" class="headerlink" title="1.2 重置&lt;a&gt;样式"></a>1.2 重置<code>&lt;a&gt;</code>样式</h4><p>在打印页面中，为了更好的显示超链接，我们可以对超链接样式做如下修改：</p>
+<ul>
+<li>添加下划线，在文本中突出连接</li>
+<li>将具体连接地址显示出来(用的甚至将连接转化为二维码显示，方便扫码访问)</li>
+<li>几种链接情况的处理：<ul>
+<li>一般链接：显示链接URL</li>
+<li>图片链接：不显示图片，显示链接URL</li>
+<li>锚点：不显示链接URL</li>
+<li>Javascript形式链接：不显示</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight css"><figcaption><span>css代码</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">a</span>, <span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123; <span class="attribute">text-decoration</span>: underline; &#125;</div><div class="line"><span class="selector-tag">a</span><span class="selector-attr">[href]</span><span class="selector-pseudo">:after</span> &#123; <span class="attribute">content</span>: <span class="string">" ("</span> <span class="built_in">attr</span>(href) <span class="string">")"</span>; &#125;</div><div class="line"><span class="selector-tag">abbr</span><span class="selector-attr">[title]</span><span class="selector-pseudo">:after</span> &#123; <span class="attribute">content</span>: <span class="string">" ("</span> <span class="built_in">attr</span>(title) <span class="string">")"</span>; &#125;</div><div class="line"><span class="selector-class">.ir</span> <span class="selector-tag">a</span><span class="selector-pseudo">:after</span>, <span class="selector-tag">a</span><span class="selector-attr">[href^="javascript:"]</span><span class="selector-pseudo">:after</span>, <span class="selector-tag">a</span><span class="selector-attr">[href^="#"]</span><span class="selector-pseudo">:after</span> &#123; <span class="attribute">content</span>: <span class="string">""</span>; &#125;</div></pre></td></tr></table></figure>
+<h4 id="1-3-lt-img-gt-样式"><a href="#1-3-lt-img-gt-样式" class="headerlink" title="1.3 &lt;img&gt;样式"></a>1.3 <code>&lt;img&gt;</code>样式</h4><p>设置打印页面时，最好将图片宽度强制为相对容器100%宽，这样可以防止图片因为太大超出打印纸张页面。</p>
+<figure class="highlight css"><figcaption><span>css代码</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">img</span> &#123; <span class="attribute">max-width</span>: <span class="number">100%</span> <span class="meta">!important</span>; &#125;</div></pre></td></tr></table></figure>
+<h4 id="1-4-优化分页"><a href="#1-4-优化分页" class="headerlink" title="1.4 优化分页"></a>1.4 优化分页</h4><p>可以通过<code>orphans/windows/page-break-after/page-break-before/page-break-inside</code>来优化打印页面的分页</p>
+<ul>
+<li><code>orphans</code>：分页时，留在页面底部的最少行数</li>
+<li><code>windows</code>：分页时，留在新的一页的顶部的最行数</li>
+<li><code>page-break-after</code>：调整当前元素之后的分页，<code>page-break-before/page-break-inside</code>类似</li>
+</ul>
+<figure class="highlight css"><figcaption><span>css代码</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">p</span>, <span class="selector-tag">h2</span>, <span class="selector-tag">h3</span> &#123; <span class="attribute">orphans</span>: <span class="number">3</span>; <span class="attribute">widows</span>: <span class="number">3</span>; &#125;</div><div class="line"><span class="selector-tag">h2</span>, <span class="selector-tag">h3</span> &#123; <span class="attribute">page-break-after</span>: avoid; &#125;</div><div class="line"><span class="selector-tag">pre</span>, <span class="selector-tag">blockquote</span> &#123; <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#999</span>; <span class="attribute">page-break-inside</span>: avoid; &#125;</div><div class="line"><span class="selector-tag">thead</span> &#123; <span class="attribute">display</span>: table-header-group; &#125;</div><div class="line"><span class="selector-tag">tr</span>, <span class="selector-tag">ul</span>, <span class="selector-tag">img</span> &#123; <span class="attribute">page-break-inside</span>: avoid; &#125;</div></pre></td></tr></table></figure>
+<h4 id="1-5-页面设置"><a href="#1-5-页面设置" class="headerlink" title="1.5 页面设置"></a>1.5 页面设置</h4><p>可以通过CSS<code>@page</code>指令来设置打印页面的基础参数，包括页面类型，页面边距等。</p>
+<figure class="highlight css"><figcaption><span>css代码</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">page</span> &#123;</div><div class="line">  <span class="attribute">size</span>: A4;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0.5cm</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="1-6-完整的打印页面样式范例"><a href="#1-6-完整的打印页面样式范例" class="headerlink" title="1.6 完整的打印页面样式范例"></a>1.6 完整的打印页面样式范例</h4><figure class="highlight css"><figcaption><span>css代码</span><a href="https://github.com/h5bp/html5-boilerplate/blob/dbc3ed973573a77122f6b8a2aebd0a76a44ad6a6/dist/css/main.css#L223" target="_blank" rel="external">来源：html5-boilerplate</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">@<span class="keyword">media</span> print &#123;</div><div class="line">    *,*<span class="selector-pseudo">:before</span>,*<span class="selector-pseudo">:after</span> &#123;</div><div class="line">        <span class="attribute">background</span>: transparent <span class="meta">!important</span>;</div><div class="line">        <span class="attribute">color</span>: <span class="number">#000</span> <span class="meta">!important</span>;</div><div class="line">        <span class="attribute">box-shadow</span>: none <span class="meta">!important</span>;</div><div class="line">        <span class="attribute">text-shadow</span>: none <span class="meta">!important</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">a</span>,</div><div class="line">    <span class="selector-tag">a</span><span class="selector-pseudo">:visited</span> &#123;</div><div class="line">        <span class="attribute">text-decoration</span>: underline;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">a</span><span class="selector-attr">[href]</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">        <span class="attribute">content</span>: <span class="string">" ("</span> <span class="built_in">attr</span>(href) <span class="string">")"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">abbr</span><span class="selector-attr">[title]</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">        <span class="attribute">content</span>: <span class="string">" ("</span> <span class="built_in">attr</span>(title) <span class="string">")"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">a</span><span class="selector-attr">[href^="#"]</span><span class="selector-pseudo">:after</span>,</div><div class="line">    <span class="selector-tag">a</span><span class="selector-attr">[href^="javascript:"]</span><span class="selector-pseudo">:after</span> &#123;</div><div class="line">        <span class="attribute">content</span>: <span class="string">""</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">pre</span> &#123;</div><div class="line">        <span class="attribute">white-space</span>: pre-wrap <span class="meta">!important</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="selector-tag">pre</span>,</div><div class="line">    <span class="selector-tag">blockquote</span> &#123;</div><div class="line">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#999</span>;</div><div class="line">        <span class="attribute">page-break-inside</span>: avoid;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">thead</span> &#123;</div><div class="line">        <span class="attribute">display</span>: table-header-group;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">tr</span>,</div><div class="line">    <span class="selector-tag">img</span> &#123;</div><div class="line">        <span class="attribute">page-break-inside</span>: avoid;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">p</span>,</div><div class="line">    <span class="selector-tag">h2</span>,</div><div class="line">    <span class="selector-tag">h3</span> &#123;</div><div class="line">        <span class="attribute">orphans</span>: <span class="number">3</span>;</div><div class="line">        <span class="attribute">widows</span>: <span class="number">3</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">h2</span>,</div><div class="line">    <span class="selector-tag">h3</span> &#123;</div><div class="line">        <span class="attribute">page-break-after</span>: avoid;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-常用CSS属性介绍"><a href="#2-常用CSS属性介绍" class="headerlink" title="2.常用CSS属性介绍"></a>2.常用CSS属性介绍</h2><p>关于打印相关的常用CSS属性介绍相关的文章非常多，这里推荐几篇，如果感兴趣，可以仔细研究：</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@page" target="_blank" rel="external">CSS @page</a>文档，可以通过该文章详细了解关于<code>@page</code>的用法。</li>
+<li><a href="https://segmentfault.com/a/1190000010145260" target="_blank" rel="external">CSS 打印 - 龙墨</a>该篇文章详细介绍了打印页面设置的相关知识。</li>
+</ul>
+<h2 id="3-实用工具"><a href="#3-实用工具" class="headerlink" title="3.实用工具"></a>3.实用工具</h2><ul>
+<li><a href="https://html5boilerplate.com" target="_blank" rel="external">html5-boilerplate</a>提供了标准的HTML5样板，其中CSS中就有相关的打印样式，可以做参考</li>
+<li><a href="https://github.com/cognitom/paper-css" target="_blank" rel="external">Github:Paper CSS</a>是一个前端打印解决方案的git库</li>
+</ul>
+<h2 id="4-参考资料"><a href="#4-参考资料" class="headerlink" title="4.参考资料"></a>4.参考资料</h2><ul>
+<li><a href="https://designshack.net/articles/css/6-thinks-i-learned-about-print-stylesheets-from-html5-boilerplate/" target="_blank" rel="external">6 Things I Learned About Print Stylesheets From HTML5 Boilerplate</a></li>
+<li><a href="https://www.smashingmagazine.com/2015/01/designing-for-print-with-css/" target="_blank" rel="external">Designing For Print With CSS</a></li>
+</ul>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/CSS/">CSS</a> <a class="tag tag--primary tag--small t-link" href="/tags/HTML/">HTML</a> <a class="tag tag--primary tag--small t-link" href="/tags/Print-CSS/">Print CSS</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/" data-tooltip="MySQL中的NULL">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2017 chanxiaoxi. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/07/18/What-s-NULL-and-NOT-NULL-in-MySQL/" data-tooltip="MySQL中的NULL">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-weibo"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2016/08/21/Html-Print-StyleSheets-Best-Practices/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        <!-- Define author's picture -->
+
+
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+        
+            <h4 id="about-card-name">chanxiaoxi</h4>
+        
+            <h5 id="about-card-bio"><p>一个不务正业的码农</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>PHP Developer</p>
+
+            </h5>
+        
+        
+            <h5 id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Shanghai,China
+            </h5>
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/script.min.js"></script>
+<!--SCRIPTS END-->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'chanxiaoxi';
+        (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+
+</html>
