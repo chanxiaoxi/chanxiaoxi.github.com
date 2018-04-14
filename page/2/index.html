@@ -203,6 +203,61 @@
 <section class="postShorten-group main-content-wrap">
     
         
+        <article class="postShorten postShorten--thumbnailimg-bottom" itemscope itemType="http://schema.org/BlogPosting">
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2016/02/24/Resolve-The-Chinese-Disorderly-Code-In-iTerm-SSH/">解决iTerm使用SSH连接远程服务器的中文乱码问题</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Wed Feb 24 2016 16:41:21 GMT+0800">
+	
+		    2月 24, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Recipe/">Recipe</a>
+
+
+    
+</div>
+                </div>
+                
+                
+                    <div class="postShorten-content" itemprop="articleBody">
+                        <p>今天在使用iTerm通过SSH连接远程服务器的时候出现了中文乱码的问题。一开始想到的是iTerm本身的编码有问题，测试iTerm发现中文输入显示都正常。于是使用<code>locale</code>查看远程服务器系统语言编码，并未发现问题：</p>
+<pre><code>LANG=en_US.UTF-8
+LANGUAGE=
+LC_CTYPE=&quot;en_US.UTF-8&quot;
+LC_NUMERIC=&quot;en_US.UTF-8&quot;
+LC_ALL=en_US.UTF-8
+</code></pre><p>Google到的解决方案是在<code>~/.bash_profile</code>文件中添加如下内容：</p>
+<pre><code>export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
+</code></pre><p>但是回头一想，iTerm和Mac自己的Terminal是不同的，iTerm应该在<code>~/.zshrc</code>中修改，于是在该文件后追加上述命令，乱码问题解决~</p>
+
+                        
+                            
+
+                        
+                        
+                            <p>
+                                <a href="/2016/02/24/Resolve-The-Chinese-Disorderly-Code-In-iTerm-SSH/#post-footer" class="postShorten-excerpt_link link">
+                                    注释和共享
+                                </a>
+                            </p>
+                        
+                    </div>
+                
+            </div>
+            
+        </article>
+    
+        
         <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
             <div class="postShorten-wrap">
                 <div class="postShorten-header">
@@ -555,47 +610,6 @@
 </blockquote>
                         
                             <a href="/2014/12/06/php-code-style-guide-psr0/" class="postShorten-excerpt_link link">
-                                阅读全文
-                            </a>
-                            
-                        
-                    </div>
-                
-            </div>
-            
-        </article>
-    
-        
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/">Windows下Sourcetree LF/CRLF自动转换的问题</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Mon Dec 01 2014 17:48:40 GMT+0800">
-	
-		    12月 01, 2014
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/Git/">Git</a>
-
-
-    
-</div>
-                </div>
-                
-                
-                    <div class="postShorten-excerpt" itemprop="articleBody">
-                        <p>最近在用Sourcetree的时候发现一个奇怪的问题，就是repo中的文件的EOL为LF的文件在windows下会自动变成CRLF，但是由于每次commit之后compare的时候并没有发现LF改成CRLF,所以就一直没有在意。无意之中发现了有关这个的问题，就在此记录一下。</p>
-<p>repo中的LF在本地变成了CRLF这是Sourcetree自动转换的，目的是为了windows平台和Linux平台下的EOL的一致，所以当你发现repo中的LF在本地变成了CRLF，如果你用Sourcetree提交的话可以不用管，他会在提交的时候自动转换回LF。
-                        
-                            <a href="/2014/12/01/sourcetree-lf-slash-crlf-auto-change-on-windows/" class="postShorten-excerpt_link link">
                                 阅读全文
                             </a>
                             

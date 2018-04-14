@@ -6,24 +6,24 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="还是码农的缠小溪">
-    <title>Elasticsearch基本概念 - 还是码农的缠小溪</title>
+    <title>股市究竟能不能预测 - 还是码农的缠小溪</title>
     <meta name="author" content="chanxiaoxi">
     
     
         <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="本文主要总结记录一下Elasticsearch的一些常用概念，以备在以后的学习中回顾查看。">
-<meta name="keywords" content="Elasticsearch">
+    <meta name="description" content="先说结论，股市不能预测。">
+<meta name="keywords" content="股市">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="Elasticsearch基本概念">
-<meta property="og:url" content="http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/index.html">
+<meta property="og:title" content="股市究竟能不能预测">
+<meta property="og:url" content="http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/index.html">
 <meta property="og:site_name" content="还是码农的缠小溪">
-<meta property="og:description" content="本文主要总结记录一下Elasticsearch的一些常用概念，以备在以后的学习中回顾查看。">
+<meta property="og:description" content="先说结论，股市不能预测。">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-04-14T08:19:07.786Z">
+<meta property="og:updated_time" content="2018-04-14T08:38:54.007Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Elasticsearch基本概念">
-<meta name="twitter:description" content="本文主要总结记录一下Elasticsearch的一些常用概念，以备在以后的学习中回顾查看。">
+<meta name="twitter:title" content="股市究竟能不能预测">
+<meta name="twitter:description" content="先说结论，股市不能预测。">
 <meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
     
     
@@ -207,19 +207,19 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            Elasticsearch基本概念
+            股市究竟能不能预测
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Wed Sep 21 2016 16:09:13 GMT+0800">
+    <time itemprop="datePublished" content="Sat Apr 14 2018 16:33:31 GMT+0800">
 	
-		    9月 21, 2016
+		    4月 14, 2018
     	
     </time>
     
         <span>发布在 </span>
         
-    <a class="category-link" href="/categories/Elasticsearch/">Elasticsearch</a>
+    <a class="category-link" href="/categories/薛兆丰北大经济学课/">薛兆丰北大经济学课</a>
 
 
     
@@ -228,30 +228,18 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>本文主要总结记录一下Elasticsearch的一些常用概念，以备在以后的学习中回顾查看。</p>
+            <p>先说结论，股市不能预测。</p>
 <a id="more"></a>
-<h3 id="Near-Realtime"><a href="#Near-Realtime" class="headerlink" title="Near Realtime"></a>Near Realtime</h3><p>Elasticsearch是一个<strong>接近于实时</strong>的搜索平台，说它是接近于实时的平台，是因为它有稍微的延迟，一般来说，从你的文档被编成索引到它也可以被搜索大概需要一秒钟的延迟。</p>
-<h3 id="Cluster"><a href="#Cluster" class="headerlink" title="Cluster"></a>Cluster</h3><p>簇就是一个或多个节点（服务器）的集合，它们来保存你的所有的数据和提供索引集合能够让你在所有的节点进行搜索。一个簇通过唯一的name来标识，默认的是elasticsearch，这个name是很重要的，因为节点是簇的一部分，簇就是通过这个name来将多个节点组织起来的确保在不同的环境中不要用相同的簇名，否则可能因为节点加入错误的簇而终止。例如你可以用<code>logging-dev</code> , <code>logging-stage</code>, <code>logging-prod</code>来命名开发环境，stage环境和生产环境一个簇仅有一个节点也是有效地和完美的，而且，你可以有多个独立的拥有唯一命名的簇。</p>
-<h3 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h3><p>节点是单独的服务器，也是簇的一部分，存储你的数据，加入簇的索引和可被搜索。就像簇，节点也通过name来唯一标识，默认的是一个随机的Marvel字符分配给节点来建立节点。</p>
-<p>节点可以被配置加入指定的簇通过簇名，默认的，每个节点在建立的时候都会加入一个叫elasticsearch簇，这就意味着如果你创建了多个节点，他们可以相互发现，因为他们自动的组织在并加入了同一个簇。</p>
-<h3 id="Index"><a href="#Index" class="headerlink" title="Index"></a>Index</h3><p>节点就是一些相似的字符的文档的集合，比如，你可以给用户数据创建一个节点，给商品目录床架另外一个节点，给订单创建一个节点，每个索引都由name唯一标识，以后的关于该节点的索引，搜索删除等操作都通过节点的name来。</p>
-<h3 id="Type"><a href="#Type" class="headerlink" title="Type"></a>Type</h3><p>在索引内，你可以定义一个或多个类型，类型就是你的索引在逻辑上的种类或分割，类型在语义上完全取决于你，普遍的，一个被定义的类型通常又一系列的的字段，比如，在你把博客平台上的数据存储到一个索引中，在这个索引中，你可以定义一个user data类型，还可以定义blog data类型等多个类型。</p>
-<h3 id="Document"><a href="#Document" class="headerlink" title="Document"></a>Document</h3><p>文档就是可以被索引的基本的信息单元。比如，每一个单独的用户都可以有一个文档，每一个单独的产品可以有一个文档，文档是以json的形式表现的。</p>
-<h3 id="Shards-amp-Replicas"><a href="#Shards-amp-Replicas" class="headerlink" title="Shards &amp; Replicas"></a>Shards &amp; Replicas</h3><p>为什么会有碎片的概念，这是因为当文档的数据量太大的时候对于数据的存储和处理就会变得麻烦，Elasticsearch提供了功能能够把索引划分成一个一个小的部分，也就是shards（碎片），当你创建一个索引就可以创建多个碎片，每一个碎片本身也是一个索引可以在任何一个簇的节点中。</p>
-<p>碎片有两个重要的原因：</p>
-<ul>
-<li>它允许水平划分或评估你的内容卷</li>
-<li>它允许分配和并行操作碎片，以此来增加性能/吞吐量</li>
-</ul>
-<p>一个碎片是如何分配的和文档如何在搜索的时候重新把这些碎片聚合起来对于用户来说是透明的。</p>
-<p>错误可以被任何时候预期在云环境中，故障机制是非常有用和被强烈建议的，如果一个碎片或者节点离线或者出现其他任何原因。为此，Elasticsearch允许你对一个或多个索引的碎片进行复制。</p>
-<p>复制有两个重要的原因：</p>
-<ul>
-<li>它提供高可用性当节点或碎片失败，一个复制的碎片从来不要复制在相同的节点上，如果这个节点上有原始的重要的碎片</li>
-<li>它允许你评估你的搜索的卷/吞吐量由于搜索可以在所有的复制上平行执行</li>
-</ul>
-<p>总的来说，每个索引都可以被分裂成多个碎片，一个索引可以被复制零次或多次，一旦被复制，被复制的索引就会有原始索引和复制索引，碎片和复制的数量可以在创建索引的时候定义， 创建索引后，任何时候都可以动态的更改复制的属性，但是不能够更改碎片的数量。</p>
-<p>默认的，每个索引可以分配5个初始的碎片和一个复制，这意味着，如果你至少有两个节点在你的簇中，你的索引将会有5个碎片和另外5个复制碎片，和一个完全的复制，也就是说总共10个碎片每个索引。</p>
+<h2 id="现实世界和抽象世界的区别"><a href="#现实世界和抽象世界的区别" class="headerlink" title="现实世界和抽象世界的区别"></a>现实世界和抽象世界的区别</h2><p>现实世界的发展是有规律可寻的，这也是人们做学问的基本信念，相信凡事皆有规律。我们通过观察现实世界的发展规律，创造了各种各样的知识。知识的本质就是对于客观世界发展规律的总结和抽象。</p>
+<p>经济学也是知识，经济学总结抽象的经济活动也是有规律的，基于此认识，人们会简单的认为，一切经济活动都是有规律可寻的，但是这样的认识是错误的。有些经济活动是在一个抽象的世界中，影响他的所有因素都是未知的，他的发展也是未知的，是不可预测的。</p>
+<p>我们在认定一个经济活动是不是可预测的，就得搞清楚，影响它的因素是在现实世界中，还是在抽象世界中。在现实世界中，那么它就有可能存在一般规律，可以做出预测；在抽象实际中，一切都是未知的，不可能做出预测。</p>
+<h2 id="影响股市的因素在哪个世界"><a href="#影响股市的因素在哪个世界" class="headerlink" title="影响股市的因素在哪个世界"></a>影响股市的因素在哪个世界</h2><p>回答这个问题之前，我们得先找到影响股市的因素是什么。</p>
+<p>股票的价值在股市的反应就是价格。股票的价值其实质是股票的现值。现值就是它预期的未来收入的折现和。简单说，股票的价格就是指股票的现值。</p>
+<p>现值是它预期的未来收入的折现和。影响现值的因素就是人们的预期。能够改变预期的是那些新知识。新知识就是今天不知道，明天才会知道的。新知识存在于抽象世界里，是人们脑中的想象，它无规律可寻。既然影响股票现值的是一个我们无法知道的未来才会发生的新知识，那么我们就无法预测股票的现值。</p>
+<p>新知识的披露也是随机的，这导致股票价格的波动随机。人们对新消息的披露反应速度极快，差不多也就几毫秒，晚了一切就都晚了。</p>
+<h2 id="既然股市无法预测，为何还有那么多的股票分析师"><a href="#既然股市无法预测，为何还有那么多的股票分析师" class="headerlink" title="既然股市无法预测，为何还有那么多的股票分析师"></a>既然股市无法预测，为何还有那么多的股票分析师</h2><p>分析师存在的主要意义是安慰师，事后分析只是为了找一个合理的理由来安慰自己或者他人。</p>
+<p>执迷于分析股票趋势是愚蠢的，炒股的高手都在竞争还未披露的但是已经知道的消息，因为大部分新知识在披露之前可能就已经被人知道了，而利用这个还未披露的时机，就可以赚取大额利润。</p>
+<p>人们对消息披露的反应只有几毫秒。这意味着，当你从各种渠道听到某个消息被披露时就已经完了，市场已经充分做出了反应和调整，你所看到的，只是调整之后的市场价格。</p>
 
             
                 
@@ -264,7 +252,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br/>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Elasticsearch/">Elasticsearch</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/股市/">股市</a>
 
             </div>
         
@@ -273,7 +261,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/"  data-tooltip="股市究竟能不能预测">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -281,7 +269,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/08/21/Html-Print-StyleSheets-Best-Practices/" data-tooltip="HTML打印样式实践总结">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/09/21/Elasticsearch-Basic-Concepts/" data-tooltip="Elasticsearch基本概念">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -296,17 +284,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -318,7 +306,7 @@
             </li>
         
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
@@ -350,7 +338,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/"  data-tooltip="股市究竟能不能预测">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -358,7 +346,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/08/21/Html-Print-StyleSheets-Best-Practices/" data-tooltip="HTML打印样式实践总结">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/09/21/Elasticsearch-Basic-Concepts/" data-tooltip="Elasticsearch基本概念">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -373,17 +361,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -395,7 +383,7 @@
             </li>
         
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
@@ -407,17 +395,17 @@
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2016/09/21/Elasticsearch-Basic-Concepts/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
                 <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
             </a>
         </li>
