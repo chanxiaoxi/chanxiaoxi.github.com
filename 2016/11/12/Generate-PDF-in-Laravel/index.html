@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="还是码农的缠小溪">
 <meta property="og:description" content="本文主要介绍在Laravel中用来生成PDF的两个常用插件laravel-dompdf和laravel-snappy的比较以及使用过程中的一些常见问题及解决办法。">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-10-22T05:10:51.814Z">
+<meta property="og:updated_time" content="2018-10-22T05:10:51.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Laravel中生成PDF">
 <meta name="twitter:description" content="本文主要介绍在Laravel中用来生成PDF的两个常用插件laravel-dompdf和laravel-snappy的比较以及使用过程中的一些常见问题及解决办法。">
@@ -66,10 +66,11 @@
     </h1>
     
         
-            <a class="header-right-picture " href="#about">
+            <a  class="header-right-picture "
+                href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
         
         </a>
     
@@ -84,7 +85,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -94,7 +95,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/ ">
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -103,7 +107,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-categories">
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -112,7 +119,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-tags">
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -121,7 +131,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-archives">
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -130,7 +143,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -143,7 +159,7 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -152,7 +168,7 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -165,7 +181,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/atom.xml">
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -182,7 +201,7 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
         <div class="post-header main-content-wrap text-left">
@@ -209,9 +228,9 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>本文主要介绍在Laravel中用来生成PDF的两个常用插件<a href="https://github.com/barryvdh/laravel-dompdf" target="_blank" rel="noopener">laravel-dompdf</a>和<a href="https://github.com/barryvdh/laravel-snappy" target="_blank" rel="noopener">laravel-snappy</a>的比较以及使用过程中的一些常见问题及解决办法。</p>
+            <p>本文主要介绍在Laravel中用来生成PDF的两个常用插件<a href="https://github.com/barryvdh/laravel-dompdf" target="_blank" rel="external">laravel-dompdf</a>和<a href="https://github.com/barryvdh/laravel-snappy" target="_blank" rel="external">laravel-snappy</a>的比较以及使用过程中的一些常见问题及解决办法。</p>
 <a id="more"></a>
-<h2 id="laravel-dompdf"><a href="#laravel-dompdf" class="headerlink" title="laravel-dompdf"></a>laravel-dompdf</h2><p><code>laravel-dompdf</code>是barryvdh写得<a href="https://github.com/dompdf/dompdf" target="_blank" rel="noopener">Dompdf</a>的Laravel插件。它的一些依赖及注意事项最好去<code>Dompdf</code>上去看。具体的介绍如下：</p>
+<h2 id="laravel-dompdf"><a href="#laravel-dompdf" class="headerlink" title="laravel-dompdf"></a>laravel-dompdf</h2><p><code>laravel-dompdf</code>是barryvdh写得<a href="https://github.com/dompdf/dompdf" target="_blank" rel="external">Dompdf</a>的Laravel插件。它的一些依赖及注意事项最好去<code>Dompdf</code>上去看。具体的介绍如下：</p>
 <blockquote>
 <p>At its heart, dompdf is (mostly) a CSS 2.1 compliant HTML layout and rendering engine written in PHP. It is a style-driven renderer: it will download and read external stylesheets, inline style tags, and the style attributes of individual HTML elements. It also supports most presentational HTML attributes.</p>
 </blockquote>
@@ -222,33 +241,31 @@
 </ul>
 <h4 id="1-中文字体问题"><a href="#1-中文字体问题" class="headerlink" title="1. 中文字体问题"></a>1. 中文字体问题</h4><blockquote>
 <p>PDF documents internally support the following fonts: Helvetica, Times-Roman, Courier, Zapf-Dingbats, &amp; Symbol. These fonts only support Windows ANSI encoding. In order for a PDF to display characters that are not available in Windows ANSI, you must supply an external font. Dompdf will embed any referenced font in the PDF so long as it has been pre-loaded or is accessible to dompdf and reference in CSS @font-face rules. See the font overview for more information on how to use fonts.</p>
-</blockquote>
-<blockquote>
 <p>The DejaVu TrueType fonts have been pre-installed to give dompdf decent Unicode character coverage by default. To use the DejaVu fonts reference the font in your stylesheet, e.g. body { font-family: DejaVu Sans; } (for DejaVu Sans). The following DejaVu 2.34 fonts are available: DejaVu Sans, DejaVu Serif, and DejaVu Sans Mono.</p>
 </blockquote>
 <p><code>dompdf</code>内部只支持Window ANSI编码的字体。预安装的DejaVu字体虽支持UNcode字符，但是并不支持中文。中文只能添加额外的字体，然后通过<code>@font-face</code>来指定。具体方法如下：</p>
 <p>下载一个支持unicode编码的中文字体。例如：msyh.ttf（微软雅黑） 建议先在storage下创建fonts文件夹，把字体放在fonts文件夹下，在css中引入字体：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@font-face &#123;</span><br><span class="line">    font-family: &apos;msyh&apos;;</span><br><span class="line">    font-style: normal;</span><br><span class="line">    font-weight: normal;</span><br><span class="line">    src: url(&#123;&#123; storage_path(&apos;your_path/msyh.ttf&apos;) &#125;&#125;) format(&apos;truetype&apos;);</span><br><span class="line">&#125;</span><br><span class="line">body &#123;</span><br><span class="line">    font-family: msyh, DejaVu Sans,sans-serif;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@font-face &#123;</div><div class="line">    font-family: &apos;msyh&apos;;</div><div class="line">    font-style: normal;</div><div class="line">    font-weight: normal;</div><div class="line">    src: url(&#123;&#123; storage_path(&apos;your_path/msyh.ttf&apos;) &#125;&#125;) format(&apos;truetype&apos;);</div><div class="line">&#125;</div><div class="line">body &#123;</div><div class="line">    font-family: msyh, DejaVu Sans,sans-serif;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h4 id="2-生成PDF文件过大"><a href="#2-生成PDF文件过大" class="headerlink" title="2. 生成PDF文件过大"></a>2. 生成PDF文件过大</h4><p>默认<code>laravel-dompdf</code>生成的PDF文件过大是因为其默认设置的PDF转换质量过高，修改方式如下：</p>
-<figure class="highlight php"><figcaption><span>设置DPI</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PDF::setOptions([<span class="string">'dpi'</span> =&gt; <span class="number">150</span>, <span class="string">'defaultFont'</span> =&gt; <span class="string">'sans-serif'</span>]);</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><figcaption><span>设置DPI</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">PDF::setOptions([<span class="string">'dpi'</span> =&gt; <span class="number">150</span>, <span class="string">'defaultFont'</span> =&gt; <span class="string">'sans-serif'</span>]);</div></pre></td></tr></table></figure>
 <h4 id="3-视图及样式"><a href="#3-视图及样式" class="headerlink" title="3. 视图及样式"></a>3. 视图及样式</h4><ul>
 <li>最好使用table来布局。</li>
 <li>页边距的样式设置通过<code>@page</code>来指定。</li>
 <li>默认的媒体查询是<code>screen</code>，这个可以通过配置项来修改。</li>
 </ul>
-<h2 id="laravel-snappy"><a href="#laravel-snappy" class="headerlink" title="laravel-snappy"></a>laravel-snappy</h2><p><code>laravel-snappy</code>是barryvdh写得<a href="https://github.com/KnpLabs/snappy#wkhtmltopdf-binary-as-composer-dependencies" target="_blank" rel="noopener">snappy</a>的laravel插件。<code>snappy</code>基于<a href="https://wkhtmltopdf.org/" target="_blank" rel="noopener">wkhtmltopdf</a>，所以在使用前必须安装<code>wkhtmltopdf</code>。</p>
+<h2 id="laravel-snappy"><a href="#laravel-snappy" class="headerlink" title="laravel-snappy"></a>laravel-snappy</h2><p><code>laravel-snappy</code>是barryvdh写得<a href="https://github.com/KnpLabs/snappy#wkhtmltopdf-binary-as-composer-dependencies" target="_blank" rel="external">snappy</a>的laravel插件。<code>snappy</code>基于<a href="https://wkhtmltopdf.org/" target="_blank" rel="external">wkhtmltopdf</a>，所以在使用前必须安装<code>wkhtmltopdf</code>。</p>
 <h4 id="1-安装wkhtmltopdf"><a href="#1-安装wkhtmltopdf" class="headerlink" title="1. 安装wkhtmltopdf"></a>1. 安装wkhtmltopdf</h4><ul>
-<li><a href="https://gist.github.com/Oxicode/062649ad798ffb8ce16c720d3202acf2" target="_blank" rel="noopener">Install wkhtmltopdf on Ubuntu</a></li>
+<li><a href="https://gist.github.com/Oxicode/062649ad798ffb8ce16c720d3202acf2" target="_blank" rel="external">Install wkhtmltopdf on Ubuntu</a></li>
 </ul>
 <h4 id="2-wkhtmltopdf中文字体支持"><a href="#2-wkhtmltopdf中文字体支持" class="headerlink" title="2. wkhtmltopdf中文字体支持"></a>2. wkhtmltopdf中文字体支持</h4><p><code>wkhtmltopdf</code>使用的是系统字体，所以只要系统支持中文字体即可，这里提供Linux安装中文字体的方法，以Ubuntu为例：</p>
 <p>安装中文字体包</p>
-<figure class="highlight bash"><figcaption><span>安装默认中文字体</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install language-pack-zh-hant language-pack-zh-hans</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><figcaption><span>手动安装</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建字体目录</span></span><br><span class="line">sudo mkdir /usr/share/fonts/[字体目录]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入字体目录，更新字体缓存</span></span><br><span class="line"><span class="built_in">cd</span> /usr/share/fonts/[字体目录]  </span><br><span class="line">sudo mkfontscale  </span><br><span class="line">sudo mkfontdir  </span><br><span class="line">sudo <span class="built_in">fc</span>-cache -fv  </span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>安装默认中文字体</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install language-pack-zh-hant language-pack-zh-hans</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>手动安装</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 创建字体目录</span></div><div class="line">sudo mkdir /usr/share/fonts/[字体目录]</div><div class="line"></div><div class="line"><span class="comment"># 进入字体目录，更新字体缓存</span></div><div class="line"><span class="built_in">cd</span> /usr/share/fonts/[字体目录]  </div><div class="line">sudo mkfontscale  </div><div class="line">sudo mkfontdir  </div><div class="line">sudo <span class="built_in">fc</span>-cache -fv  </div></pre></td></tr></table></figure>
 <h4 id="3-中文文件名"><a href="#3-中文文件名" class="headerlink" title="3. 中文文件名"></a>3. 中文文件名</h4><p>在生成pdf时，最好使用英文文件名。<code>laravel-snappy</code>无法生成中文文件名，会导致PDF生成失败。如果非要生成中文文件名，最好以非中文的字符开头，以保证生成成功。</p>
-<h4 id="4-页眉页脚中文问题"><a href="#4-页眉页脚中文问题" class="headerlink" title="4.页眉页脚中文问题"></a>4.页眉页脚中文问题</h4><p>使用<code>footer/header-left</code>, <code>footer/header-center</code>, <code>footer/header-right</code>生成页眉页脚时，如果有中文可能会出现中文乱码的问题。如果必须中文，使用<code>header-html</code>和<code>footer-html</code>来设置页眉和页脚。具体设置可参考这个issue：<a href="https://github.com/barryvdh/laravel-snappy/issues/139#issuecomment-369050826" target="_blank" rel="noopener">PDF header and footer</a>。</p>
-<figure class="highlight php"><figcaption><span>使用footer-html/header-html</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$html = view()-&gt;make(<span class="string">"juiztramp.exporter.pdf.grupos"</span>)</span><br><span class="line">            -&gt;with(<span class="string">"provas"</span>,$ordens_de_passagem)</span><br><span class="line">            -&gt;render();</span><br><span class="line"></span><br><span class="line">$headerHtml = view()-&gt;make(<span class="string">'juiztramp.exporter.pdf.header'</span>)</span><br><span class="line">            -&gt;with(<span class="string">'nomeEvento'</span>,  $nomeEvento)</span><br><span class="line">            -&gt;with(<span class="string">'dataEvento'</span>,  $dataEvento)</span><br><span class="line">            -&gt;with(<span class="string">'localEvento'</span>, $localEvento)</span><br><span class="line">            -&gt;render();</span><br><span class="line"></span><br><span class="line">$footerHtml = view()-&gt;make(<span class="string">'juiztramp.exporter.pdf.footer'</span>)</span><br><span class="line">            -&gt;with(<span class="string">'organizacao'</span>, $organizacao)</span><br><span class="line">            -&gt;render();</span><br></pre></td></tr></table></figure>
+<h4 id="4-页眉页脚中文问题"><a href="#4-页眉页脚中文问题" class="headerlink" title="4.页眉页脚中文问题"></a>4.页眉页脚中文问题</h4><p>使用<code>footer/header-left</code>, <code>footer/header-center</code>, <code>footer/header-right</code>生成页眉页脚时，如果有中文可能会出现中文乱码的问题。如果必须中文，使用<code>header-html</code>和<code>footer-html</code>来设置页眉和页脚。具体设置可参考这个issue：<a href="https://github.com/barryvdh/laravel-snappy/issues/139#issuecomment-369050826" target="_blank" rel="external">PDF header and footer</a>。</p>
+<figure class="highlight php"><figcaption><span>使用footer-html/header-html</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$html = view()-&gt;make(<span class="string">"juiztramp.exporter.pdf.grupos"</span>)</div><div class="line">            -&gt;with(<span class="string">"provas"</span>,$ordens_de_passagem)</div><div class="line">            -&gt;render();</div><div class="line"></div><div class="line">$headerHtml = view()-&gt;make(<span class="string">'juiztramp.exporter.pdf.header'</span>)</div><div class="line">            -&gt;with(<span class="string">'nomeEvento'</span>,  $nomeEvento)</div><div class="line">            -&gt;with(<span class="string">'dataEvento'</span>,  $dataEvento)</div><div class="line">            -&gt;with(<span class="string">'localEvento'</span>, $localEvento)</div><div class="line">            -&gt;render();</div><div class="line"></div><div class="line">$footerHtml = view()-&gt;make(<span class="string">'juiztramp.exporter.pdf.footer'</span>)</div><div class="line">            -&gt;with(<span class="string">'organizacao'</span>, $organizacao)</div><div class="line">            -&gt;render();</div></pre></td></tr></table></figure>
 <p>[page]和[topage]参数可以通过js自动生成：</p>
-<figure class="highlight html"><figcaption><span>自动生成page</span><a href="https://stackoverflow.com/questions/7174359/how-to-do-page-numbering-in-header-footer-htmls-with-wkhtmltopdf" target="_blank" rel="noopener">link</a></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">substitutePdfVariables</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> <span class="title">getParameterByName</span>(<span class="params">name</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> match = <span class="built_in">RegExp</span>(<span class="string">'[?&amp;]'</span> + name + <span class="string">'=([^&amp;]*)'</span>).exec(<span class="built_in">window</span>.location.search);</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> match &amp;&amp; <span class="built_in">decodeURIComponent</span>(match[<span class="number">1</span>].replace(<span class="regexp">/\+/g</span>, <span class="string">' '</span>));</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> <span class="title">substitute</span>(<span class="params">name</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> value = getParameterByName(name);</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> elements = <span class="built_in">document</span>.getElementsByClassName(name);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">                <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; elements &amp;&amp; i &lt; elements.length; i++) &#123;</span></span><br><span class="line"><span class="undefined">                    elements[i].textContent = value;</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">            [<span class="string">'frompage'</span>, <span class="string">'topage'</span>, <span class="string">'page'</span>, <span class="string">'webpage'</span>, <span class="string">'section'</span>, <span class="string">'subsection'</span>, <span class="string">'subsubsection'</span>]</span></span><br><span class="line"><span class="javascript">                .forEach(<span class="function"><span class="keyword">function</span>(<span class="params">param</span>) </span>&#123;</span></span><br><span class="line"><span class="undefined">                    substitute(param);</span></span><br><span class="line"><span class="undefined">                &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"substitutePdfVariables()"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Page <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"page"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span> of <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"topage"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><figcaption><span>自动生成page</span><a href="https://stackoverflow.com/questions/7174359/how-to-do-page-numbering-in-header-footer-htmls-with-wkhtmltopdf" target="_blank" rel="external">link</a></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!doctype html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">substitutePdfVariables</span>(<span class="params"></span>) </span>&#123;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> <span class="title">getParameterByName</span>(<span class="params">name</span>) </span>&#123;</span></div><div class="line"><span class="javascript">                <span class="keyword">var</span> match = <span class="built_in">RegExp</span>(<span class="string">'[?&amp;]'</span> + name + <span class="string">'=([^&amp;]*)'</span>).exec(<span class="built_in">window</span>.location.search);</span></div><div class="line"><span class="javascript">                <span class="keyword">return</span> match &amp;&amp; <span class="built_in">decodeURIComponent</span>(match[<span class="number">1</span>].replace(<span class="regexp">/\+/g</span>, <span class="string">' '</span>));</span></div><div class="line"><span class="undefined">            &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> <span class="title">substitute</span>(<span class="params">name</span>) </span>&#123;</span></div><div class="line"><span class="javascript">                <span class="keyword">var</span> value = getParameterByName(name);</span></div><div class="line"><span class="javascript">                <span class="keyword">var</span> elements = <span class="built_in">document</span>.getElementsByClassName(name);</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">                <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; elements &amp;&amp; i &lt; elements.length; i++) &#123;</span></div><div class="line"><span class="undefined">                    elements[i].textContent = value;</span></div><div class="line"><span class="undefined">                &#125;</span></div><div class="line"><span class="undefined">            &#125;</span></div><div class="line"><span class="undefined"></span></div><div class="line"><span class="javascript">            [<span class="string">'frompage'</span>, <span class="string">'topage'</span>, <span class="string">'page'</span>, <span class="string">'webpage'</span>, <span class="string">'section'</span>, <span class="string">'subsection'</span>, <span class="string">'subsubsection'</span>]</span></div><div class="line"><span class="javascript">                .forEach(<span class="function"><span class="keyword">function</span>(<span class="params">param</span>) </span>&#123;</span></div><div class="line"><span class="undefined">                    substitute(param);</span></div><div class="line"><span class="undefined">                &#125;);</span></div><div class="line"><span class="undefined">        &#125;</span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"substitutePdfVariables()"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Page <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"page"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span> of <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"topage"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>实际使用过程中来说<code>laravel-snappy</code>要比<code>laravel-dompdf</code>更好一些，但是<code>laravel-snappy</code>使用需要额外安装<code>wkhtmltopdf</code>稍微麻烦一点。</p>
 
             
@@ -260,7 +277,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br>
+                <span class="text-color-light text-small">标签</span><br/>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/Laravel/">Laravel</a> <a class="tag tag--primary tag--small t-link" href="/tags/PDF/">PDF</a>
 
@@ -271,7 +288,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/" data-tooltip="期货和期货市场">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/"  data-tooltip="期货和期货市场">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -289,7 +306,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -348,7 +365,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/" data-tooltip="期货和期货市场">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/"  data-tooltip="期货和期货市场">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -366,7 +383,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -435,7 +452,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -445,7 +462,7 @@
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br>
+                <br/>
                 <p>PHP Developer</p>
 
             </h5>
@@ -453,7 +470,7 @@
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br>
+                <br/>
                 Shanghai,China
             </h5>
         

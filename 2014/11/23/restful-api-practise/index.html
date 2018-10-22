@@ -66,10 +66,11 @@
     </h1>
     
         
-            <a class="header-right-picture " href="#about">
+            <a  class="header-right-picture "
+                href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
         
         </a>
     
@@ -84,7 +85,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -94,7 +95,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/ ">
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -103,7 +107,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-categories">
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -112,7 +119,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-tags">
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -121,7 +131,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-archives">
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -130,7 +143,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -143,7 +159,7 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -152,7 +168,7 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -165,7 +181,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/atom.xml">
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -182,7 +201,7 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
         <div class="post-header main-content-wrap text-left">
@@ -209,7 +228,7 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api" target="_blank" rel="noopener">Best Practices for Designing a Pragmatic RESTful API</a>，读完之后顿觉彻悟，故此将自己的一些理解记录下来。<a id="more"></a></p>
+            <p>之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api" target="_blank" rel="external">Best Practices for Designing a Pragmatic RESTful API</a>，读完之后顿觉彻悟，故此将自己的一些理解记录下来。<a id="more"></a></p>
 <h2 id="API的基本要求"><a href="#API的基本要求" class="headerlink" title="API的基本要求"></a>API的基本要求</h2><p>要正真设计好一个接口，那么从一开始就要理解好接口的重要性，为什么非要费这么大的劲去做这件事，意义何在？在设计一个接口的时候我们常常会考虑到一些问题，比如安全认证怎么做，URI的规则怎么设定，是否要加入版本号，错误返回如何统一格式，HTTP状态码如何设定等等问题。如果从一开始不想好这些，而是在后面去修补，那么就会带来巨大的工作量，而且很容易产生混乱，不仅无法共同开发，而且也会给使用接口的开发者带来一定的困扰。一下就是博客中给我们的几点建议，这也是设计一个接口之前应该想到的基本要求：</p>
 <ul>
 <li>尽可能的遵循web标准</li>
@@ -219,7 +238,7 @@
 <li>尽量去权衡上述几点要求</li>
 </ul>
 <p>API其实就是开发者的UI，这和普通的UI对于开发者同样重要，也要注意开发者的体验！</p>
-<h2 id="RESTful-URI和action的使用"><a href="#RESTful-URI和action的使用" class="headerlink" title="RESTful URI和action的使用"></a>RESTful URI和action的使用</h2><p>博客中引用了<a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank" rel="noopener">Network based Software Architectures</a>中的一句话，如果还有一样东西能够获得广泛的采用，那就是RESTful原则了。RESTful API的核心原则就是服务器资源，并通过HTTP的PUT/GET/DELETE/POST方法来操作这些资源。那么问题来了，如何去拆分这些资源呢？如何去使用HTTP的方法呢？</p>
+<h2 id="RESTful-URI和action的使用"><a href="#RESTful-URI和action的使用" class="headerlink" title="RESTful URI和action的使用"></a>RESTful URI和action的使用</h2><p>博客中引用了<a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm" target="_blank" rel="external">Network based Software Architectures</a>中的一句话，如果还有一样东西能够获得广泛的采用，那就是RESTful原则了。RESTful API的核心原则就是服务器资源，并通过HTTP的PUT/GET/DELETE/POST方法来操作这些资源。那么问题来了，如何去拆分这些资源呢？如何去使用HTTP的方法呢？</p>
 <h3 id="如何拆分资源"><a href="#如何拆分资源" class="headerlink" title="如何拆分资源"></a>如何拆分资源</h3><p>在开发者开来，资源应该是名词（最好不要用动词来描述资源），尽管你内部的数据模型能够灵活的对应到相应的资源，但是一对一的对应不是必要的，这里面的关键就是隐藏内部资源，只暴露必要的外部资源供开发者使用。这里还要注意，有时候接口需要的数据模型和内部系统的模型是一样的，但是接口需要的数据量可能要比内部系统少的多。所以在设计接口的时候一定要注意所有从接口出来的数据都要“洗”一下，把没有必要数据都给去掉，只提供必须的数据。（不管怎么说，接口都是一个对外的口子，是很多人都可以使用的，所以任何多余的信息都不要泄露到外面）</p>
 <pre><code>GET /tickets ---------- Get Tickets List
 GET /tickets/12 ------- Get Tickets which id = 12
@@ -243,8 +262,8 @@ DELETE /tickets/12/messages/5
 </ol>
 <h2 id="始终使用SSL"><a href="#始终使用SSL" class="headerlink" title="始终使用SSL"></a>始终使用SSL</h2><p>为什么？因为你无法保证你的接口会被谁调用，你对外面开了个口子，但是你不注意安全保护，那就什么人都可以来拿数据，特别是一些重要的数据。使用SSL可以减少认证的成本，你只需要一个简单的token就可以认证了，而不是每次都让用户对请求签名。</p>
 <p>值得注意的是：不要让非SSL的url访问重定向到SSL的URL</p>
-<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>文档的重要性就不要多说了，一个好的文档的重要性想必大家都知道，这里只是推荐一个文档生成利器<a href="http://apidocjs.com/" target="_blank" rel="noopener">apiDoc</a>,当然估计还有其他好用的工具。</p>
-<h2 id="版本化"><a href="#版本化" class="headerlink" title="版本化"></a>版本化</h2><p>版本的好处就是便于区别，同时也能在不同版本之间平稳过渡。关于把版本信息放在header还是URL中，可以参照一下stack overflow中的相关提问<a href="http://stackoverflow.com/questions/389169/best-practices-for-api-versioning" target="_blank" rel="noopener">API version should be included in the URL or in a header</a>，争论的焦点也就在于如果把版本号放在URL中就容易跨版本访问资源，这样显然是不好的。还有人把主版本信息放在URL中，子版本信息放在header头中，个人感觉这几个方法都可以。但是还是建议版本化。</p>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>文档的重要性就不要多说了，一个好的文档的重要性想必大家都知道，这里只是推荐一个文档生成利器<a href="http://apidocjs.com/" target="_blank" rel="external">apiDoc</a>,当然估计还有其他好用的工具。</p>
+<h2 id="版本化"><a href="#版本化" class="headerlink" title="版本化"></a>版本化</h2><p>版本的好处就是便于区别，同时也能在不同版本之间平稳过渡。关于把版本信息放在header还是URL中，可以参照一下stack overflow中的相关提问<a href="http://stackoverflow.com/questions/389169/best-practices-for-api-versioning" target="_blank" rel="external">API version should be included in the URL or in a header</a>，争论的焦点也就在于如果把版本号放在URL中就容易跨版本访问资源，这样显然是不好的。还有人把主版本信息放在URL中，子版本信息放在header头中，个人感觉这几个方法都可以。但是还是建议版本化。</p>
 <h2 id="结果处理"><a href="#结果处理" class="headerlink" title="结果处理"></a>结果处理</h2><p>所谓结果处理，就是对返回给用户的结果的过滤、排序、搜索等。这些相关的功能最后用查询参数(query parameter)来实现。</p>
 <h3 id="结果过滤"><a href="#结果过滤" class="headerlink" title="结果过滤"></a>结果过滤</h3><p>如果要提供结果过滤，那么就要对所有的接口使用统一的过滤规则。比如设定了一个state的变量来表示资源的状态，结合博客中的例子，如果想要获取所有已打开的标签，那么就会是这样：</p>
 <pre><code>GET /tickets?state=open
@@ -277,11 +296,11 @@ DELETE /tickets/12/messages/5
 <p>一些API使用UNIX时间戳而不是X-Rate-Limit-Reset，不要这样做，HTTP已经规定了使用RFC 1123的时间格式</p>
 <h2 id="认证-Authtication"><a href="#认证-Authtication" class="headerlink" title="认证 Authtication"></a>认证 Authtication</h2><p>RESTful API是没有状态的，这意味着请求的认证不能依靠session和cookie，所以每一个请求都要携带一个凭证，以便进行请求认证。</p>
 <p>通过使用SSL，每个请求可以不需要提供用户名和密码，我们可以给用户返回一个随机的token，这样极大地方便使用浏览器访问API的用户，这种方法适用于用户可以第一次通过用户名-密码验证并且得到token。</p>
-<p>如果不方便，可以使用<a href="http://oauth.net/2/" target="_blank" rel="noopener">OAuth2</a>来进行token的安全传输。</p>
-<p>支持<a href="http://en.wikipedia.org/wiki/JSONP" target="_blank" rel="noopener">JSONP</a>的API需要额外的认证方法，因为JSONP请求无法发送HTTP Basic Auth credentials or <a href="http://tools.ietf.org/html/rfc6750" target="_blank" rel="noopener">Bearer tokens</a>，这种情况下可以设置一个查询参数如<code>access_token</code>来传递凭证，这儿有个固有的问题就是大多数web服务器会把请求参数保存在服务器日志里。</p>
+<p>如果不方便，可以使用<a href="http://oauth.net/2/" target="_blank" rel="external">OAuth2</a>来进行token的安全传输。</p>
+<p>支持<a href="http://en.wikipedia.org/wiki/JSONP" target="_blank" rel="external">JSONP</a>的API需要额外的认证方法，因为JSONP请求无法发送HTTP Basic Auth credentials or <a href="http://tools.ietf.org/html/rfc6750" target="_blank" rel="external">Bearer tokens</a>，这种情况下可以设置一个查询参数如<code>access_token</code>来传递凭证，这儿有个固有的问题就是大多数web服务器会把请求参数保存在服务器日志里。</p>
 <p>这三种传输方法底层传输的token是一样的。</p>
 <h2 id="cache-缓存"><a href="#cache-缓存" class="headerlink" title="cache 缓存"></a>cache 缓存</h2><p>HTTP提供一个自带的缓存框架，你所要做的就是添加一些附加的响应头信息，在接收请求的时候对请求头进行一些验证</p>
-<p>这里有两种方法：<a href="http://en.wikipedia.org/wiki/HTTP_ETag" target="_blank" rel="noopener">E-Tga</a>和<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.29" target="_blank" rel="noopener">Last-Modefied</a></p>
+<p>这里有两种方法：<a href="http://en.wikipedia.org/wiki/HTTP_ETag" target="_blank" rel="external">E-Tga</a>和<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.29" target="_blank" rel="external">Last-Modefied</a></p>
 <p>E-Tag:在生成一个请求的时候，在HTTP请求头里会加入一个ETag，其中包含一些HASH或者表现的校验值，这个值随着输出的表现的变化而变化。如果一个进入的HTTP请求包含<code>If-None-Match</code>的请求头信息，并且和ETag的值是一样的，那么API就应该返回一个304 Not Modified的状态码，而不是输出资源的表现。</p>
 <p>Last-Modified:基本的功能类似于ETag，只是多了一个时间戳，相应的返回头的Last-Modified会包含一个时间戳，它会和If-Modified-Since进行校验。HTTP的规范里有三种时间格式，不过web服务器都能够处理。</p>
 <h2 id="Error-出错处理"><a href="#Error-出错处理" class="headerlink" title="Error 出错处理"></a>Error 出错处理</h2><p>就像HTML会显示出错信息一样，API也应该返回错误信息，并且它的格式应该和表现层一致。API应该返回相应的状态码，API的典型错误被分为400系列错误和500系列错误，400系列表示客户端错误，如错误的请求格式等。500系列错误表示服务器错误。API应该将所有的400错误以JSON的格式返回，如果可能，500系列的错误也应该如此，json格式的错误应该包含两部分内容，一个有用的错误信息和一个唯一的错误代码，以及任何可能的详细描述。比如：</p>
@@ -331,7 +350,7 @@ DELETE /tickets/12/messages/5
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br>
+                <span class="text-color-light text-small">标签</span><br/>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/Restful/">Restful</a>
 
@@ -342,7 +361,7 @@ DELETE /tickets/12/messages/5
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/29/difference-between-interface-and-abstract-class-in-php/" data-tooltip="对于PHP中Interface和Abstract Class的认识">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/29/difference-between-interface-and-abstract-class-in-php/"  data-tooltip="对于PHP中Interface和Abstract Class的认识">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -360,7 +379,7 @@ DELETE /tickets/12/messages/5
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -419,7 +438,7 @@ DELETE /tickets/12/messages/5
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/29/difference-between-interface-and-abstract-class-in-php/" data-tooltip="对于PHP中Interface和Abstract Class的认识">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/11/29/difference-between-interface-and-abstract-class-in-php/"  data-tooltip="对于PHP中Interface和Abstract Class的认识">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -437,7 +456,7 @@ DELETE /tickets/12/messages/5
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -506,7 +525,7 @@ DELETE /tickets/12/messages/5
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -516,7 +535,7 @@ DELETE /tickets/12/messages/5
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br>
+                <br/>
                 <p>PHP Developer</p>
 
             </h5>
@@ -524,7 +543,7 @@ DELETE /tickets/12/messages/5
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br>
+                <br/>
                 Shanghai,China
             </h5>
         

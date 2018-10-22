@@ -66,10 +66,11 @@
     </h1>
     
         
-            <a class="header-right-picture " href="#about">
+            <a  class="header-right-picture "
+                href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
         
         </a>
     
@@ -84,7 +85,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -94,7 +95,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/ ">
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -103,7 +107,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-categories">
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -112,7 +119,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-tags">
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -121,7 +131,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-archives">
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -130,7 +143,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -143,7 +159,7 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -152,7 +168,7 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -165,7 +181,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/atom.xml">
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -182,7 +201,7 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
         <div class="post-header main-content-wrap text-left">
@@ -227,17 +246,17 @@
 <li>必须override clone()方法，禁止对象被克隆</li>
 </ul>
 <p>PHP代码示例：</p>
-<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</span><br><span class="line">    <span class="comment">//定义一个私有静态变量，用于存储实例化对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> $_instance;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//构造函数必须声明为私有的，防止外部实例化对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//类唯一实例的全局访问点，判断对象是否实例化并返回实例，共外部调用</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(is_null(<span class="keyword">self</span>::$_instance))&#123;</span><br><span class="line">            <span class="keyword">self</span>::$_instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>::$_instance;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//重载clone方法，不允许克隆对象实例</span></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="keyword">Exception</span>(<span class="string">'object_can_not_be_clone'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">// 其他业务方法</span></span><br><span class="line">        &#125;	</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="单例模式-工厂模式实现数据库对象实例化"><a href="#单例模式-工厂模式实现数据库对象实例化" class="headerlink" title="单例模式+工厂模式实现数据库对象实例化"></a>单例模式+工厂模式实现数据库对象实例化</h4><figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DBFactory</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> $_instance;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">($dbName, $params)</span></span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> ($dbName)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'PDO_MYSQL'</span> : </span><br><span class="line">                $dsn = <span class="string">"mysql:host="</span>.$params[<span class="string">'host'</span>].<span class="string">";dbname="</span>.$params[<span class="string">'dbName'</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'PDO_SQLSRV'</span> :</span><br><span class="line">                $dsn = <span class="string">"sqlsrv:Server="</span>.$params[<span class="string">'host'</span>].<span class="string">";Database="</span>.$params[<span class="string">'dbName'</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'PDO_OCI'</span> :</span><br><span class="line">                $dsn = <span class="string">"oci:dbname="</span>.$params[<span class="string">'host'</span>];</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span> :</span><br><span class="line">                $dsn = <span class="string">"mysql:host="</span>.$params[<span class="string">'host'</span>].<span class="string">";dbname="</span>.$params[<span class="string">'dbName'</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (is_null(<span class="keyword">self</span>::$_instance))&#123;</span><br><span class="line">            $options = <span class="keyword">array</span>(PDO::MYSQL_ATTR_INIT_COMMAND =&gt; <span class="string">'SET NAMES utf8'</span>);</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">self</span>::$_instance = <span class="keyword">new</span> PDO($dsn, $params[<span class="string">'dbUserName'</span>], $params[<span class="string">'dbUserPwd'</span>]);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (PDOException $e)&#123;</span><br><span class="line">                <span class="keyword">exit</span>($e-&gt;getMessage());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>::$_instance;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">self</span>::$_instance = <span class="keyword">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span></span>&#123;</div><div class="line">    <span class="comment">//定义一个私有静态变量，用于存储实例化对象</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> $_instance;</div><div class="line">    </div><div class="line">    <span class="comment">//构造函数必须声明为私有的，防止外部实例化对象</span></div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    </div><div class="line">    <span class="comment">//类唯一实例的全局访问点，判断对象是否实例化并返回实例，共外部调用</span></div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(is_null(<span class="keyword">self</span>::$_instance))&#123;</div><div class="line">            <span class="keyword">self</span>::$_instance = <span class="keyword">new</span> Singleton();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>::$_instance;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//重载clone方法，不允许克隆对象实例</span></div><div class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="keyword">Exception</span>(<span class="string">'object_can_not_be_clone'</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>&#123;</div><div class="line">            <span class="comment">// 其他业务方法</span></div><div class="line">        &#125;	</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="单例模式-工厂模式实现数据库对象实例化"><a href="#单例模式-工厂模式实现数据库对象实例化" class="headerlink" title="单例模式+工厂模式实现数据库对象实例化"></a>单例模式+工厂模式实现数据库对象实例化</h4><figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DBFactory</span></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> $_instance;</div><div class="line">    </div><div class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;&#125;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">($dbName, $params)</span></span>&#123;</div><div class="line">        <span class="keyword">switch</span> ($dbName)&#123;</div><div class="line">            <span class="keyword">case</span> <span class="string">'PDO_MYSQL'</span> : </div><div class="line">                $dsn = <span class="string">"mysql:host="</span>.$params[<span class="string">'host'</span>].<span class="string">";dbname="</span>.$params[<span class="string">'dbName'</span>];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">'PDO_SQLSRV'</span> :</div><div class="line">                $dsn = <span class="string">"sqlsrv:Server="</span>.$params[<span class="string">'host'</span>].<span class="string">";Database="</span>.$params[<span class="string">'dbName'</span>];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">case</span> <span class="string">'PDO_OCI'</span> :</div><div class="line">                $dsn = <span class="string">"oci:dbname="</span>.$params[<span class="string">'host'</span>];</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">default</span> :</div><div class="line">                $dsn = <span class="string">"mysql:host="</span>.$params[<span class="string">'host'</span>].<span class="string">";dbname="</span>.$params[<span class="string">'dbName'</span>];</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (is_null(<span class="keyword">self</span>::$_instance))&#123;</div><div class="line">            $options = <span class="keyword">array</span>(PDO::MYSQL_ATTR_INIT_COMMAND =&gt; <span class="string">'SET NAMES utf8'</span>);</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="keyword">self</span>::$_instance = <span class="keyword">new</span> PDO($dsn, $params[<span class="string">'dbUserName'</span>], $params[<span class="string">'dbUserPwd'</span>]);</div><div class="line">            &#125; <span class="keyword">catch</span> (PDOException $e)&#123;</div><div class="line">                <span class="keyword">exit</span>($e-&gt;getMessage());</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">self</span>::$_instance;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">self</span>::$_instance = <span class="keyword">NULL</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>工厂模式分割了数据库对象的具体创建方式和实例化过程，单例模式实现了对象的全局共享，这样一个基本的数据库对象工厂类就产生了</p>
 <h4 id="关于单例模式的几点说明"><a href="#关于单例模式的几点说明" class="headerlink" title="关于单例模式的几点说明"></a>关于单例模式的几点说明</h4><ul>
 <li>每次PHP页面执行完之后会释放所有资源，这样说单例模式并不能够发挥它的能力，即使这样，单例模式还是有使用价值的</li>
 <li>单例模式一般要求构造方法是private，这样它就无法被继承，如果要通过继承来扩展一个单例，那么其构造方法就必须是public或者protected，对于单例的继承到底有没有必要，目前来说个人觉得没有必要，因为单例主要是实现全局控制和共享，如果对其继承和扩展，极有可能导致其失控</li>
 </ul>
 <h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><ul>
-<li><a href="http://www.thinkphp.cn/topic/4496.html" target="_blank" rel="noopener">为什么要使用PHP单例模式及应用实例</a></li>
-<li><a href="http://blog.samoay.me/post/view/13" target="_blank" rel="noopener">PHP设计模式之单例模式(Singleton)</a></li>
-<li><a href="http://www.phppan.com/2010/06/php-design-pattern-6-singleton/" target="_blank" rel="noopener">PHP设计模式笔记：使用PHP实现单例模式</a></li>
+<li><a href="http://www.thinkphp.cn/topic/4496.html" target="_blank" rel="external">为什么要使用PHP单例模式及应用实例</a></li>
+<li><a href="http://blog.samoay.me/post/view/13" target="_blank" rel="external">PHP设计模式之单例模式(Singleton)</a></li>
+<li><a href="http://www.phppan.com/2010/06/php-design-pattern-6-singleton/" target="_blank" rel="external">PHP设计模式笔记：使用PHP实现单例模式</a></li>
 </ul>
 
             
@@ -249,7 +268,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br>
+                <span class="text-color-light text-small">标签</span><br/>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/Design-Pattern/">Design Pattern</a>
 
@@ -260,7 +279,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/11/rest-web-service/" data-tooltip="初识REST">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/11/rest-web-service/"  data-tooltip="初识REST">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -278,7 +297,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -337,7 +356,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/11/rest-web-service/" data-tooltip="初识REST">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2014/05/11/rest-web-service/"  data-tooltip="初识REST">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -355,7 +374,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -424,7 +443,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -434,7 +453,7 @@
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br>
+                <br/>
                 <p>PHP Developer</p>
 
             </h5>
@@ -442,7 +461,7 @@
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br>
+                <br/>
                 Shanghai,China
             </h5>
         

@@ -66,10 +66,11 @@
     </h1>
     
         
-            <a class="header-right-picture " href="#about">
+            <a  class="header-right-picture "
+                href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
         
         </a>
     
@@ -84,7 +85,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -94,7 +95,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/ ">
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -103,7 +107,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-categories">
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -112,7 +119,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-tags">
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -121,7 +131,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-archives">
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -130,7 +143,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -143,7 +159,7 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -152,7 +168,7 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -165,7 +181,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/atom.xml">
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -182,7 +201,7 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
         <div class="post-header main-content-wrap text-left">
@@ -227,7 +246,7 @@
 <li>Nodes: 将Token转换成对应文档对象的一个个独立的对象实例Node。</li>
 <li>DOM: 根据HTML标签之间的关系/CSS定义的修饰符的关系将一个个独立的Node链接成树状关系的DOM。</li>
 </ul>
-<p>详细的过程说明可参照<a href="https://segmentfault.com/a/1190000008550336" target="_blank" rel="noopener">网站性能优化—CRP</a></p>
+<p>详细的过程说明可参照<a href="https://segmentfault.com/a/1190000008550336" target="_blank" rel="external">网站性能优化—CRP</a></p>
 <h4 id="1-2-构建渲染树"><a href="#1-2-构建渲染树" class="headerlink" title="1.2 构建渲染树"></a>1.2 构建渲染树</h4><p>渲染树的构建过程中要注意一下几点：</p>
 <ul>
 <li>从DOM根节点开始，遍历每个节点，并应用对应的CSSOM规则。<ul>
@@ -251,7 +270,7 @@
 </ul>
 <h4 id="2-3-HTML和CSS都是阻塞渲染的资源"><a href="#2-3-HTML和CSS都是阻塞渲染的资源" class="headerlink" title="2.3 HTML和CSS都是阻塞渲染的资源"></a>2.3 HTML和CSS都是阻塞渲染的资源</h4><p>从浏览器引擎的渲染流程来看，渲染的前两步就是生成HTML的DOM和CSS的CSSOM，所以要<strong>尽早尽快的把HTML和CSS加载到浏览器引擎以优化首次渲染的时间。</strong></p>
 <h4 id="2-4-使用CSS媒体类型和媒体查询来优化CSS阻塞渲染"><a href="#2-4-使用CSS媒体类型和媒体查询来优化CSS阻塞渲染" class="headerlink" title="2.4 使用CSS媒体类型和媒体查询来优化CSS阻塞渲染"></a>2.4 使用CSS媒体类型和媒体查询来优化CSS阻塞渲染</h4><p>主要思路是通过媒体查询，让不同媒体类型的设备加载不同的CSS，避免CSS的冗余加载。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"style.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"print.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">media</span>=<span class="string">"print"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"other.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">media</span>=<span class="string">"(min-width: 40em)"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"style.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"print.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">media</span>=<span class="string">"print"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"other.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">media</span>=<span class="string">"(min-width: 40em)"</span>&gt;</span></div></pre></td></tr></table></figure>
 <h4 id="2-5-Javascript资源阻塞"><a href="#2-5-Javascript资源阻塞" class="headerlink" title="2.5 Javascript资源阻塞"></a>2.5 Javascript资源阻塞</h4><p>Javascript主要修改的是DOM和CSSOM，浏览器引擎在运行Javascript时，DOM构建和CSSOM构建会有不同的表现：</p>
 <ul>
 <li>DOM构建时遇到Javascript会阻塞。</li>
@@ -267,9 +286,9 @@
 </li>
 </ul>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="https://segmentfault.com/a/1190000008550336" target="_blank" rel="noopener">网站性能优化—CRP</a></li>
-<li><a href="https://segmentfault.com/q/1010000000640869" target="_blank" rel="noopener">defer和async的区别</a></li>
-<li><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&amp;mid=2247489674&amp;idx=1&amp;sn=7a73f9398be8024bebb6467e730c4d3b&amp;chksm=f951adc9ce2624df6b09ed1da77751420ddd72eb2c0e95f456a8f2a834207704cfd05797da14&amp;token=1699854096&amp;lang=zh_CN#rd" target="_blank" rel="noopener">浏览器页面渲染机制，你真的弄懂了吗？</a></li>
+<li><a href="https://segmentfault.com/a/1190000008550336" target="_blank" rel="external">网站性能优化—CRP</a></li>
+<li><a href="https://segmentfault.com/q/1010000000640869" target="_blank" rel="external">defer和async的区别</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&amp;mid=2247489674&amp;idx=1&amp;sn=7a73f9398be8024bebb6467e730c4d3b&amp;chksm=f951adc9ce2624df6b09ed1da77751420ddd72eb2c0e95f456a8f2a834207704cfd05797da14&amp;token=1699854096&amp;lang=zh_CN#rd" target="_blank" rel="external">浏览器页面渲染机制，你真的弄懂了吗？</a></li>
 </ul>
 
             
@@ -281,7 +300,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br>
+                <span class="text-color-light text-small">标签</span><br/>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/CRP/">CRP</a>
 
@@ -292,7 +311,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/11/12/Generate-PDF-in-Laravel/" data-tooltip="Laravel中生成PDF">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/11/12/Generate-PDF-in-Laravel/"  data-tooltip="Laravel中生成PDF">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -310,7 +329,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -369,7 +388,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/11/12/Generate-PDF-in-Laravel/" data-tooltip="Laravel中生成PDF">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/11/12/Generate-PDF-in-Laravel/"  data-tooltip="Laravel中生成PDF">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -387,7 +406,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -456,7 +475,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -466,7 +485,7 @@
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br>
+                <br/>
                 <p>PHP Developer</p>
 
             </h5>
@@ -474,7 +493,7 @@
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br>
+                <br/>
                 Shanghai,China
             </h5>
         

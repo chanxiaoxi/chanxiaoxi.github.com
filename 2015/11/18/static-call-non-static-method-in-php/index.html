@@ -66,10 +66,11 @@
     </h1>
     
         
-            <a class="header-right-picture " href="#about">
+            <a  class="header-right-picture "
+                href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
         
         </a>
     
@@ -84,7 +85,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -94,7 +95,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/ ">
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -103,7 +107,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-categories">
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -112,7 +119,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-tags">
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -121,7 +131,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/all-archives">
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -130,7 +143,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="#search"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -143,7 +159,7 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -152,7 +168,7 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -165,7 +181,10 @@
         
             <li class="sidebar-button">
                 
-                    <a class="sidebar-button-link " href="/atom.xml">
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -182,7 +201,7 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
     
     
         <div class="post-header main-content-wrap text-left">
@@ -212,20 +231,20 @@
             <p>今天在研究Laravel的Facade的时候遇到一个问题：PHP竟然可以使用静态方式调用类的非静态方法。对于面向对象的语言来说，这有点奇葩。在平时的工作中也从未这样使用过。为什么PHP会出现这样的问题，Google了好多资料，终于有了一个大概的认识。<a id="more"></a></p>
 <h2 id="E-STRICT和历史遗留问题"><a href="#E-STRICT和历史遗留问题" class="headerlink" title="E_STRICT和历史遗留问题"></a>E_STRICT和历史遗留问题</h2><p>使用静态方式调用非静态方法，PHP会报一个<code>E_STRICT</code>级别的错误，E_STRICT是PHP5开始引入的，PHP官方文档中的说明如下：</p>
 <blockquote><p>自 PHP 5 起引进了新常量 E_STRICT，其值为 2048。它提供了对用户代码的协同性和向前兼容性的运行时 PHP 建议，有助于使用户保持最新和最好的编程风格。例如在使用已过时的函数时 STRICT 信息会提出警告。<br><code>E_ALL</code>不包括<code>E_STRICT</code>，因此其默认不激活。</p>
-<footer><strong>PHP</strong><cite><a href="http://php.net/manual/zh/migrating5.errorrep.php" target="_blank" rel="noopener">php.net/manual/zh/migrating5.errorrep.php</a></cite></footer></blockquote>
-<p>所以当我们没有打开<code>E_STRICT</code>级别错误的时候，PHP默认就不会报警：<br><figure class="highlight php"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">error_reporting(E_ALL);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'bar'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Foo::bar();<span class="comment">//Strict Standards: Non-static method Foo::bar() should not be called statically bar</span></span><br></pre></td></tr></table></figure><br>由<code>E_STRICT</code>级别的错误可以看出，这个问题是PHP的历史遗留问题，准确的说在PHP4加入面向对象的机制后就有这个问题了，那么为什么PHP会允许这种情况出现？</p>
+<footer><strong>PHP</strong><cite><a href="http://php.net/manual/zh/migrating5.errorrep.php" target="_blank" rel="external">php.net/manual/zh/migrating5.errorrep.php</a></cite></footer></blockquote>
+<p>所以当我们没有打开<code>E_STRICT</code>级别错误的时候，PHP默认就不会报警：<br><figure class="highlight php"><figcaption><span>示例代码</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">error_reporting(E_ALL);</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'bar'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Foo::bar();<span class="comment">//Strict Standards: Non-static method Foo::bar() should not be called statically bar</span></div></pre></td></tr></table></figure><br>由<code>E_STRICT</code>级别的错误可以看出，这个问题是PHP的历史遗留问题，准确的说在PHP4加入面向对象的机制后就有这个问题了，那么为什么PHP会允许这种情况出现？</p>
 <blockquote><p>为了与国际接轨，引入了面向对象的概念。而就是在引入这个面向对象的特征时，发生了一件令php目瞪口呆，最终无可奈何的事情。面向对象有个很重要的概念就是继承。在继承中，子类如果覆盖父类的方法，同时需要调用父类的同名方法，该怎么办呢？php4版本提供了这样一种方法：parentClassName::method()。提出此种方法之时，有识之士已经发现了问题：这个调用方式，不正是静态方法的调用方式吗？php4随即答曰：不碍事。类中使用时，可以判断此方式为子类正在调用父类方法；非类中使用时，就判断为静态调用了。所需要的只是发现此种调用时查询一下方法映射就好了。</p>
-<footer><strong>PHP中非静态方法的静态调用</strong><cite><a href="http://bbs.csdn.net/topics/350118147" target="_blank" rel="noopener">bbs.csdn.net/topics/350118147</a></cite></footer></blockquote>
+<footer><strong>PHP中非静态方法的静态调用</strong><cite><a href="http://bbs.csdn.net/topics/350118147" target="_blank" rel="external">bbs.csdn.net/topics/350118147</a></cite></footer></blockquote>
 <p>也就是说它原本就是设计在类中使用用来调用父类方法的，只是恰巧在类之外也能使用而已。很快的，这种调用父类的方式在PHP5中就被<code>parent::method()</code>给取代了。但是他们的非静态方法的静态调用还存在。</p>
 <h2 id="静态调用和非静态调用"><a href="#静态调用和非静态调用" class="headerlink" title="静态调用和非静态调用"></a>静态调用和非静态调用</h2><h4 id="范围解析操作符"><a href="#范围解析操作符" class="headerlink" title="范围解析操作符(::)"></a>范围解析操作符(::)</h4><blockquote><p>范围解析操作符（也可称作 Paamayim Nekudotayim）或者更简单地说是一对冒号，可以用于访问静态成员，类常量，还可以用于覆盖类中的属性和方法。</p>
 <p>当在类定义之外引用到这些项目时，要使用类名。</p>
 <p>自 PHP 5.3.0 起，可以通过变量来引用类，该变量的值不能是关键字（如 self，parent 和 static）。</p>
-<footer><strong>范围解析操作符</strong><cite><a href="http://php.net/manual/zh/language.oop5.paamayim-nekudotayim.php" target="_blank" rel="noopener">php.net/manual/zh/language.oop5.paamayim-nekudotayim.php</a></cite></footer></blockquote>
+<footer><strong>范围解析操作符</strong><cite><a href="http://php.net/manual/zh/language.oop5.paamayim-nekudotayim.php" target="_blank" rel="external">php.net/manual/zh/language.oop5.paamayim-nekudotayim.php</a></cite></footer></blockquote>
 <h4 id="calling-scope"><a href="#calling-scope" class="headerlink" title="calling scope"></a>calling scope</h4><blockquote><p>在PHP中, 调用一个方法的时候, $this指针指向的对象就是这个方法被调用时刻的calling scope</p>
-<footer><strong>PHP的Calling Scope</strong><cite><a href="http://www.laruence.com/2012/06/14/2628.html" target="_blank" rel="noopener">www.laruence.com/2012/06/14/2628.html</a></cite></footer></blockquote>
+<footer><strong>PHP的Calling Scope</strong><cite><a href="http://www.laruence.com/2012/06/14/2628.html" target="_blank" rel="external">www.laruence.com/2012/06/14/2628.html</a></cite></footer></blockquote>
 <h4 id="静态调用和非静态调用的区别"><a href="#静态调用和非静态调用的区别" class="headerlink" title="静态调用和非静态调用的区别"></a>静态调用和非静态调用的区别</h4><p>文中也指出：在PHP中，判断静态与否不是靠范围解析操作符(::),而是靠calling scope。如果处于一个没有calling scope域的上下文中，那么就是静态调用，否则就不是静态调用。</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>搞清楚了静态调用和非静态调用的却别，明白了PHP的历史遗留问题，我们只要知道有这么回事就好了，在实际开发中，完全避免使用非静态方法的静态调用。</p>
-<h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><p><a href="http://www.laruence.com/2012/06/14/2628.html" target="_blank" rel="noopener">PHP的Calling Scope</a><br><a href="http://bbs.csdn.net/topics/350118147" target="_blank" rel="noopener">php中非静态方法的静态调用</a><br><a href="http://www.cnblogs.com/yjf512/archive/2012/09/12/2682556.html" target="_blank" rel="noopener">PHP静态调用非静态方法</a></p>
+<h2 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h2><p><a href="http://www.laruence.com/2012/06/14/2628.html" target="_blank" rel="external">PHP的Calling Scope</a><br><a href="http://bbs.csdn.net/topics/350118147" target="_blank" rel="external">php中非静态方法的静态调用</a><br><a href="http://www.cnblogs.com/yjf512/archive/2012/09/12/2682556.html" target="_blank" rel="external">PHP静态调用非静态方法</a></p>
 
             
                 
@@ -236,7 +255,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br>
+                <span class="text-color-light text-small">标签</span><br/>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/PHP/">PHP</a>
 
@@ -247,7 +266,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/14/What-is-WebSocket/" data-tooltip="认识WebSocket">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/14/What-is-WebSocket/"  data-tooltip="认识WebSocket">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -265,7 +284,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -324,7 +343,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/14/What-is-WebSocket/" data-tooltip="认识WebSocket">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/14/What-is-WebSocket/"  data-tooltip="认识WebSocket">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -342,7 +361,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -411,7 +430,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -421,7 +440,7 @@
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br>
+                <br/>
                 <p>PHP Developer</p>
 
             </h5>
@@ -429,7 +448,7 @@
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br>
+                <br/>
                 Shanghai,China
             </h5>
         
