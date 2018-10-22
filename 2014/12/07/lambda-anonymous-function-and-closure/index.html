@@ -66,11 +66,10 @@
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="#about">
+            <a class="header-right-picture " href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
         
         </a>
     
@@ -85,7 +84,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -95,10 +94,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/ "
-                        
-                    >
+                    <a class="sidebar-button-link " href="/ ">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -107,10 +103,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-categories"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-categories">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -119,10 +112,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-tags"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-tags">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -131,10 +121,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-archives"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-archives">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -143,10 +130,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link st-search-show-outputs"
-                         href="#search"
-                        
-                    >
+                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -159,7 +143,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -168,7 +152,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -181,10 +165,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/atom.xml"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/atom.xml">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -201,7 +182,7 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     
         <div class="post-header main-content-wrap text-left">
@@ -231,6 +212,8 @@
             <p>今天看到一些关于PHP中匿名函数和闭包函数的讨论，大都是对两个的概念不清楚，经常混淆，而且PHP的匿名函数和其他语言的匿名函数还是有些不一样的地方，特整理此文章，梳理一下对这些概念的认识。<a id="more"></a></p>
 <h2 id="维基百科上的描述"><a href="#维基百科上的描述" class="headerlink" title="维基百科上的描述"></a>维基百科上的描述</h2><blockquote>
 <p>If the function is only used once, or a limited number of times, an anonymous function may be syntactically lighter than using a named function. Anonymous functions are ubiquitous in functional programming languages and other languages with first-class functions(<em>This means the language supports passing functions as arguments to other functions, returning them as the values from other functions, and assigning them to variables or storing them in data structures.</em>), where they fulfil the same role for the function type as literals do for other data types.</p>
+</blockquote>
+<blockquote>
 <p>Anonymous functions are a form of nested function, in that they allow access to variables in the scope of the containing function (non-local variables). This means anonymous functions need to be implemented using closures. Unlike named nested functions, they cannot be recursive without the assistance of a fixpoint operator (also known as an anonymous fixpoint or anonymous recursion).</p>
 </blockquote>
 <h3 id="Lambda"><a href="#Lambda" class="headerlink" title="Lambda"></a>Lambda</h3><p>Lambda其实是Anonymous Function的别名，在其他的一些变成语言中可能经常看到，比如Python</p>
@@ -238,7 +221,7 @@
 <p>Anonymous functions originate in the work of Alonzo Church in his invention of the lambda calculus in 1936 (prior to electronic computers), in which all functions are anonymous.In several programming languages, anonymous functions are introduced using the keyword lambda, and anonymous functions are often referred to as lambda’s or lambda abstractions.</p>
 </blockquote>
 <h2 id="PHP手册中的描述"><a href="#PHP手册中的描述" class="headerlink" title="PHP手册中的描述"></a>PHP手册中的描述</h2><h3 id="Anonymous-Function"><a href="#Anonymous-Function" class="headerlink" title="Anonymous Function"></a>Anonymous Function</h3><blockquote>
-<p>匿名函数也叫闭包函数(closures),允许临时创建一个没有指定名称的函数。最经常用作回调函数callback参数的值<br>闭包函数也可以作为变量的值来使用。PHP会自动把此种表达式转换成内置类<a href="http://php.net/manual/zh/class.closure.php" target="_blank" rel="external">Closure</a>对象的一个实例<br>Closure对象也会从父作用域中继承类属性。这些变量都必须在函数或类的头部声明。从父作用域继承变量和使用全局变量是不同的，closure的父作用域是声明该closure的函数。</p>
+<p>匿名函数也叫闭包函数(closures),允许临时创建一个没有指定名称的函数。最经常用作回调函数callback参数的值<br>闭包函数也可以作为变量的值来使用。PHP会自动把此种表达式转换成内置类<a href="http://php.net/manual/zh/class.closure.php" target="_blank" rel="noopener">Closure</a>对象的一个实例<br>Closure对象也会从父作用域中继承类属性。这些变量都必须在函数或类的头部声明。从父作用域继承变量和使用全局变量是不同的，closure的父作用域是声明该closure的函数。</p>
 </blockquote>
 <h3 id="Closure"><a href="#Closure" class="headerlink" title="Closure"></a>Closure</h3><blockquote>
 <p>用于代表匿名函数的类<br>匿名函数会产生这个类型的对象。自PHP5.4起，这个类有一些方法，可以对匿名函数的创建做更多的控制  </p>
@@ -246,19 +229,19 @@
 <h2 id="要注意的地方"><a href="#要注意的地方" class="headerlink" title="要注意的地方"></a>要注意的地方</h2><h3 id="some-quirks-in-PHP5-3"><a href="#some-quirks-in-PHP5-3" class="headerlink" title="some quirks in PHP5.3"></a>some quirks in PHP5.3</h3><ul>
 <li>You must send the function all of the variables you want to bound to the scope of the Closure using the keywords <code>use</code>.This is different from the other languages,where this is done automatically(e.g. Javascript)</li>
 </ul>
-<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$foo = <span class="string">'foo'</span>;</div><div class="line">$baz = <span class="string">'baz'</span>;</div><div class="line">$bar = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">echo</span> $foo, $baz;</div><div class="line">&#125;;</div><div class="line">$bar(); <span class="comment">//output:Notice:Undefined variable</span></div><div class="line"></div><div class="line">$foo = <span class="string">'foo'</span>;</div><div class="line">$baz = <span class="string">'baz'</span>;</div><div class="line">$bar = <span class="function"><span class="keyword">function</span><span class="params">()</span> <span class="title">use</span> <span class="params">($foo, $baz)</span> </span>&#123;</div><div class="line">    <span class="keyword">echo</span> $foo, $baz;</div><div class="line">&#125;;</div><div class="line">$bar(); <span class="comment">//output:foobaz</span></div></pre></td></tr></table></figure>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$foo = <span class="string">'foo'</span>;</span><br><span class="line">$baz = <span class="string">'baz'</span>;</span><br><span class="line">$bar = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> $foo, $baz;</span><br><span class="line">&#125;;</span><br><span class="line">$bar(); <span class="comment">//output:Notice:Undefined variable</span></span><br><span class="line"></span><br><span class="line">$foo = <span class="string">'foo'</span>;</span><br><span class="line">$baz = <span class="string">'baz'</span>;</span><br><span class="line">$bar = <span class="function"><span class="keyword">function</span><span class="params">()</span> <span class="title">use</span> <span class="params">($foo, $baz)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> $foo, $baz;</span><br><span class="line">&#125;;</span><br><span class="line">$bar(); <span class="comment">//output:foobaz</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>The bound variables are <strong>copies</strong>, of the variable, not references. If you want to be able to change the variable inside in the Closure,you MUST send it by reference.</li>
 </ul>
-<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">$foo = <span class="string">'foo'</span>;</div><div class="line">$baz = <span class="string">'baz'</span>;</div><div class="line">$bar = <span class="function"><span class="keyword">function</span><span class="params">()</span> <span class="title">use</span> <span class="params">($foo, $baz)</span> </span>&#123;</div><div class="line">    $foo = <span class="string">'hello'</span>;</div><div class="line">    $baz = <span class="string">'world'</span>;</div><div class="line">&#125;;</div><div class="line">$bar();</div><div class="line"><span class="keyword">echo</span> $foo,$baz; <span class="comment">//output:foobaz</span></div><div class="line"></div><div class="line">$foo = <span class="string">'foo'</span>;</div><div class="line">$baz = <span class="string">'baz'</span>;</div><div class="line">$bar = <span class="function"><span class="keyword">function</span><span class="params">()</span> <span class="title">use</span> <span class="params">(&amp;$foo, &amp;$baz)</span> </span>&#123;</div><div class="line">    $foo = <span class="string">'hello'</span>;</div><div class="line">    $baz = <span class="string">'world'</span>;</div><div class="line">&#125;;</div><div class="line">$bar();</div><div class="line"><span class="keyword">echo</span> $foo,$baz; <span class="comment">//output:helloworld</span></div></pre></td></tr></table></figure>
+<figure class="highlight php"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$foo = <span class="string">'foo'</span>;</span><br><span class="line">$baz = <span class="string">'baz'</span>;</span><br><span class="line">$bar = <span class="function"><span class="keyword">function</span><span class="params">()</span> <span class="title">use</span> <span class="params">($foo, $baz)</span> </span>&#123;</span><br><span class="line">    $foo = <span class="string">'hello'</span>;</span><br><span class="line">    $baz = <span class="string">'world'</span>;</span><br><span class="line">&#125;;</span><br><span class="line">$bar();</span><br><span class="line"><span class="keyword">echo</span> $foo,$baz; <span class="comment">//output:foobaz</span></span><br><span class="line"></span><br><span class="line">$foo = <span class="string">'foo'</span>;</span><br><span class="line">$baz = <span class="string">'baz'</span>;</span><br><span class="line">$bar = <span class="function"><span class="keyword">function</span><span class="params">()</span> <span class="title">use</span> <span class="params">(&amp;$foo, &amp;$baz)</span> </span>&#123;</span><br><span class="line">    $foo = <span class="string">'hello'</span>;</span><br><span class="line">    $baz = <span class="string">'world'</span>;</span><br><span class="line">&#125;;</span><br><span class="line">$bar();</span><br><span class="line"><span class="keyword">echo</span> $foo,$baz; <span class="comment">//output:helloworld</span></span><br></pre></td></tr></table></figure>
 <ul>
 <li>In PHP5.3 if you are using a Closure inside of a class, the Closure will not have access to <code>$this</code>.You must send a reference to <code>$this</code>,however,you cannot send <code>$this</code> directly.But In PHP5.4,they have added support for the usage of <code>$this</code> in Closure. They do this by binding the object to the Closure at the time of definition. You can also change which object your Closure is bound by using the <code>bind()</code> and <code>bindTo()</code> methods.</li>
 </ul>
 <h3 id="How-should-we-know-when-to-call-it-a-Closure-or-Anonymous-Function"><a href="#How-should-we-know-when-to-call-it-a-Closure-or-Anonymous-Function" class="headerlink" title="How should we know when to call it a Closure or Anonymous Function?"></a>How should we know when to call it a Closure or Anonymous Function?</h3><p>You can always call it a Closure(because all Anonymous functions are Closure),and if it dosen’t have a name,it is Anonymous.</p>
 <h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><ul>
-<li><a href="http://dhorrigan.com/post/29209695084/anonymous-functions-vs-closures" target="_blank" rel="external">ANONYMOUS FUNCTIONS VS. CLOSURES</a></li>
-<li><a href="http://www.recessframework.org/page/functional-php-anonymous-functions-lambdas-closures" target="_blank" rel="external">Functional PHP 5.3 Part I - What are Anonymous Functions and Closures?</a></li>
-<li><a href="http://en.wikipedia.org/wiki/Anonymous_function" target="_blank" rel="external">Anonymous function</a></li>
+<li><a href="http://dhorrigan.com/post/29209695084/anonymous-functions-vs-closures" target="_blank" rel="noopener">ANONYMOUS FUNCTIONS VS. CLOSURES</a></li>
+<li><a href="http://www.recessframework.org/page/functional-php-anonymous-functions-lambdas-closures" target="_blank" rel="noopener">Functional PHP 5.3 Part I - What are Anonymous Functions and Closures?</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Anonymous_function" target="_blank" rel="noopener">Anonymous function</a></li>
 </ul>
 
             
@@ -270,7 +253,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br/>
+                <span class="text-color-light text-small">标签</span><br>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/PHP/">PHP</a>
 
@@ -281,7 +264,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/04/20/linux-crontab/"  data-tooltip="Linux Crontab">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/04/20/linux-crontab/" data-tooltip="Linux Crontab">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -299,7 +282,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -358,7 +341,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/04/20/linux-crontab/"  data-tooltip="Linux Crontab">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/04/20/linux-crontab/" data-tooltip="Linux Crontab">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -376,7 +359,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -445,7 +428,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -455,7 +438,7 @@
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>PHP Developer</p>
 
             </h5>
@@ -463,7 +446,7 @@
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br/>
+                <br>
                 Shanghai,China
             </h5>
         

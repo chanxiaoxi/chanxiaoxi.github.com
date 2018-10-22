@@ -66,11 +66,10 @@
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="#about">
+            <a class="header-right-picture " href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
         
         </a>
     
@@ -85,7 +84,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -95,10 +94,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/ "
-                        
-                    >
+                    <a class="sidebar-button-link " href="/ ">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -107,10 +103,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-categories"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-categories">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -119,10 +112,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-tags"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-tags">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -131,10 +121,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-archives"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-archives">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -143,10 +130,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link st-search-show-outputs"
-                         href="#search"
-                        
-                    >
+                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -159,7 +143,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -168,7 +152,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -181,10 +165,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/atom.xml"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/atom.xml">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -201,7 +182,7 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     
         <div class="post-header main-content-wrap text-left">
@@ -232,10 +213,10 @@
 <a id="more"></a>
 <h2 id="一、为什么需要WebSocket"><a href="#一、为什么需要WebSocket" class="headerlink" title="一、为什么需要WebSocket"></a>一、为什么需要WebSocket</h2><p>HTTP是一个请求-响应式(Request-Response)协议。服务端只能接收客户端的请求并返回响应，但是不能主动推送消息给客户端。在WebSocket之前，实现服务端向客户端的消息推送主要有两种做法：</p>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Polling_(computer_scienc)" target="_blank" rel="external">轮询</a>：轮询就是客户端在特定的时间间隔向服务器发送请求，服务器响应客户端的请求，如果这个特定时间设置的非常短，就能近似的认为这是种实时的推送。这种方式的问题在于，客户端非常频繁的请求服务器，而且HTTP请求头是很长的，会浪费很多网络资源。</li>
-<li><a href="https://en.wikipedia.org/wiki/Comet_(programming)" target="_blank" rel="external">Comet</a>：Comet是使用长连接的方式来实现双向通信，虽然比之轮询，这种技术更为高效，但是它还是会消耗大量的带宽和资源。 </li>
+<li><a href="https://en.wikipedia.org/wiki/Polling_(computer_scienc)" target="_blank" rel="noopener">轮询</a>：轮询就是客户端在特定的时间间隔向服务器发送请求，服务器响应客户端的请求，如果这个特定时间设置的非常短，就能近似的认为这是种实时的推送。这种方式的问题在于，客户端非常频繁的请求服务器，而且HTTP请求头是很长的，会浪费很多网络资源。</li>
+<li><a href="https://en.wikipedia.org/wiki/Comet_(programming)" target="_blank" rel="noopener">Comet</a>：Comet是使用长连接的方式来实现双向通信，虽然比之轮询，这种技术更为高效，但是它还是会消耗大量的带宽和资源。 </li>
 </ul>
-<h2 id="二、WebSocket是什么"><a href="#二、WebSocket是什么" class="headerlink" title="二、WebSocket是什么"></a>二、WebSocket是什么</h2><p><a href="https://en.wikipedia.org/wiki/WebSocket" target="_blank" rel="external">WebSocket</a>是在单个TCP连接上提供了一个全双工(<a href="https://en.wikipedia.org/wiki/Duplex_(telecommunications)#FULL-DUPLEX" target="_blank" rel="external">Full-duplex</a> 通信的两端同时可以发送和接受消息)通信通道的协议。Websocket主要用来实现web浏览器和web服务器之间的通信，促进浏览器和服务器之间实时数据的传输。</p>
+<h2 id="二、WebSocket是什么"><a href="#二、WebSocket是什么" class="headerlink" title="二、WebSocket是什么"></a>二、WebSocket是什么</h2><p><a href="https://en.wikipedia.org/wiki/WebSocket" target="_blank" rel="noopener">WebSocket</a>是在单个TCP连接上提供了一个全双工(<a href="https://en.wikipedia.org/wiki/Duplex_(telecommunications)#FULL-DUPLEX" target="_blank" rel="noopener">Full-duplex</a> 通信的两端同时可以发送和接受消息)通信通道的协议。Websocket主要用来实现web浏览器和web服务器之间的通信，促进浏览器和服务器之间实时数据的传输。</p>
 <p>WebSocket协议则是在TCP上提供了一个全双工通信协议，通过该协议可以有效的节省资源和带宽，并达到实时通讯，WebSocket具有以下特征：</p>
 <ul>
 <li>WebSocket协议是一个独立的TCP基础协议</li>
@@ -271,7 +252,7 @@ Sec-WebSocket-Protocol:chat
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br/>
+                <span class="text-color-light text-small">标签</span><br>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/WebSocket/">WebSocket</a>
 
@@ -282,7 +263,7 @@ Sec-WebSocket-Protocol:chat
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/20/Http-Cache-Best-Practices/"  data-tooltip="理解HTTP缓存">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/20/Http-Cache-Best-Practices/" data-tooltip="理解HTTP缓存">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -300,7 +281,7 @@ Sec-WebSocket-Protocol:chat
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -359,7 +340,7 @@ Sec-WebSocket-Protocol:chat
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/20/Http-Cache-Best-Practices/"  data-tooltip="理解HTTP缓存">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/01/20/Http-Cache-Best-Practices/" data-tooltip="理解HTTP缓存">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -377,7 +358,7 @@ Sec-WebSocket-Protocol:chat
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -446,7 +427,7 @@ Sec-WebSocket-Protocol:chat
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -456,7 +437,7 @@ Sec-WebSocket-Protocol:chat
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>PHP Developer</p>
 
             </h5>
@@ -464,7 +445,7 @@ Sec-WebSocket-Protocol:chat
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br/>
+                <br>
                 Shanghai,China
             </h5>
         

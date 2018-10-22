@@ -66,11 +66,10 @@
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="#about">
+            <a class="header-right-picture " href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
         
         </a>
     
@@ -85,7 +84,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -95,10 +94,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/ "
-                        
-                    >
+                    <a class="sidebar-button-link " href="/ ">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -107,10 +103,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-categories"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-categories">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -119,10 +112,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-tags"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-tags">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -131,10 +121,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-archives"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-archives">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -143,10 +130,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link st-search-show-outputs"
-                         href="#search"
-                        
-                    >
+                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -159,7 +143,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -168,7 +152,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -181,10 +165,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/atom.xml"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/atom.xml">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -201,7 +182,7 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+<article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
     
     
         <div class="post-header main-content-wrap text-left">
@@ -228,7 +209,7 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>这几天网上爆出关于Redis的一个漏洞<a href="https://www.sebug.net/vuldb/ssvid-89715?from=singlemessage&amp;hmsr=toutiao.io&amp;isappinstalled=0&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">《Redis 未授权访问缺陷可轻易导致系统被黑》</a>,这个漏洞简单的说就是利用Redis的相关方法将自己的公钥直接写入目标服务器，进而控制目标服务器。Redis现在在开发中已经被广泛使用，从缓存到数据库，但是在使用的过程中至少我很少注意Redis的安全性，从漏洞报告中可以看出，很多人都没有绑定IP，都在用默认端口，都没有设置访问密码。结合Redis官方文档关于安全配置的说明和上文中提到的攻击方式，我们来看看使用Redis时的安全配置。<a id="more"></a></p>
+            <p>这几天网上爆出关于Redis的一个漏洞<a href="https://www.sebug.net/vuldb/ssvid-89715?from=singlemessage&amp;hmsr=toutiao.io&amp;isappinstalled=0&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="noopener">《Redis 未授权访问缺陷可轻易导致系统被黑》</a>,这个漏洞简单的说就是利用Redis的相关方法将自己的公钥直接写入目标服务器，进而控制目标服务器。Redis现在在开发中已经被广泛使用，从缓存到数据库，但是在使用的过程中至少我很少注意Redis的安全性，从漏洞报告中可以看出，很多人都没有绑定IP，都在用默认端口，都没有设置访问密码。结合Redis官方文档关于安全配置的说明和上文中提到的攻击方式，我们来看看使用Redis时的安全配置。<a id="more"></a></p>
 <h2 id="设置bind选项，绑定访问IP"><a href="#设置bind选项，绑定访问IP" class="headerlink" title="设置bind选项，绑定访问IP"></a>设置bind选项，绑定访问IP</h2><p>bind是来绑定Redis访问IP的，文中提到，这一切的源头是Redis默认情况下会绑定在<code>0.0.0.0:6379</code>，这种情况就是我们在Redis的配置文件中没有设置bind或者关掉了bind下发生的：</p>
 <blockquote>
 <p>if the bind option is not<br>specified all the interfaces will listen for incoming connections.</p>
@@ -251,15 +232,15 @@
 <li>The Redis password is stored inside the redis.conf file and inside the client configuration, so it does not need to be remembered by the system administrator, and thus it can be very long.</li>
 </ul>
 </blockquote>
-<h2 id="关掉或者重命名CONFIG命令"><a href="#关掉或者重命名CONFIG命令" class="headerlink" title="关掉或者重命名CONFIG命令"></a>关掉或者重命名CONFIG命令</h2><p>在<a href="https://www.sebug.net/vuldb/ssvid-89715?from=singlemessage&amp;hmsr=toutiao.io&amp;isappinstalled=0&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">《Redis 未授权访问缺陷可轻易导致系统被黑》</a>一文中可以看出，攻击者正是利用了Redis的<code>CONFIG</code>命令来将自己的公钥写入目标主机的：</p>
-<figure class="highlight shell"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cat foo.txt | redis-cli -h 192.168.1.11 -x set crackit</div><div class="line"><span class="meta">$</span> redis-cli -h 192.168.1.11</div><div class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; config set dir /root/.ssh/</div><div class="line">OK</div><div class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; config get dir</div><div class="line">1) "dir"</div><div class="line">2) "/root/.ssh"</div><div class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; config set dbfilename "authorized_keys"</div><div class="line">OK</div><div class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; save</div><div class="line">OK</div></pre></td></tr></table></figure>
+<h2 id="关掉或者重命名CONFIG命令"><a href="#关掉或者重命名CONFIG命令" class="headerlink" title="关掉或者重命名CONFIG命令"></a>关掉或者重命名CONFIG命令</h2><p>在<a href="https://www.sebug.net/vuldb/ssvid-89715?from=singlemessage&amp;hmsr=toutiao.io&amp;isappinstalled=0&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="noopener">《Redis 未授权访问缺陷可轻易导致系统被黑》</a>一文中可以看出，攻击者正是利用了Redis的<code>CONFIG</code>命令来将自己的公钥写入目标主机的：</p>
+<figure class="highlight shell"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cat foo.txt | redis-cli -h 192.168.1.11 -x set crackit</span><br><span class="line"><span class="meta">$</span> redis-cli -h 192.168.1.11</span><br><span class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; config set dir /root/.ssh/</span><br><span class="line">OK</span><br><span class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; config get dir</span><br><span class="line">1) "dir"</span><br><span class="line">2) "/root/.ssh"</span><br><span class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; config set dbfilename "authorized_keys"</span><br><span class="line">OK</span><br><span class="line"><span class="meta">$</span> 192.168.1.11:6379&gt; save</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
 <p>Redis文档中也说道要Disabling of specific commands，并且给出了两种方式：</p>
 <ul>
 <li>重命名：<code>rename-command CONFIG b840fc02d524045429941cc15f59e41cb7be6c52</code>，你就是再怎么猜也猜不到我的命名叫这个名字吧</li>
 <li>关闭：<code>rename-command CONFIG “”</code></li>
 </ul>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上的四点就是那篇文章中给出的临时解决方案，其实这些在Redis的文档中都已经说的很清楚了，但是还是有那么多的中招，由此可见很多人都是在没有读完配置文件或者官方文档就直接开搞了。在Redis文档中还提到了其他方面的安全，比如表单数据过滤，NoSQL注入，代码安全等，这些其实对于Redis来说不是特有的，也是日常中大家都会注意的，所以一般不会疏忽。</p>
-<h2 id="相关文章："><a href="#相关文章：" class="headerlink" title="相关文章："></a>相关文章：</h2><p><a href="http://oldblog.antirez.com/post/redis-as-LRU-cache.html" target="_blank" rel="external">Redis as an LRU cache</a><br><a href="https://www.sebug.net/vuldb/ssvid-89715?from=singlemessage&amp;hmsr=toutiao.io&amp;isappinstalled=0&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="external">《Redis 未授权访问缺陷可轻易导致系统被黑》</a><br><a href="http://redis.io/topics/security" target="_blank" rel="external">Redis Security</a></p>
+<h2 id="相关文章："><a href="#相关文章：" class="headerlink" title="相关文章："></a>相关文章：</h2><p><a href="http://oldblog.antirez.com/post/redis-as-LRU-cache.html" target="_blank" rel="noopener">Redis as an LRU cache</a><br><a href="https://www.sebug.net/vuldb/ssvid-89715?from=singlemessage&amp;hmsr=toutiao.io&amp;isappinstalled=0&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="noopener">《Redis 未授权访问缺陷可轻易导致系统被黑》</a><br><a href="http://redis.io/topics/security" target="_blank" rel="noopener">Redis Security</a></p>
 
             
                 
@@ -270,7 +251,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br/>
+                <span class="text-color-light text-small">标签</span><br>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/Redis/">Redis</a>
 
@@ -281,7 +262,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/16/jQuery-events-bind-best-practice/"  data-tooltip="jQuery事件绑定实践">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/16/jQuery-events-bind-best-practice/" data-tooltip="jQuery事件绑定实践">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -299,7 +280,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -358,7 +339,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/16/jQuery-events-bind-best-practice/"  data-tooltip="jQuery事件绑定实践">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2015/11/16/jQuery-events-bind-best-practice/" data-tooltip="jQuery事件绑定实践">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -376,7 +357,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -445,7 +426,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -455,7 +436,7 @@
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>PHP Developer</p>
 
             </h5>
@@ -463,7 +444,7 @@
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br/>
+                <br>
                 Shanghai,China
             </h5>
         
