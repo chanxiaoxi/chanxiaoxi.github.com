@@ -6,24 +6,24 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="还是码农的缠小溪">
-    <title>PHP中的二进制安全 - 还是码农的缠小溪</title>
+    <title>Terminal Shell TTY Console in Linux - 还是码农的缠小溪</title>
     <meta name="author" content="chanxiaoxi">
     
     
         <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="我们在看PHP的文档的时候，经常会看到一些方法被标注是二进制安全的，那么什么是二进制安全，为什么有些方法是二进制安全的，有没有二进制不安全的方法？">
-<meta name="keywords" content="PHP,Binary-safe">
+    <meta name="description" content="在学习Linux的时候，我们常常会被Terminal/Shell/TTY/Console这些术语给搞混，有时候它们好像是一回事，有时候又不是，那么他们的区别到底是什么？">
+<meta name="keywords" content="Linux,Terminal,Shell,TTY,Console">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="PHP中的二进制安全">
-<meta property="og:url" content="http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/index.html">
+<meta property="og:title" content="Terminal Shell TTY Console in Linux">
+<meta property="og:url" content="http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/index.html">
 <meta property="og:site_name" content="还是码农的缠小溪">
-<meta property="og:description" content="我们在看PHP的文档的时候，经常会看到一些方法被标注是二进制安全的，那么什么是二进制安全，为什么有些方法是二进制安全的，有没有二进制不安全的方法？">
+<meta property="og:description" content="在学习Linux的时候，我们常常会被Terminal/Shell/TTY/Console这些术语给搞混，有时候它们好像是一回事，有时候又不是，那么他们的区别到底是什么？">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2019-03-22T03:00:55.978Z">
+<meta property="og:updated_time" content="2019-03-22T03:27:17.325Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP中的二进制安全">
-<meta name="twitter:description" content="我们在看PHP的文档的时候，经常会看到一些方法被标注是二进制安全的，那么什么是二进制安全，为什么有些方法是二进制安全的，有没有二进制不安全的方法？">
+<meta name="twitter:title" content="Terminal Shell TTY Console in Linux">
+<meta name="twitter:description" content="在学习Linux的时候，我们常常会被Terminal/Shell/TTY/Console这些术语给搞混，有时候它们好像是一回事，有时候又不是，那么他们的区别到底是什么？">
 <meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
     
     
@@ -188,19 +188,19 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            PHP中的二进制安全
+            Terminal Shell TTY Console in Linux
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Sun Jan 22 2017 10:25:59 GMT+0800">
+    <time itemprop="datePublished" content="Wed Mar 22 2017 11:06:42 GMT+0800">
 	
-		    1月 22, 2017
+		    3月 22, 2017
     	
     </time>
     
         <span>发布在 </span>
         
-    <a class="category-link" href="/categories/PHP/">PHP</a>
+    <a class="category-link" href="/categories/Linux/">Linux</a>
 
 
     
@@ -209,11 +209,25 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>我们在看PHP的文档的时候，经常会看到一些方法被标注是二进制安全的，那么什么是二进制安全，为什么有些方法是二进制安全的，有没有二进制不安全的方法？</p>
+            <p>在学习Linux的时候，我们常常会被<code>Terminal/Shell/TTY/Console</code>这些术语给搞混，有时候它们好像是一回事，有时候又不是，那么他们的区别到底是什么？</p>
 <a id="more"></a>
-<h2 id="二进制安全"><a href="#二进制安全" class="headerlink" title="二进制安全"></a>二进制安全</h2><p>一句话总结，所谓二进制安全，就是你传一个任意二进制数据，方法都能正确执行。</p>
-<p>其实我们都知道，程序中的字符串会按照相应的编码解析成计算机能够识别的二进制编码串。不同的编程语言对于字符串会有不同的识别格式。比如C，会将<code>\0</code>作为字符串的结束符。二进制不安全也是由此产生，如果一个字符串二进制码含有这样的特殊字符，程序的字符串方法在处理这些特殊字符的时候能够正确处理，那么这个方法就是二进制安全的。PHP的底层解析引擎是C语言，由于C语言的这些特性，导致PHP的在处理字符串时也要注意特殊字符引起的二进制安全问题。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$string1 = <span class="string">"Hello"</span>;</span><br><span class="line">$string2 = <span class="string">"Hello\x00World"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// strcoll是二进制不安全的</span></span><br><span class="line"><span class="keyword">echo</span> strcoll($string1, $string2); <span class="comment">// 返回0，认为两个字符串相同</span></span><br></pre></td></tr></table></figure>
+<h2 id="从字面意思来理解"><a href="#从字面意思来理解" class="headerlink" title="从字面意思来理解"></a>从字面意思来理解</h2><ul>
+<li>Terminal: 电缆的末端</li>
+<li>Shell: 乌龟的壳，外壳</li>
+<li>TTY: Teletypewriter 电传打字机的缩写</li>
+<li>Console: 柜子</li>
+</ul>
+<h2 id="Linux中的意义"><a href="#Linux中的意义" class="headerlink" title="Linux中的意义"></a>Linux中的意义</h2><ul>
+<li>Terminal = TTY (文本输入输出的环境)</li>
+<li>Console (物理终端)</li>
+<li>Shell (命令行解释器)</li>
+</ul>
+<p>Terminal和TTY其实是同一个东西，在Linux中，它其实就是人机交互的窗口。比如我们常用的<code>ssh/screen/xterm</code>等。</p>
+<p>Shell是Linux的应用程序，它能够提供一个运行环境（home）让用户执行命令，运行程序。常用的Shell有<code>bash/zsh/fish</code>等</p>
+<p>Console是物理的终端，比如键盘、显示器等输入输出设备。</p>
+<h2 id="相关参考"><a href="#相关参考" class="headerlink" title="相关参考"></a>相关参考</h2><ul>
+<li><a href="https://unix.stackexchange.com/questions/4126/what-is-the-exact-difference-between-a-terminal-a-shell-a-tty-and-a-con/4132" target="_blank" rel="noopener">What is the exact difference between a ‘terminal’, a ‘shell’, a ‘tty’ and a ‘console’?</a></li>
+</ul>
 
             
                 
@@ -226,7 +240,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/Binary-safe/">Binary-safe</a> <a class="tag tag--primary tag--small t-link" href="/tags/PHP/">PHP</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/Console/">Console</a> <a class="tag tag--primary tag--small t-link" href="/tags/Linux/">Linux</a> <a class="tag tag--primary tag--small t-link" href="/tags/Shell/">Shell</a> <a class="tag tag--primary tag--small t-link" href="/tags/TTY/">TTY</a> <a class="tag tag--primary tag--small t-link" href="/tags/Terminal/">Terminal</a>
 
             </div>
         
@@ -235,7 +249,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/" data-tooltip="Terminal Shell TTY Console in Linux">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/" data-tooltip="期货和期货市场">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -243,7 +257,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/12/29/Numbers-Formatted-as-Text-in-Laravel-Excel-or-PhpSpreadsheet/" data-tooltip="使用Laravel Excel或PhpSpreadsheet导出Excel时身份证号等长整型数据格式化问题">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/What-s-binary-safe-in-PHP/" data-tooltip="PHP中的二进制安全">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -258,17 +272,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -280,7 +294,7 @@
             </li>
         
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
@@ -312,7 +326,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/" data-tooltip="Terminal Shell TTY Console in Linux">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/" data-tooltip="期货和期货市场">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -320,7 +334,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/12/29/Numbers-Formatted-as-Text-in-Laravel-Excel-or-PhpSpreadsheet/" data-tooltip="使用Laravel Excel或PhpSpreadsheet导出Excel时身份证号等长整型数据格式化问题">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2017/01/22/What-s-binary-safe-in-PHP/" data-tooltip="PHP中的二进制安全">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -335,17 +349,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -357,7 +371,7 @@
             </li>
         
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
@@ -369,17 +383,17 @@
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-google-plus"></i><span class>分享到 Google+</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2017/01/22/What-s-binary-safe-in-PHP/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2017/03/22/Terminal-Shell-TTY-Console-in-Linux/">
                 <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
             </a>
         </li>
