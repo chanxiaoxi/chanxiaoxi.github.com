@@ -64,11 +64,10 @@
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="#about">
+            <a class="header-right-picture " href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
         
         </a>
     
@@ -83,7 +82,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -93,10 +92,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/ "
-                        
-                    >
+                    <a class="sidebar-button-link " href="/ ">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -105,10 +101,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-categories"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-categories">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -117,10 +110,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-tags"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-tags">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -129,10 +119,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-archives"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-archives">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -141,10 +128,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link st-search-show-outputs"
-                         href="#search"
-                        
-                    >
+                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -157,7 +141,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -166,7 +150,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -179,10 +163,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/atom.xml"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/atom.xml">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -203,7 +184,47 @@
 <section class="postShorten-group main-content-wrap">
     
         
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemtype="http://schema.org/BlogPosting">
+            <div class="postShorten-wrap">
+                <div class="postShorten-header">
+                    <h1 class="postShorten-title" itemprop="headline">
+                        
+                                <a class="link-unstyled" href="/2015/11/15/redis-security-config/">Redis安全配置</a>
+                        
+                    </h1>
+                    <div class="postShorten-meta">
+    <time itemprop="datePublished" content="Sun Nov 15 2015 23:14:23 GMT+0800">
+	
+		    11月 15, 2015
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/Security/">Security</a>
+
+
+    
+</div>
+                </div>
+                
+                
+                    <div class="postShorten-excerpt" itemprop="articleBody">
+                        <p>这几天网上爆出关于Redis的一个漏洞<a href="https://www.sebug.net/vuldb/ssvid-89715?from=singlemessage&amp;hmsr=toutiao.io&amp;isappinstalled=0&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" target="_blank" rel="noopener">《Redis 未授权访问缺陷可轻易导致系统被黑》</a>,这个漏洞简单的说就是利用Redis的相关方法将自己的公钥直接写入目标服务器，进而控制目标服务器。Redis现在在开发中已经被广泛使用，从缓存到数据库，但是在使用的过程中至少我很少注意Redis的安全性，从漏洞报告中可以看出，很多人都没有绑定IP，都在用默认端口，都没有设置访问密码。结合Redis官方文档关于安全配置的说明和上文中提到的攻击方式，我们来看看使用Redis时的安全配置。
+                        
+                            <a href="/2015/11/15/redis-security-config/" class="postShorten-excerpt_link link">
+                                阅读全文
+                            </a>
+                            
+                        
+                    </p></div>
+                
+            </div>
+            
+        </article>
+    
+        
+        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemtype="http://schema.org/BlogPosting">
             <div class="postShorten-wrap">
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
@@ -229,7 +250,7 @@
                 
                 
                     <div class="postShorten-excerpt" itemprop="articleBody">
-                        <p>Docker很火，但是一直没有深入的了解，所以也就只有个概念，不知道对于开发者来说，docker到底有什么用处，直到某天看到了——<a href="http://dockone.io/article/378" target="_blank" rel="external">《开发者可以使用Docker做什么？》</a>,于是想深入的了解一下这个玩意儿。对于了解和学习新的技术，总要弄清楚这么几个问题：它是做什么的？它的优势是什么？为什么要用它？怎么用它？</p>
+                        <p>Docker很火，但是一直没有深入的了解，所以也就只有个概念，不知道对于开发者来说，docker到底有什么用处，直到某天看到了——<a href="http://dockone.io/article/378" target="_blank" rel="noopener">《开发者可以使用Docker做什么？》</a>,于是想深入的了解一下这个玩意儿。对于了解和学习新的技术，总要弄清楚这么几个问题：它是做什么的？它的优势是什么？为什么要用它？怎么用它？</p>
                         
                             <a href="/2015/05/17/hi-docker/" class="postShorten-excerpt_link link">
                                 阅读全文
@@ -243,7 +264,7 @@
         </article>
     
         
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemtype="http://schema.org/BlogPosting">
             <div class="postShorten-wrap">
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
@@ -276,14 +297,14 @@
                             </a>
                             
                         
-                    </div>
+                    </p></div>
                 
             </div>
             
         </article>
     
         
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemtype="http://schema.org/BlogPosting">
             <div class="postShorten-wrap">
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
@@ -316,14 +337,14 @@
                             </a>
                             
                         
-                    </div>
+                    </p></div>
                 
             </div>
             
         </article>
     
         
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemtype="http://schema.org/BlogPosting">
             <div class="postShorten-wrap">
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
@@ -349,9 +370,9 @@
                 
                 
                     <div class="postShorten-excerpt" itemprop="articleBody">
-                        <p>这是<a href="http://feiyang.me/2013/03/php-psr-in-chinese/" target="_blank" rel="external">PHP的PSR规范中文版</a>中看到的一段话：  </p>
+                        <p>这是<a href="http://feiyang.me/2013/03/php-psr-in-chinese/" target="_blank" rel="noopener">PHP的PSR规范中文版</a>中看到的一段话：  </p>
 <blockquote>
-<p>在谷歌，我可以查看任何的代码，进入所有谷歌的代码库，我有权查看它们。事实上，这种权限是很少人能拥有的。但是，让我感到惊讶的却是，如此多的编码规范—缩进，命名，文件结构，注释风格—这一切让我出乎意料的轻松的阅读任意一段代码，并轻易的看懂它们。这让我震惊—因为我以为这些规范是微不足道的东西。它们不可能有这么大的作用—但它们却起到了这么大的作用。当你发现只通过看程序的基本语法结构就能读懂一段代码，这种时间上的节省不能不让人震撼！——<a href="http://www.vaikan.com/google-coding-standards/" target="_blank" rel="external">《Google为何要执行严格的代码规范》</a></p>
+<p>在谷歌，我可以查看任何的代码，进入所有谷歌的代码库，我有权查看它们。事实上，这种权限是很少人能拥有的。但是，让我感到惊讶的却是，如此多的编码规范—缩进，命名，文件结构，注释风格—这一切让我出乎意料的轻松的阅读任意一段代码，并轻易的看懂它们。这让我震惊—因为我以为这些规范是微不足道的东西。它们不可能有这么大的作用—但它们却起到了这么大的作用。当你发现只通过看程序的基本语法结构就能读懂一段代码，这种时间上的节省不能不让人震撼！——<a href="http://www.vaikan.com/google-coding-standards/" target="_blank" rel="noopener">《Google为何要执行严格的代码规范》</a></p>
 </blockquote>
                         
                             <a href="/2014/12/06/php-code-style-guide-psr0/" class="postShorten-excerpt_link link">
@@ -366,7 +387,7 @@
         </article>
     
         
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemtype="http://schema.org/BlogPosting">
             <div class="postShorten-wrap">
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
@@ -400,14 +421,14 @@
                             </a>
                             
                         
-                    </div>
+                    </p></div>
                 
             </div>
             
         </article>
     
         
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemtype="http://schema.org/BlogPosting">
             <div class="postShorten-wrap">
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
@@ -440,14 +461,14 @@
                             </a>
                             
                         
-                    </div>
+                    </p></div>
                 
             </div>
             
         </article>
     
         
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemtype="http://schema.org/BlogPosting">
             <div class="postShorten-wrap">
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
@@ -480,14 +501,14 @@
                             </a>
                             
                         
-                    </div>
+                    </p></div>
                 
             </div>
             
         </article>
     
         
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemtype="http://schema.org/BlogPosting">
             <div class="postShorten-wrap">
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
@@ -520,14 +541,14 @@
                             </a>
                             
                         
-                    </div>
+                    </p></div>
                 
             </div>
             
         </article>
     
         
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
+        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemtype="http://schema.org/BlogPosting">
             <div class="postShorten-wrap">
                 <div class="postShorten-header">
                     <h1 class="postShorten-title" itemprop="headline">
@@ -553,55 +574,14 @@
                 
                 
                     <div class="postShorten-excerpt" itemprop="articleBody">
-                        <p>之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api" target="_blank" rel="external">Best Practices for Designing a Pragmatic RESTful API</a>，读完之后顿觉彻悟，故此将自己的一些理解记录下来。
+                        <p>之前写过一篇关于RESTful API的文章，后来也用这个做过项目的开发，但是在实际应用中却发现，基于简单的概念和理论还是写不好一个API，只是遵循REST的原则还远远不够，所幸最近在看到一篇相关的博客<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api" target="_blank" rel="noopener">Best Practices for Designing a Pragmatic RESTful API</a>，读完之后顿觉彻悟，故此将自己的一些理解记录下来。
                         
                             <a href="/2014/11/23/restful-api-practise/" class="postShorten-excerpt_link link">
                                 阅读全文
                             </a>
                             
                         
-                    </div>
-                
-            </div>
-            
-        </article>
-    
-        
-        <article class="postShorten postShorten--thumbnailimg-right" itemscope itemType="http://schema.org/BlogPosting">
-            <div class="postShorten-wrap">
-                <div class="postShorten-header">
-                    <h1 class="postShorten-title" itemprop="headline">
-                        
-                                <a class="link-unstyled" href="/2014/05/11/rest-web-service/">初识REST</a>
-                        
-                    </h1>
-                    <div class="postShorten-meta">
-    <time itemprop="datePublished" content="Sun May 11 2014 12:46:36 GMT+0800">
-	
-		    5月 11, 2014
-    	
-    </time>
-    
-        <span>发布在 </span>
-        
-    <a class="category-link" href="/categories/Web-API/">Web API</a>
-
-
-    
-</div>
-                </div>
-                
-                
-                    <div class="postShorten-excerpt" itemprop="articleBody">
-                        <h4 id="REST是什么"><a href="#REST是什么" class="headerlink" title="REST是什么"></a>REST是什么</h4><p>REST(Representational State Transfer)，即表现层状态转化，它是一种互联网软件的架构原则，一个架构符合REST原则，就称它是RESTful架构</p>
-<h5 id="如何理解Representational-State-Transfer"><a href="#如何理解Representational-State-Transfer" class="headerlink" title="如何理解Representational State Transfer"></a>如何理解Representational State Transfer</h5><p><strong>资源：</strong>表现层状态转化其实是“资源表现层状态转化”，因为和我们交互的是一个网络上具体存在的实体，或者说是一个具体的信息体，我们通过URI指向这个资源，并且与之互动，URI就是资源的唯一标识符。
-                        
-                            <a href="/2014/05/11/rest-web-service/" class="postShorten-excerpt_link link">
-                                阅读全文
-                            </a>
-                            
-                        
-                    </div>
+                    </p></div>
                 
             </div>
             
@@ -636,7 +616,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2018 chanxiaoxi. All Rights Reserved.
+        Copyrights &copy; 2019 chanxiaoxi. All Rights Reserved.
     </span>
 </footer>
 
@@ -654,7 +634,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -664,7 +644,7 @@
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>PHP Developer</p>
 
             </h5>
@@ -672,7 +652,7 @@
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br/>
+                <br>
                 Shanghai,China
             </h5>
         

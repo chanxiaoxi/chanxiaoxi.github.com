@@ -66,11 +66,10 @@
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="#about">
+            <a class="header-right-picture " href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
         
         </a>
     
@@ -85,7 +84,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -95,10 +94,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/ "
-                        
-                    >
+                    <a class="sidebar-button-link " href="/ ">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -107,10 +103,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-categories"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-categories">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -119,10 +112,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-tags"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-tags">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -131,10 +121,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-archives"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-archives">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -143,10 +130,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link st-search-show-outputs"
-                         href="#search"
-                        
-                    >
+                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -159,7 +143,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -168,7 +152,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -181,10 +165,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/atom.xml"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/atom.xml">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -201,7 +182,7 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     
     
         <div class="post-header main-content-wrap text-left">
@@ -230,22 +211,22 @@
         <div class="main-content-wrap">
             <p>在使用Laravel Excel或PHPSpreadsheet导出Excel时，经常会遇到类似身份证这样的长整型数据。我们希望把这样的数据显示成文本格式，但是导出的Excel中往往是科学计数法表示的数字类型。网上关于此问题最常见的解决方案为在数据之前后之后添加<code>空格</code>或者制表符<code>\t</code>，通过这样的方式将数据转化成字符串。但是这样的方案并不完美，毕竟数据在处理之后被污染了，如果要作为数据源导入其他系统中可能会出现问题。在这里，我找到了最完美的解决方案，供大家参考。</p>
 <a id="more"></a>
-<p><a href="https://github.com/maatwebsite/Laravel-Excel" target="_blank" rel="external">Laravel Excel</a>的底层就是<a href="https://github.com/PHPOffice/PhpSpreadsheet" target="_blank" rel="external">PhpSpreadsheet</a>，所以它们两个是一回事，使用Laravel的人可能更熟悉Laravel Excel。下面的内容只使用PhpSpreadsheet，主要简单介绍PhpSpreadsheet判断数据、设置数据类型的原理和提供类似身份证这样长整型数据导出的方案。</p>
+<p><a href="https://github.com/maatwebsite/Laravel-Excel" target="_blank" rel="noopener">Laravel Excel</a>的底层就是<a href="https://github.com/PHPOffice/PhpSpreadsheet" target="_blank" rel="noopener">PhpSpreadsheet</a>，所以它们两个是一回事，使用Laravel的人可能更熟悉Laravel Excel。下面的内容只使用PhpSpreadsheet，主要简单介绍PhpSpreadsheet判断数据、设置数据类型的原理和提供类似身份证这样长整型数据导出的方案。</p>
 <h2 id="PhpSpreadsheet判断数据类型的原理"><a href="#PhpSpreadsheet判断数据类型的原理" class="headerlink" title="PhpSpreadsheet判断数据类型的原理"></a>PhpSpreadsheet判断数据类型的原理</h2><blockquote>
 <p>PhpSpreadsheet will use the appropriate datatype for PHP nulls, booleans, floats or integers; or cast any string data value that you pass to the method into the most appropriate datatype, so numeric strings will be cast to numbers, while string values beginning with <code>=</code> will be converted to a formula. Strings that aren’t numeric, or that don’t begin with a leading <code>=</code> will be treated as genuine string values.</p>
 </blockquote>
 <p>在PhpSpreadsheet的文档中，清楚的说明了数据类型判断的原理。从这里可以看出，numeric的string也会被转换成Excel的number类型，所以像身份证这样的从数字长字符串也会被当成number处理。而且Excel默认支持15位的数字，超过15位就会将其转换成0标记为无效位。我们再来看源码的具体实现。</p>
-<figure class="highlight php"><figcaption><span>vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Cell/DefaultValueBinder.php</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * DataType for value.</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@param</span> mixed $pValue</span></div><div class="line"><span class="comment"> *</span></div><div class="line"><span class="comment"> * <span class="doctag">@return</span> string</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">dataTypeForValue</span><span class="params">($pValue)</span></span></div><div class="line"><span class="function"></span>&#123;</div><div class="line">    <span class="comment">// Match the value against a few data types</span></div><div class="line">    <span class="keyword">if</span> ($pValue === <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> DataType::TYPE_NULL;</div><div class="line">    &#125; <span class="keyword">elseif</span> ($pValue === <span class="string">''</span>) &#123;</div><div class="line">        <span class="keyword">return</span> DataType::TYPE_STRING;</div><div class="line">    &#125; <span class="keyword">elseif</span> ($pValue <span class="keyword">instanceof</span> RichText) &#123;</div><div class="line">        <span class="keyword">return</span> DataType::TYPE_INLINE;</div><div class="line">    &#125; <span class="keyword">elseif</span> ($pValue[<span class="number">0</span>] === <span class="string">'='</span> &amp;&amp; strlen($pValue) &gt; <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> DataType::TYPE_FORMULA;</div><div class="line">    &#125; <span class="keyword">elseif</span> (is_bool($pValue)) &#123;</div><div class="line">        <span class="keyword">return</span> DataType::TYPE_BOOL;</div><div class="line">    &#125; <span class="keyword">elseif</span> (is_float($pValue) || is_int($pValue)) &#123;</div><div class="line">        <span class="keyword">return</span> DataType::TYPE_NUMERIC;</div><div class="line">    &#125; <span class="keyword">elseif</span> (preg_match(<span class="string">'/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d&#123;1,3&#125;)?$/'</span>, $pValue)) &#123;</div><div class="line">        $tValue = ltrim($pValue, <span class="string">'+-'</span>);</div><div class="line">        <span class="keyword">if</span> (is_string($pValue) &amp;&amp; $tValue[<span class="number">0</span>] === <span class="string">'0'</span> &amp;&amp; strlen($tValue) &gt; <span class="number">1</span> &amp;&amp; $tValue[<span class="number">1</span>] !== <span class="string">'.'</span>) &#123;</div><div class="line">            <span class="keyword">return</span> DataType::TYPE_STRING;</div><div class="line">        &#125; <span class="keyword">elseif</span> ((strpos($pValue, <span class="string">'.'</span>) === <span class="keyword">false</span>) &amp;&amp; ($pValue &gt; PHP_INT_MAX)) &#123;</div><div class="line">            <span class="keyword">return</span> DataType::TYPE_STRING;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> DataType::TYPE_NUMERIC;</div><div class="line">    &#125; <span class="keyword">elseif</span> (is_string($pValue)) &#123;</div><div class="line">        $errorCodes = DataType::getErrorCodes();</div><div class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>($errorCodes[$pValue])) &#123;</div><div class="line">            <span class="keyword">return</span> DataType::TYPE_ERROR;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> DataType::TYPE_STRING;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>可以看出，对于像身份证这样的纯数字字符串，主要小于<code>PHP_INT_MAX</code>它都会设置为<code>TYPE_NUMERIC</code>类型。(MS Excel支持7种基本的数据类型：string/number/boolean/null/formula/error/inline，具体的说明可以参考<a href="https://docs.microsoft.com/en-us/sql/odbc/microsoft/microsoft-excel-data-types?view=sql-server-2017" target="_blank" rel="external">Microsoft Excel Data Types</a>)</p>
+<figure class="highlight php"><figcaption><span>vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Cell/DefaultValueBinder.php</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * DataType for value.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> mixed $pValue</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> string</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">dataTypeForValue</span><span class="params">($pValue)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Match the value against a few data types</span></span><br><span class="line">    <span class="keyword">if</span> ($pValue === <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> DataType::TYPE_NULL;</span><br><span class="line">    &#125; <span class="keyword">elseif</span> ($pValue === <span class="string">''</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> DataType::TYPE_STRING;</span><br><span class="line">    &#125; <span class="keyword">elseif</span> ($pValue <span class="keyword">instanceof</span> RichText) &#123;</span><br><span class="line">        <span class="keyword">return</span> DataType::TYPE_INLINE;</span><br><span class="line">    &#125; <span class="keyword">elseif</span> ($pValue[<span class="number">0</span>] === <span class="string">'='</span> &amp;&amp; strlen($pValue) &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> DataType::TYPE_FORMULA;</span><br><span class="line">    &#125; <span class="keyword">elseif</span> (is_bool($pValue)) &#123;</span><br><span class="line">        <span class="keyword">return</span> DataType::TYPE_BOOL;</span><br><span class="line">    &#125; <span class="keyword">elseif</span> (is_float($pValue) || is_int($pValue)) &#123;</span><br><span class="line">        <span class="keyword">return</span> DataType::TYPE_NUMERIC;</span><br><span class="line">    &#125; <span class="keyword">elseif</span> (preg_match(<span class="string">'/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d&#123;1,3&#125;)?$/'</span>, $pValue)) &#123;</span><br><span class="line">        $tValue = ltrim($pValue, <span class="string">'+-'</span>);</span><br><span class="line">        <span class="keyword">if</span> (is_string($pValue) &amp;&amp; $tValue[<span class="number">0</span>] === <span class="string">'0'</span> &amp;&amp; strlen($tValue) &gt; <span class="number">1</span> &amp;&amp; $tValue[<span class="number">1</span>] !== <span class="string">'.'</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> DataType::TYPE_STRING;</span><br><span class="line">        &#125; <span class="keyword">elseif</span> ((strpos($pValue, <span class="string">'.'</span>) === <span class="keyword">false</span>) &amp;&amp; ($pValue &gt; PHP_INT_MAX)) &#123;</span><br><span class="line">            <span class="keyword">return</span> DataType::TYPE_STRING;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> DataType::TYPE_NUMERIC;</span><br><span class="line">    &#125; <span class="keyword">elseif</span> (is_string($pValue)) &#123;</span><br><span class="line">        $errorCodes = DataType::getErrorCodes();</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>($errorCodes[$pValue])) &#123;</span><br><span class="line">            <span class="keyword">return</span> DataType::TYPE_ERROR;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> DataType::TYPE_STRING;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看出，对于像身份证这样的纯数字字符串，主要小于<code>PHP_INT_MAX</code>它都会设置为<code>TYPE_NUMERIC</code>类型。(MS Excel支持7种基本的数据类型：string/number/boolean/null/formula/error/inline，具体的说明可以参考<a href="https://docs.microsoft.com/en-us/sql/odbc/microsoft/microsoft-excel-data-types?view=sql-server-2017" target="_blank" rel="noopener">Microsoft Excel Data Types</a>)</p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><blockquote>
 <p>Internally, PhpSpreadsheet uses a default \PhpOffice\PhpSpreadsheet\Cell\IValueBinder implementation (\PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder) to determine data types of entered data using a cell’s setValue() method (the setValueExplicit() method bypasses this check).Optionally, the default behaviour of PhpSpreadsheet can be modified, allowing easier data entry. </p>
 </blockquote>
 <p>原理都一样，那就是实现一套自己的<code>ValueBinder</code>或者扩展它。</p>
 <ul>
-<li>如果你正在使用<code>PhpSpreadsheet</code>，那么可以参考官方文档<a href="https://phpspreadsheet.readthedocs.io/en/develop/topics/accessing-cells/" target="_blank" rel="external">Using value binders to facilitate data entry</a></li>
+<li>如果你正在使用<code>PhpSpreadsheet</code>，那么可以参考官方文档<a href="https://phpspreadsheet.readthedocs.io/en/develop/topics/accessing-cells/" target="_blank" rel="noopener">Using value binders to facilitate data entry</a></li>
 <li>如果你正在用<code>Laravel Excel</code>,它在<code>PhpSpreadsheet</code>的基础上扩展了自己的<code>WithCustomValueBinder</code>接口，你只要想其他接口（如<code>WithColumnFormatting</code>）一样实现它就行。具体实现并没有在文档中明确给出示例，你可以参考如下示例：</li>
 </ul>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">UsersExport</span> <span class="keyword">implements</span> <span class="title">WithCustomValueBinder</span></span></div><div class="line"><span class="class"></span>&#123;</div><div class="line">	<span class="comment">/**</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> Cell $cell</span></div><div class="line"><span class="comment">     * <span class="doctag">@param</span> mixed $value</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span> bool</span></div><div class="line"><span class="comment">     * <span class="doctag">@throws</span> \PhpOffice\PhpSpreadsheet\Exception</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bindValue</span><span class="params">(Cell $cell, $value)</span></span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">    	<span class="comment">// 这里重写数据类型的判断规则</span></div><div class="line">        <span class="keyword">if</span> (preg_match(<span class="string">'/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d&#123;1,3&#125;)?$/'</span>, $value)) &#123;</div><div class="line">            $cell-&gt;setValueExplicit($value, DataType::TYPE_STRING);</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">//继承DefaultValueBinder</span></div><div class="line">        $default = <span class="keyword">new</span> DefaultValueBinder();</div><div class="line"></div><div class="line">        <span class="keyword">return</span> $default-&gt;bindValue($cell, $value);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UsersExport</span> <span class="keyword">implements</span> <span class="title">WithCustomValueBinder</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> Cell $cell</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> mixed $value</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> bool</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> \PhpOffice\PhpSpreadsheet\Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bindValue</span><span class="params">(Cell $cell, $value)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    	<span class="comment">// 这里重写数据类型的判断规则</span></span><br><span class="line">        <span class="keyword">if</span> (preg_match(<span class="string">'/^[\+\-]?(\d+\\.?\d*|\d*\\.?\d+)([Ee][\-\+]?[0-2]?\d&#123;1,3&#125;)?$/'</span>, $value)) &#123;</span><br><span class="line">            $cell-&gt;setValueExplicit($value, DataType::TYPE_STRING);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//继承DefaultValueBinder</span></span><br><span class="line">        $default = <span class="keyword">new</span> DefaultValueBinder();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> $default-&gt;bindValue($cell, $value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
             
                 
@@ -256,7 +237,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br/>
+                <span class="text-color-light text-small">标签</span><br>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/Laravel/">Laravel</a> <a class="tag tag--primary tag--small t-link" href="/tags/Laravel-Excel/">Laravel Excel</a> <a class="tag tag--primary tag--small t-link" href="/tags/PhpSpreadsheet/">PhpSpreadsheet</a>
 
@@ -267,7 +248,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/"  data-tooltip="期货和期货市场">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/" data-tooltip="期货和期货市场">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -285,7 +266,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -332,7 +313,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2018 chanxiaoxi. All Rights Reserved.
+        Copyrights &copy; 2019 chanxiaoxi. All Rights Reserved.
     </span>
 </footer>
 
@@ -344,7 +325,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/"  data-tooltip="期货和期货市场">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/" data-tooltip="期货和期货市场">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -362,7 +343,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -402,7 +383,7 @@
     <ul class="share-options">
         <li class="share-option">
             <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/12/29/Numbers-Formatted-as-Text-in-Laravel-Excel-or-PhpSpreadsheet/">
-                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+                <i class="fa fa-google-plus"></i><span class>分享到 Google+</span>
             </a>
         </li>
         <li class="share-option">
@@ -431,7 +412,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -441,7 +422,7 @@
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>PHP Developer</p>
 
             </h5>
@@ -449,7 +430,7 @@
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br/>
+                <br>
                 Shanghai,China
             </h5>
         

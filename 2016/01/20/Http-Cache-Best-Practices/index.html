@@ -69,11 +69,10 @@
     </h1>
     
         
-            <a  class="header-right-picture "
-                href="#about">
+            <a class="header-right-picture " href="#about">
         
         
-            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90"/>
+            <img class="header-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=90">
         
         </a>
     
@@ -88,7 +87,7 @@
     
         <div class="sidebar-profile">
             <a href="/#about">
-                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+                    <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
             </a>
             <span class="sidebar-profile-name">chanxiaoxi</span>
         </div>
@@ -98,10 +97,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/ "
-                        
-                    >
+                    <a class="sidebar-button-link " href="/ ">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-home"></i>
                     <span class="sidebar-button-desc">首页</span>
@@ -110,10 +106,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-categories"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-categories">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
                     <span class="sidebar-button-desc">分类</span>
@@ -122,10 +115,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-tags"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-tags">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
                     <span class="sidebar-button-desc">标签</span>
@@ -134,10 +124,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/all-archives"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/all-archives">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
                     <span class="sidebar-button-desc">归档</span>
@@ -146,10 +133,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link st-search-show-outputs"
-                         href="#search"
-                        
-                    >
+                    <a class="sidebar-button-link st-search-show-outputs" href="#search">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-search"></i>
                     <span class="sidebar-button-desc">搜索</span>
@@ -162,7 +146,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
+                    <a class="sidebar-button-link " href="https://twitter.com/chanxiaoxi106" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-twitter"></i>
                     <span class="sidebar-button-desc">月西邪</span>
@@ -171,7 +155,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
+                    <a class="sidebar-button-link " href="https://cn.linkedin.com/in/sevend" target="_blank">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-linkedin"></i>
                     <span class="sidebar-button-desc">LinkedIn</span>
@@ -184,10 +168,7 @@
         
             <li class="sidebar-button">
                 
-                    <a  class="sidebar-button-link "
-                         href="/atom.xml"
-                        
-                    >
+                    <a class="sidebar-button-link " href="/atom.xml">
                 
                     <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
                     <span class="sidebar-button-desc">RSS</span>
@@ -204,7 +185,7 @@
                         hasCoverMetaIn
                         ">
                 
-<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
     
     
         <div class="post-header main-content-wrap text-left">
@@ -249,7 +230,7 @@
 <h2 id="三、缓存资源"><a href="#三、缓存资源" class="headerlink" title="三、缓存资源"></a>三、缓存资源</h2><h4 id="1-什么样的资源是需要缓存的"><a href="#1-什么样的资源是需要缓存的" class="headerlink" title="1. 什么样的资源是需要缓存的"></a>1. 什么样的资源是需要缓存的</h4><p>这个其实要结合站点的实际情况，不能一概而论。就一般来说我们会将不经常改变的图片，基础css样式，基础js脚本缓存(在缓存js时，最好设置成私有(private)缓存,因为js中可能会包含一些用户信息)。</p>
 <h4 id="2-Expires-和-max-age设置缓存资源过期时间"><a href="#2-Expires-和-max-age设置缓存资源过期时间" class="headerlink" title="2. Expires 和 max-age设置缓存资源过期时间"></a>2. Expires 和 max-age设置缓存资源过期时间</h4><p><code>Expires</code>设置过期时间是这样的：<code>Expires: Fri, 30 Oct 1998 14:19:41 GMT</code>，<code>Expires</code>的过期时间是一个绝对的GMT时间，它告诉缓存在这个时间点资源过期，它是HTTP 1.0定义的HTTP Header</p>
 <p><code>Cache-Control</code>设置过期时间：<code>Cache-Control: max-age=3600</code>，它是一个基于当前时间的相对时间，单位是秒</p>
-<p><a href="http://www.ietf.org/rfc/rfc2616.txt" target="_blank" rel="external">HTTP RFC</a>中规定，如果HTTP Header中同时存在<code>Expires</code>和max-age，那么优先使用max-age：</p>
+<p><a href="http://www.ietf.org/rfc/rfc2616.txt" target="_blank" rel="noopener">HTTP RFC</a>中规定，如果HTTP Header中同时存在<code>Expires</code>和max-age，那么优先使用max-age：</p>
 <blockquote><p>The max-age directive takes priority over Expires, so if max-age is present in a response, the calculation is simply:</p>
 <p>freshness_lifetime = max_age_value</p>
 <p>Otherwise, if Expires is present in the response, the calculation is:</p>
@@ -260,7 +241,7 @@
 <h4 id="3-no-store-和-no-cache"><a href="#3-no-store-和-no-cache" class="headerlink" title="3. no-store 和 no-cache"></a>3. no-store 和 no-cache</h4><p>这两个都是<code>Cache-Control</code>的属性，<code>no-cache</code>会将资源缓存，但是随后请求相同资源时，会强制缓存每次都去服务器检查该资源，这个对于一些认证非常有用(结合pubic)，因为他们严格的保证资源是最新的。<code>no-store</code>就相对比较容易理解了，它让缓存在任何情况下都不缓存该资源。</p>
 <h4 id="4-public-和-private"><a href="#4-public-和-private" class="headerlink" title="4. public 和 private"></a>4. public 和 private</h4><p><code>private</code>说明该资源是某个用户独有的，共享缓存不能缓存该资源。通常需要HTTP认证的资源默认都是<code>private</code></p>
 <p><code>public</code>说明该资源是可以缓存的，即使它需要HTTP认证，也会被缓存，通常我们并不需要明确声明<code>public</code>因为想max-age这样的指令会让其默认为<code>public</code></p>
-<h4 id="5-最佳的缓存设置策略"><a href="#5-最佳的缓存设置策略" class="headerlink" title="5. 最佳的缓存设置策略"></a>5. 最佳的缓存设置策略</h4><p>通过    上面的这些HTTP Header指令我们能够决定要不要缓存资源，是公共缓存还是私有缓存，要缓存多久，那么一个最佳的缓存策略该是什么样的呢？Google Developers的<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en#defining-optimal-cache-control-policy" target="_blank" rel="external">HTTP Cache</a>给了我们一个很好的建议：</p>
+<h4 id="5-最佳的缓存设置策略"><a href="#5-最佳的缓存设置策略" class="headerlink" title="5. 最佳的缓存设置策略"></a>5. 最佳的缓存设置策略</h4><p>通过    上面的这些HTTP Header指令我们能够决定要不要缓存资源，是公共缓存还是私有缓存，要缓存多久，那么一个最佳的缓存策略该是什么样的呢？Google Developers的<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en#defining-optimal-cache-control-policy" target="_blank" rel="noopener">HTTP Cache</a>给了我们一个很好的建议：</p>
 <p><img src="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/images/http-cache-decision-tree.png" alt="tree"></p>
 <h2 id="四、校验资源"><a href="#四、校验资源" class="headerlink" title="四、校验资源"></a>四、校验资源</h2><p>服务器在返回资源的时候会返回一个校验器(validator)，这个一般是<code>ETag</code>或者<code>Last-Modified</code>，如果一个资源没有这个校验器，那么大多数情况下，缓存是不会缓存该资源的。客户端请求服务器校验资源的时候一般要带上<code>If-None-Match</code>(<code>ETag</code>的值)或者<code>If-Modified-Since</code>(就是服务器给客户端资源的时候给的那个<code>Last-Modified</code>时间)，服务器根据这两个值来校验资源是否依然有效</p>
 <h4 id="1-ETag"><a href="#1-ETag" class="headerlink" title="1. ETag"></a>1. ETag</h4><p><code>ETag</code>是服务器根据某种算法得出的资源的唯一标识，通过它就可以知道缓存中保留的资源备份和服务器上的资源是不是同一个，校验的流程是这样的：</p>
@@ -271,7 +252,7 @@
 </ul>
 <p><img src="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/images/http-cache-control.png" alt="ETag"></p>
 <h4 id="2-Last-Modified"><a href="#2-Last-Modified" class="headerlink" title="2. Last-Modified"></a>2. Last-Modified</h4><p><code>Last-Modified</code>的方式类似于<code>ETag</code>不做过多说明。</p>
-<h4 id="3-两者的区别"><a href="#3-两者的区别" class="headerlink" title="3. 两者的区别"></a>3. 两者的区别</h4><p>RFC中指出，<code>Last-Modified</code>是一种弱校验，<code>ETag</code>是一种强校验。那么当两者都存在的时候，如何去校验该资源呢，其实对于浏览器来说，它只是盲目的将两者都提供给服务器，然后它只在乎浏览器返回的是<code>304 Not Modified</code>还是新的资源，如何评估和校验资源完全取决于服务器，RFC规范中说两者都必须校验，在实际处理中，其实就相当于<code>OR</code>运算，只要一种能通过，那么就通过，或者也可以只校验<code>ETag</code>，详细的说明可参看stackoverflow上的相关提问<a href="http://stackoverflow.com/questions/824152/what-takes-precedence-the-etag-or-last-modified-http-header" target="_blank" rel="external">What takes precedence: the ETag or Last-Modified HTTP header?</a></p>
+<h4 id="3-两者的区别"><a href="#3-两者的区别" class="headerlink" title="3. 两者的区别"></a>3. 两者的区别</h4><p>RFC中指出，<code>Last-Modified</code>是一种弱校验，<code>ETag</code>是一种强校验。那么当两者都存在的时候，如何去校验该资源呢，其实对于浏览器来说，它只是盲目的将两者都提供给服务器，然后它只在乎浏览器返回的是<code>304 Not Modified</code>还是新的资源，如何评估和校验资源完全取决于服务器，RFC规范中说两者都必须校验，在实际处理中，其实就相当于<code>OR</code>运算，只要一种能通过，那么就通过，或者也可以只校验<code>ETag</code>，详细的说明可参看stackoverflow上的相关提问<a href="http://stackoverflow.com/questions/824152/what-takes-precedence-the-etag-or-last-modified-http-header" target="_blank" rel="noopener">What takes precedence: the ETag or Last-Modified HTTP header?</a></p>
 <h2 id="五、更新缓存资源"><a href="#五、更新缓存资源" class="headerlink" title="五、更新缓存资源"></a>五、更新缓存资源</h2><p>资源一旦缓存，我们失去了对它控制，如果想要更新缓存资源，就只能等着它自动过期，或者用户手动清空缓存。及时跟新缓存资源的方法是有的，但是我们从一开始规划缓存策略的时候就要意识到这一点，对于一些经常变的资源最好单独出来，要么不缓存，要么加以严格的控制，让它能及时更新</p>
 <h4 id="1-通过改变URL来及时更新缓存"><a href="#1-通过改变URL来及时更新缓存" class="headerlink" title="1. 通过改变URL来及时更新缓存"></a>1. 通过改变URL来及时更新缓存</h4><p>这是最有效的及时更新缓存的手段，我们给资源相应的URL加上资源的版本号，这样一旦资源改变，版本号改变也就意味着缓存无法使用，也就做到了及时更新。比如给css文件加上版本号<code>/build/js/all-247e97d3.css</code>，这时要注意包含该css url的资源必须能够及时更新，最好没有缓存，如果它都不是最新的，那么css的url也就不会改变</p>
 <h2 id="六、一些建议"><a href="#六、一些建议" class="headerlink" title="六、一些建议"></a>六、一些建议</h2><ul>
@@ -283,8 +264,8 @@
 <li>在url中不要嵌入用户等私有数据，这样会导致url变成唯一的，不利于缓存的优化</li>
 <li>在Response Header中设置<code>Content-Length</code>，这样会使客户端通过一个TCP/IP连接来多次请求服务器资源，不用每次都建立连接</li>
 </ul>
-<p>相关的建议还有很多，具体可以参看<a href="https://www.mnot.net/cache_docs/" target="_blank" rel="external">Caching Tutorial</a>和<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en#defining-optimal-cache-control-policy" target="_blank" rel="external">HTTP Cache</a></p>
-<h2 id="七、相关参考"><a href="#七、相关参考" class="headerlink" title="七、相关参考"></a>七、相关参考</h2><p><a href="https://www.mnot.net/cache_docs/" target="_blank" rel="external">Caching Tutorial</a><br><a href="http://www.ietf.org/rfc/rfc2616.txt" target="_blank" rel="external">HTTP RFC</a><br><a href="https://redbot.org" target="_blank" rel="external">REDbot</a><br><a href="http://www.mobify.com/blog/beginners-guide-to-http-cache-headers/" target="_blank" rel="external">A Beginner’s Guide to HTTP Cache Headers</a><br><a href="https://community.dynatrace.com/community/display/PUB/Best+Practices+on+Browser+Caching" target="_blank" rel="external">Best Practices on Browser Caching</a><br><a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en#defining-optimal-cache-control-policy" target="_blank" rel="external">HTTP Cache</a><br><a href="http://betterexplained.com/articles/how-to-optimize-your-site-with-http-caching/" target="_blank" rel="external">How To Optimize Your Site With HTTP Caching</a></p>
+<p>相关的建议还有很多，具体可以参看<a href="https://www.mnot.net/cache_docs/" target="_blank" rel="noopener">Caching Tutorial</a>和<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en#defining-optimal-cache-control-policy" target="_blank" rel="noopener">HTTP Cache</a></p>
+<h2 id="七、相关参考"><a href="#七、相关参考" class="headerlink" title="七、相关参考"></a>七、相关参考</h2><p><a href="https://www.mnot.net/cache_docs/" target="_blank" rel="noopener">Caching Tutorial</a><br><a href="http://www.ietf.org/rfc/rfc2616.txt" target="_blank" rel="noopener">HTTP RFC</a><br><a href="https://redbot.org" target="_blank" rel="noopener">REDbot</a><br><a href="http://www.mobify.com/blog/beginners-guide-to-http-cache-headers/" target="_blank" rel="noopener">A Beginner’s Guide to HTTP Cache Headers</a><br><a href="https://community.dynatrace.com/community/display/PUB/Best+Practices+on+Browser+Caching" target="_blank" rel="noopener">Best Practices on Browser Caching</a><br><a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en#defining-optimal-cache-control-policy" target="_blank" rel="noopener">HTTP Cache</a><br><a href="http://betterexplained.com/articles/how-to-optimize-your-site-with-http-caching/" target="_blank" rel="noopener">How To Optimize Your Site With HTTP Caching</a></p>
 
             
                 
@@ -295,7 +276,7 @@
     <div id="post-footer" class="post-footer main-content-wrap">
         
             <div class="post-footer-tags">
-                <span class="text-color-light text-small">标签</span><br/>
+                <span class="text-color-light text-small">标签</span><br>
                 
     <a class="tag tag--primary tag--small t-link" href="/tags/Cache/">Cache</a> <a class="tag tag--primary tag--small t-link" href="/tags/HTTP/">HTTP</a>
 
@@ -306,7 +287,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/24/Resolve-The-Chinese-Disorderly-Code-In-iTerm-SSH/"  data-tooltip="解决iTerm使用SSH连接远程服务器的中文乱码问题">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/24/Resolve-The-Chinese-Disorderly-Code-In-iTerm-SSH/" data-tooltip="解决iTerm使用SSH连接远程服务器的中文乱码问题">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -324,7 +305,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -371,7 +352,7 @@
 
                 <footer id="footer" class="main-content-wrap">
     <span class="copyrights">
-        Copyrights &copy; 2018 chanxiaoxi. All Rights Reserved.
+        Copyrights &copy; 2019 chanxiaoxi. All Rights Reserved.
     </span>
 </footer>
 
@@ -383,7 +364,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/24/Resolve-The-Chinese-Disorderly-Code-In-iTerm-SSH/"  data-tooltip="解决iTerm使用SSH连接远程服务器的中文乱码问题">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/24/Resolve-The-Chinese-Disorderly-Code-In-iTerm-SSH/" data-tooltip="解决iTerm使用SSH连接远程服务器的中文乱码问题">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -401,7 +382,7 @@
     </nav>
     <ul class="post-actions post-action-share">
         <li class="post-action hide-lg hide-md hide-sm">
-            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
                 <i class="fa fa-share-alt"></i>
             </a>
         </li>
@@ -441,7 +422,7 @@
     <ul class="share-options">
         <li class="share-option">
             <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2016/01/20/Http-Cache-Best-Practices/">
-                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+                <i class="fa fa-google-plus"></i><span class>分享到 Google+</span>
             </a>
         </li>
         <li class="share-option">
@@ -470,7 +451,7 @@
             <i class="fa fa-remove"></i>
         </div>
         
-            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110"/>
+            <img id="about-card-picture" src="https://www.gravatar.com/avatar/9db04b9e52a95e01347f52e574dadc62?s=110">
         
             <h4 id="about-card-name">chanxiaoxi</h4>
         
@@ -480,7 +461,7 @@
         
             <h5 id="about-card-job">
                 <i class="fa fa-briefcase"></i>
-                <br/>
+                <br>
                 <p>PHP Developer</p>
 
             </h5>
@@ -488,7 +469,7 @@
         
             <h5 id="about-card-location">
                 <i class="fa fa-map-marker"></i>
-                <br/>
+                <br>
                 Shanghai,China
             </h5>
         
