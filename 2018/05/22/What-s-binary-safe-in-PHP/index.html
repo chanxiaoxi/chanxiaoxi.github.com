@@ -6,24 +6,24 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="还是码农的缠小溪">
-    <title>股市究竟能不能预测 - 还是码农的缠小溪</title>
+    <title>PHP中的二进制安全 - 还是码农的缠小溪</title>
     <meta name="author" content="chanxiaoxi">
     
     
         <link rel="alternative" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    <meta name="description" content="先说结论，股市不能预测。">
-<meta name="keywords" content="股市">
+    <meta name="description" content="我们在看PHP的文档的时候，经常会看到一些方法被标注是二进制安全的，那么什么是二进制安全，为什么有些方法是二进制安全的，有没有二进制不安全的方法？">
+<meta name="keywords" content="PHP,Binary-safe">
 <meta property="og:type" content="blog">
-<meta property="og:title" content="股市究竟能不能预测">
-<meta property="og:url" content="http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/index.html">
+<meta property="og:title" content="PHP中的二进制安全">
+<meta property="og:url" content="http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/index.html">
 <meta property="og:site_name" content="还是码农的缠小溪">
-<meta property="og:description" content="先说结论，股市不能预测。">
+<meta property="og:description" content="我们在看PHP的文档的时候，经常会看到一些方法被标注是二进制安全的，那么什么是二进制安全，为什么有些方法是二进制安全的，有没有二进制不安全的方法？">
 <meta property="og:locale" content="zh-cn">
-<meta property="og:updated_time" content="2018-04-14T08:38:54.008Z">
+<meta property="og:updated_time" content="2019-03-22T02:56:50.701Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="股市究竟能不能预测">
-<meta name="twitter:description" content="先说结论，股市不能预测。">
+<meta name="twitter:title" content="PHP中的二进制安全">
+<meta name="twitter:description" content="我们在看PHP的文档的时候，经常会看到一些方法被标注是二进制安全的，那么什么是二进制安全，为什么有些方法是二进制安全的，有没有二进制不安全的方法？">
 <meta name="twitter:creator" content="@https:&#x2F;&#x2F;twitter.com&#x2F;chanxiaoxi106">
     
     
@@ -188,19 +188,19 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title" itemprop="headline">
-            股市究竟能不能预测
+            PHP中的二进制安全
         </h1>
     
     <div class="post-meta">
-    <time itemprop="datePublished" content="Sat Apr 14 2018 16:33:31 GMT+0800">
+    <time itemprop="datePublished" content="Tue May 22 2018 10:25:59 GMT+0800">
 	
-		    4月 14, 2018
+		    5月 22, 2018
     	
     </time>
     
         <span>发布在 </span>
         
-    <a class="category-link" href="/categories/薛兆丰北大经济学课/">薛兆丰北大经济学课</a>
+    <a class="category-link" href="/categories/PHP/">PHP</a>
 
 
     
@@ -209,18 +209,11 @@
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <p>先说结论，股市不能预测。</p>
+            <p>我们在看PHP的文档的时候，经常会看到一些方法被标注是二进制安全的，那么什么是二进制安全，为什么有些方法是二进制安全的，有没有二进制不安全的方法？</p>
 <a id="more"></a>
-<h2 id="现实世界和抽象世界的区别"><a href="#现实世界和抽象世界的区别" class="headerlink" title="现实世界和抽象世界的区别"></a>现实世界和抽象世界的区别</h2><p>现实世界的发展是有规律可寻的，这也是人们做学问的基本信念，相信凡事皆有规律。我们通过观察现实世界的发展规律，创造了各种各样的知识。知识的本质就是对于客观世界发展规律的总结和抽象。</p>
-<p>经济学也是知识，经济学总结抽象的经济活动也是有规律的，基于此认识，人们会简单的认为，一切经济活动都是有规律可寻的，但是这样的认识是错误的。有些经济活动是在一个抽象的世界中，影响他的所有因素都是未知的，他的发展也是未知的，是不可预测的。</p>
-<p>我们在认定一个经济活动是不是可预测的，就得搞清楚，影响它的因素是在现实世界中，还是在抽象世界中。在现实世界中，那么它就有可能存在一般规律，可以做出预测；在抽象实际中，一切都是未知的，不可能做出预测。</p>
-<h2 id="影响股市的因素在哪个世界"><a href="#影响股市的因素在哪个世界" class="headerlink" title="影响股市的因素在哪个世界"></a>影响股市的因素在哪个世界</h2><p>回答这个问题之前，我们得先找到影响股市的因素是什么。</p>
-<p>股票的价值在股市的反应就是价格。股票的价值其实质是股票的现值。现值就是它预期的未来收入的折现和。简单说，股票的价格就是指股票的现值。</p>
-<p>现值是它预期的未来收入的折现和。影响现值的因素就是人们的预期。能够改变预期的是那些新知识。新知识就是今天不知道，明天才会知道的。新知识存在于抽象世界里，是人们脑中的想象，它无规律可寻。既然影响股票现值的是一个我们无法知道的未来才会发生的新知识，那么我们就无法预测股票的现值。</p>
-<p>新知识的披露也是随机的，这导致股票价格的波动随机。人们对新消息的披露反应速度极快，差不多也就几毫秒，晚了一切就都晚了。</p>
-<h2 id="既然股市无法预测，为何还有那么多的股票分析师"><a href="#既然股市无法预测，为何还有那么多的股票分析师" class="headerlink" title="既然股市无法预测，为何还有那么多的股票分析师"></a>既然股市无法预测，为何还有那么多的股票分析师</h2><p>分析师存在的主要意义是安慰师，事后分析只是为了找一个合理的理由来安慰自己或者他人。</p>
-<p>执迷于分析股票趋势是愚蠢的，炒股的高手都在竞争还未披露的但是已经知道的消息，因为大部分新知识在披露之前可能就已经被人知道了，而利用这个还未披露的时机，就可以赚取大额利润。</p>
-<p>人们对消息披露的反应只有几毫秒。这意味着，当你从各种渠道听到某个消息被披露时就已经完了，市场已经充分做出了反应和调整，你所看到的，只是调整之后的市场价格。</p>
+<h2 id="二进制安全"><a href="#二进制安全" class="headerlink" title="二进制安全"></a>二进制安全</h2><p>一句话总结，所谓二进制安全，就是你传一个任意二进制数据，方法都能正确执行。</p>
+<p>其实我们都知道，程序中的字符串会按照相应的编码解析成计算机能够识别的二进制编码串。不同的编程语言对于字符串会有不同的识别格式。比如C，会将<code>\0</code>作为字符串的结束符。二进制不安全也是由此产生，如果一个字符串二进制码含有这样的特殊字符，程序的字符串方法在处理这些特殊字符的时候能够正确处理，那么这个方法就是二进制安全的。PHP的底层解析引擎是C语言，由于C语言的这些特性，导致PHP的在处理字符串时也要注意特殊字符引起的二进制安全问题。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$string1 = <span class="string">"Hello"</span>;</span><br><span class="line">$string2 = <span class="string">"Hello\x00World"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// strcoll是二进制不安全的</span></span><br><span class="line"><span class="keyword">echo</span> strcoll($string1, $string2); <span class="comment">// 返回0，认为两个字符串相同</span></span><br></pre></td></tr></table></figure>
 
             
                 
@@ -233,7 +226,7 @@
             <div class="post-footer-tags">
                 <span class="text-color-light text-small">标签</span><br>
                 
-    <a class="tag tag--primary tag--small t-link" href="/tags/股市/">股市</a>
+    <a class="tag tag--primary tag--small t-link" href="/tags/Binary-safe/">Binary-safe</a> <a class="tag tag--primary tag--small t-link" href="/tags/PHP/">PHP</a>
 
             </div>
         
@@ -242,7 +235,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/05/22/What-s-binary-safe-in-PHP/" data-tooltip="PHP中的二进制安全">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -250,7 +243,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/" data-tooltip="期货和期货市场">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/" data-tooltip="股市究竟能不能预测">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -265,17 +258,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -287,7 +280,7 @@
             </li>
         
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
@@ -319,7 +312,7 @@
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/05/22/What-s-binary-safe-in-PHP/" data-tooltip="PHP中的二进制安全">
+                    <a class="post-action-btn btn btn--disabled">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -327,7 +320,7 @@
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/03/14/qi-huo-he-qi-huo-shi-chang/" data-tooltip="期货和期货市场">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/" data-tooltip="股市究竟能不能预测">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -342,17 +335,17 @@
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-google-plus"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-facebook-official"></i>
             </a>
         </li>
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-twitter"></i>
             </a>
         </li>
@@ -364,7 +357,7 @@
             </li>
         
         <li class="post-action hide-xs">
-            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?url=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-weibo"></i>
             </a>
         </li>
@@ -376,17 +369,17 @@
                 <div id="share-options-bar" class="share-options-bar" data-behavior="4">
     <ul class="share-options">
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-google-plus"></i><span class>分享到 Google+</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
             </a>
         </li>
         <li class="share-option">
-            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2018/04/14/gu-shi-jiu-jing-neng-bu-neng-yu-ce/">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://www.chanxiaoxi.me/2018/05/22/What-s-binary-safe-in-PHP/">
                 <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
             </a>
         </li>
